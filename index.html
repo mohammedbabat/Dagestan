@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+.kicker { font-size: 12px; color: #7ea0bf; letter-spacing: .3px; text-transform: uppercase; }
+.title { font-size: 18px; font-weight: 700; margin: 6px 0; color: #eaf2fb; }
+.meta { font-size: 13px; color: #93a8be; }
+
+
+footer { border-top: 1px solid #1f2833; color: #7ea0bf; }
+.cta { display: inline-block; padding: 10px 14px; border-radius: 12px; background: #213142; border: 1px solid #2b3d52; color: #dfeaf6; text-decoration: none; font-weight: 700; margin-top: 8px; }
+.cta:hover { background: #2a3e55; }
+</style>
+</head>
+<body>
+<header>
+<div class="wrap" style="display:flex;align-items:center;justify-content:space-between;">
+<div class="brand"><span class="logo"></span><strong>Welcome to Dagestan</strong></div>
+<nav>
+<a href="/news.html">News</a>
+<a href="/admin.html">Admin</a>
+</nav>
+</div>
+</header>
+
+
+<section class="hero">
+<div class="wrap">
+<h1>Добро пожаловать! مرحبا! Willkommen in Dagestan</h1>
+<p>Frische Geschichten, Bilder und Updates aus den Regionen Dagestans.</p>
+<a class="cta" href="/news.html">Alle News ansehen</a>
+</div>
+</section>
+
+
+<main class="wrap">
+<div id="newsGrid" class="grid" aria-live="polite"></div>
+</main>
+
+
+<footer>
+<div class="wrap">© <span id="y"></span> Dagestan Project. Alle Rechte vorbehalten.</div>
+</footer>
+
+
+<script>
+// === Einstellungen (liesend): Bitte an dein Repo anpassen ===
+const GH_OWNER = "DEIN_OWNER"; // z.B. "dein-github-name"
+const GH_REPO = "DEIN_REPO"; // z.B. "dagestan-site"
+const GH_BRANCH= "main"; // z.B. "main" oder "gh-pages"
+const NEWS_PATH = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/data/news.json`;
+
+
+document.getElementById('y').textContent = new Date().getFullYear();
+
+
+async function loadNews() {
+try {
+const res = await fetch(NEWS_PATH, { cache: 'no-store' });
+if (!res.ok) throw new Error("Konnte news.json nicht laden");
+const items = await res.json();
+renderNews(items.slice(0, 8)); // zeige die neuesten 8
+} catch (err) {
+console.error(err);
+document.getElementById('newsGrid').innerHTML = `<p>Fehler beim Laden der News. Bitte später erneut versuchen.</p>`;
+}
+}
+
+
+function renderNews(items) {
+const grid = document.getElementById('newsGrid');
+if (!items || !items.length) { grid.innerHTML = '<p>Noch keine News.</p>'; return; }
+grid.innerHTML = items.map(item => `
+<article class="card">
+${item.imageUrl ? `<img class="thumb" src="${item.imageUrl}" alt="Newsbild">` : ''}
+<div class="card-body">
+<div class="kicker">${item.tag || 'News'}</div>
+<h3 class="title">${item.title}</h3>
+<div class="meta">${new Date(item.date).toLocaleDateString('de-DE')} – ${item.summary || ''}</div>
+</div>
+</article>
+`).join('');
+}
+
+
+loadNews();
+</script>
+</body>
+</html>
