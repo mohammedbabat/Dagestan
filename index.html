@@ -1,108 +1,83 @@
 <!DOCTYPE html>
-</header>
-
-
-<section class="hero">
-<div class="burst" aria-hidden="true"></div>
-<div class="wrap">
-<h1>Willkommen in Dagestan</h1>
-<p>Moderne Eindrücke, Geschichten und Bilder – kuratiert und frisch aus der Region.</p>
-<div class="cta-row">
-<a class="btn primary" href="news.html">Alle News ansehen</a>
-<a class="btn" href="#latest">Neueste Beiträge</a>
-</div>
-</div>
-</section>
-
-
-<main class="wrap">
-<h2 id="latest" style="margin:8px 0 10px">Neu & empfohlen</h2>
-<div id="newsGrid" class="grid" aria-live="polite"></div>
-</main>
-
-
-<footer>
-<div class="wrap">© <span id="y"></span> Dagestan Project · <span style="color:var(--muted)">Handgemacht mit HTML/CSS/JS</span></div>
-</footer>
-
-
-<script>
-// ==== Einstellungen (READ-ONLY): Bitte an dein Repo anpassen ====
-const GH_OWNER = "DEIN_OWNER"; // z.B. "dein-github-name"
-const GH_REPO = "DEIN_REPO"; // z.B. "dagestan-site"
-const GH_BRANCH= "main"; // z.B. "main" oder "gh-pages"
-const NEWS_PATH = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/data/news.json`;
-
-
-// Jahr einsetzen
-document.getElementById('y').textContent = new Date().getFullYear();
-
-
-// Dark/Light (lokal, kein Flash)
-const btn = document.getElementById('theme');
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const stored = localStorage.getItem('theme');
-if(stored === 'light') document.documentElement.style.filter = 'invert(1) hue-rotate(180deg)';
-btn.addEventListener('click', ()=>{
-const isLight = document.documentElement.style.filter.includes('invert');
-if(isLight){
-document.documentElement.style.filter = '';
-localStorage.setItem('theme','dark');
-btn.textContent = '☾';
-} else {
-document.documentElement.style.filter = 'invert(1) hue-rotate(180deg)';
-localStorage.setItem('theme','light');
-btn.textContent = '☼';
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Welcome to Dagestan – Start</title>
+<meta name="description" content="Aktuelle News und Eindrücke aus Dagestan" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Modern Dark-Mode Design mit Glasmorphismus, sanften Motion-Effekten ===== */
+:root {
+--bg: #0a0c10;
+--panel: rgba(255,255,255,0.06);
+--stroke: rgba(255,255,255,0.10);
+--text: #e9eef6;
+--muted: #a7b6c8;
+--brand: #79c6ff;
+--brand-2: #8ef0c3;
+--maxw: 1200px;
+--radius: 18px;
+--shadow: 0 20px 60px rgba(0,0,0,.45);
 }
-});
-
-
-// News laden + rendern
-async function loadNews(){
-try{
-const res = await fetch(NEWS_PATH, {cache:'no-store'});
-if(!res.ok) throw new Error('news.json konnte nicht geladen werden');
-const items = await res.json();
-renderNews(items.slice(0, 9));
-revealOnScroll();
-}catch(e){
-console.error(e);
-document.getElementById('newsGrid').innerHTML = '<p style="color:#ffb7b7">Fehler beim Laden der News.</p>';
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+background: radial-gradient(1200px 600px at 10% -10%, #0f1420 0%, transparent 60%),
+radial-gradient(900px 500px at 90% -20%, #0c1a17 0%, transparent 60%),
+var(--bg);
+color: var(--text);
+-webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+
+
+/* Header */
+header{position:sticky; top:0; z-index:50; backdrop-filter: blur(14px); background: rgba(10,12,16,.55); border-bottom:1px solid var(--stroke)}
+.nav{display:flex; align-items:center; justify-content:space-between; height:68px}
+.brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.2px}
+.logo{width:36px; height:36px; border-radius:12px; background: conic-gradient(from 220deg, var(--brand), var(--brand-2), #7aa2ff, var(--brand)); box-shadow: inset 0 0 18px rgba(255,255,255,.25)}
+nav a{color:var(--muted); text-decoration:none; font-weight:700; margin-left:16px}
+nav a:hover{color:#fff}
+.theme{appearance:none; border:1px solid var(--stroke); background:var(--panel); color:var(--text); border-radius:12px; padding:8px 12px; cursor:pointer}
+
+
+/* Hero */
+.hero{position:relative; padding:80px 0 24px}
+.burst{position:absolute; inset:-80px -10% auto -10%; height:360px; filter: blur(60px); opacity:.55;
+background: radial-gradient(closest-side, rgba(121,198,255,.45), transparent),
+radial-gradient(closest-side, rgba(142,240,195,.35), transparent 60%),
+radial-gradient(closest-side, rgba(122,162,255,.35), transparent 60%);
+animation: float 10s ease-in-out infinite alternate;
 }
+@keyframes float{to{transform: translateY(18px)}}
+.hero h1{font-size: clamp(36px, 6vw, 64px); margin:0 0 10px; line-height:1.05}
+.hero p{margin:0; color:var(--muted); font-size: clamp(16px, 2.6vw, 20px)}
+.cta-row{display:flex; gap:12px; margin-top:18px}
+.btn{display:inline-block; padding:12px 16px; border-radius:14px; border:1px solid var(--stroke); background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); color:#eef6ff; text-decoration:none; font-weight:800; letter-spacing:.2px; box-shadow: var(--shadow)}
+.btn.primary{background:linear-gradient(180deg, rgba(121,198,255,.35), rgba(121,198,255,.15)); border-color: rgba(121,198,255,.45)}
 
 
-function cardTemplate(item){
-return `
-<article class="card reveal">
-${item.imageUrl ? `<img class="thumb" src="${item.imageUrl}" alt="Newsbild">` : ''}
-<div class="body">
-<div class="kicker">${item.tag || 'News'}</div>
-<h3 class="title">${item.title}</h3>
-<div class="meta">${new Date(item.date).toLocaleDateString('de-DE')} · ${item.summary || ''}</div>
-</div>
-</article>`
-}
+/* News-Grid */
+section{padding: 28px 0 64px}
+.grid{display:grid; gap:18px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))}
+.card{background:var(--panel); border:1px solid var(--stroke); border-radius: var(--radius); overflow: clip; box-shadow: var(--shadow); transform: translateY(0); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease}
+.card:hover{transform: translateY(-3px); box-shadow: 0 26px 70px rgba(0,0,0,.55); border-color: rgba(121,198,255,.35)}
+.thumb{aspect-ratio:16/9; width:100%; object-fit:cover; display:block;}
+.body{padding:14px}
+.kicker{font-size:12px; letter-spacing:.3px; text-transform:uppercase; color:#8fb0cf}
+.title{font-size:18px; font-weight:800; margin:6px 0 6px}
+.meta{font-size:13px; color:var(--muted)}
 
 
-function renderNews(items){
-const grid = document.getElementById('newsGrid');
-if(!items || !items.length){ grid.innerHTML = '<p>Noch keine News.</p>'; return; }
-grid.innerHTML = items.map(cardTemplate).join('');
-}
+/* Footer */
+footer{border-top:1px solid var(--stroke); color:var(--muted)}
 
 
-// sanfter Scroll-Reveal
-function revealOnScroll(){
-const els = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries)=>{
-entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
-}, {threshold: .15});
-els.forEach(el=> io.observe(el));
-}
-
-
-loadNews();
-</script>
-</body>
+/* Scroll-Reveal */
+.reveal{opacity:0; transform:translateY(10px); transition: opacity .5s ease, transform .5s ease}
+.reveal.on{opacity:1; transform:none}
+</style>
 </html>
