@@ -1,87 +1,99 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Welcome to Dagestan – Start</title>
-<meta name="description" content="Aktuelle News und Eindrücke aus Dagestan" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ===== Modern Dark-Mode Design mit Glasmorphismus, sanften Motion-Effekten ===== */
-:root {
---bg: #0a0c10;
---panel: rgba(255,255,255,0.06);
---stroke: rgba(255,255,255,0.10);
---text: #e9eef6;
---muted: #a7b6c8;
---brand: #79c6ff;
---brand-2: #8ef0c3;
---maxw: 1200px;
---radius: 18px;
---shadow: 0 20px 60px rgba(0,0,0,.45);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
-background: radial-gradient(1200px 600px at 10% -10%, #0f1420 0%, transparent 60%),
-radial-gradient(900px 500px at 90% -20%, #0c1a17 0%, transparent 60%),
-var(--bg);
-color: var(--text);
--webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-}
-.wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+<!doctype html>
+<g opacity=".9"><path d="M0 340 C120 300, 220 320, 320 300 C420 280, 520 300, 600 260 L600 450 L0 450 Z" fill="#38bdf8" opacity=".25"/>
+<path d="M0 320 C120 280, 220 290, 320 270 C420 250, 520 260, 600 220 L600 450 L0 450 Z" fill="#22d3ee" opacity=".25"/><circle cx="470" cy="120" r="55" fill="#fff" opacity=".85"/></g>
+</svg>
+</div>
+</div>
+</section>
 
 
-/* Header */
-header{position:sticky; top:0; z-index:50; backdrop-filter: blur(14px); background: rgba(10,12,16,.55); border-bottom:1px solid var(--stroke)}
-.nav{display:flex; align-items:center; justify-content:space-between; height:68px}
-.brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.2px}
-.logo{width:36px; height:36px; border-radius:12px; background: conic-gradient(from 220deg, var(--brand), var(--brand-2), #7aa2ff, var(--brand)); box-shadow: inset 0 0 18px rgba(255,255,255,.25)}
-nav a{color:var(--muted); text-decoration:none; font-weight:700; margin-left:16px}
-nav a:hover{color:#fff}
-.theme{appearance:none; border:1px solid var(--stroke); background:var(--panel); color:var(--text); border-radius:12px; padding:8px 12px; cursor:pointer}
+<section id="about" class="section"><div class="container">
+<h2>Über Dagestan</h2>
+<p class="lead">Zwischen Kaspischem Meer und Kaukasus: vielfältige Landschaften, Sprachen und Traditionen.</p>
+<div class="space-s"></div>
+<div class="features">
+<div class="feature card"><div class="icon">🏔️</div><div><h3>Natur & Berge</h3><p class="meta">Schluchten, alpine Pässe und weite Steppen.</p></div></div>
+<div class="feature card"><div class="icon">🏛️</div><div><h3>Kultur & Geschichte</h3><p class="meta">Vielsprachige Traditionen und Handwerk.</p></div></div>
+<div class="feature card"><div class="icon">🍽️</div><div><h3>Kulinarik</h3><p class="meta">Herzhafte Küche des Kaukasus.</p></div></div>
+</div>
+</div></section>
 
 
-/* Hero */
-.hero{position:relative; padding:80px 0 24px}
-.burst{position:absolute; inset:-80px -10% auto -10%; height:360px; filter: blur(60px); opacity:.55;
-background: radial-gradient(closest-side, rgba(121,198,255,.45), transparent),
-radial-gradient(closest-side, rgba(142,240,195,.35), transparent 60%),
-radial-gradient(closest-side, rgba(122,162,255,.35), transparent 60%);
-animation: float 10s ease-in-out infinite alternate;
-}
-@keyframes float{to{transform: translateY(18px)}}
-.hero h1{font-size: clamp(36px, 6vw, 64px); margin:0 0 10px; line-height:1.05}
-.hero p{margin:0; color:var(--muted); font-size: clamp(16px, 2.6vw, 20px)}
-.cta-row{display:flex; gap:12px; margin-top:18px}
-.btn{display:inline-block; padding:12px 16px; border-radius:14px; border:1px solid var(--stroke); background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); color:#eef6ff; text-decoration:none; font-weight:800; letter-spacing:.2px; box-shadow: var(--shadow)}
-.btn.primary{background:linear-gradient(180deg, rgba(121,198,255,.35), rgba(121,198,255,.15)); border-color: rgba(121,198,255,.45)}
+<section id="newsletter" class="section" aria-labelledby="newsletter-heading">
+<div class="container">
+<h2 id="newsletter-heading">Newsletter</h2>
+<p class="lead">Hier veröffentlichst du deine aktuellen Ausgaben.</p>
+<div class="grid cols-3">
+<article class="post card"><div class="meta">Ausgabe • September 2025</div><h4>التجمع السنوي</h4><p>من يوم ٢٧/٠٧/٢٠٢٦</p><p>الى يوم ٠١/٠٨/٢٠٦</p><div class="actions"><a href="#" class="btn">Lesen</a><a href="downloads/newsletter-2025-09.pdf" class="btn ghost" download>PDF herunterladen</a></div></article>
+<article class="post card"><div class="meta">Ausgabe • August 2025</div><h4>Sommer am Kaspischen Meer</h4><p>Strände, Veranstaltungen und praktische Tipps.</p><div class="actions"><a href="#" class="btn">Lesen</a><a href="downloads/newsletter-2025-08.pdf" class="btn ghost" download>PDF herunterladen</a></div></article>
+<article class="post card"><div class="meta">Ausgabe • Juli 2025</div><h4>Traditionen & Feste</h4><p>Einblicke in lokale Bräuche.</p><div class="actions"><a href="#" class="btn">Lesen</a><a href="downloads/newsletter-2025-07.pdf" class="btn ghost" download>PDF herunterladen</a></div></article>
+</div>
 
 
-/* News-Grid */
-section{padding: 28px 0 64px}
-.grid{display:grid; gap:18px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))}
-.card{background:var(--panel); border:1px solid var(--stroke); border-radius: var(--radius); overflow: clip; box-shadow: var(--shadow); transform: translateY(0); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease}
-.card:hover{transform: translateY(-3px); box-shadow: 0 26px 70px rgba(0,0,0,.55); border-color: rgba(121,198,255,.35)}
-.thumb{aspect-ratio:16/9; width:100%; object-fit:cover; display:block;}
-.body{padding:14px}
-.kicker{font-size:12px; letter-spacing:.3px; text-transform:uppercase; color:#8fb0cf}
-.title{font-size:18px; font-weight:800; margin:6px 0 6px}
-.meta{font-size:13px; color:var(--muted)}
+<div class="subscribe card" role="region" aria-labelledby="abo-title" style="padding:16px; margin-top:12px;">
+<h3 id="abo-title" style="margin:0;">Newsletter abonnieren</h3>
+<p class="meta">E-Mail eintragen (FormSubmit).</p>
+<form method="post" action="https://formsubmit.co/mohammed-bbaat@hotmail.com">
+<label for="email" class="meta">E-Mail-Adresse</label>
+<div style="display:flex;gap:8px;align-items:center;">
+<input class="input" id="email" name="email" type="email" placeholder="name@beispiel.de" required/>
+<button class="btn" type="submit">Abonnieren</button>
+</div>
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Neues Newsletter-Abo (Dagestan)">
+<input type="hidden" name="_template" value="box">
+</form>
+</div>
+</div>
+</section>
 
 
-/* Footer */
-footer{border-top:1px solid var(--stroke); color:var(--muted)}
+<section id="downloads" class="section" aria-labelledby="downloads-heading">
+<div class="container">
+<h2 id="downloads-heading">Downloads</h2>
+<p class="lead">Lege deine Dateien im Ordner <code>/downloads</code> im Repo ab oder nutze Dropbox-Links.</p>
+<div class="card" style="padding:12px;">
+<div class="downloads" role="list">
+<div class="dl-item" role="listitem"><div class="icon">📄</div><div><div><strong>Newsletter September 2025 (PDF)</strong></div><div class="meta">ca. 2,3 MB</div></div><a class="btn ghost" href="downloads/newsletter-2025-09.pdf" download>Herunterladen</a></div>
+<div class="dl-item" role="listitem"><div class="icon">📁</div><div><div><strong>Pressebilder Paket (ZIP)</strong></div><div class="meta">10 Bilder • ca. 12 MB</div></div><a class="btn ghost" href="downloads/pressebilder-dagestan.zip" download>Herunterladen</a></div>
+<div class="dl-item" role="listitem"><div class="icon">📝</div><div><div><strong>Reise-Checkliste (DOCX)</strong></div><div class="meta">Vorlage • 1 Seite</div></div><a class="btn ghost" href="downloads/reise-checkliste.docx" download>Herunterladen</a></div>
+</div>
+</div>
+</div>
+</section>
 
 
-/* Scroll-Reveal */
-.reveal{opacity:0; transform:translateY(10px); transition: opacity .5s ease, transform .5s ease}
-.reveal.on{opacity:1; transform:none}
-</style>
-</head>
-<body>
-<header>
-<div class="wrap nav">
+<section id="kontakt" class="section"><div class="container">
+<h2>Kontakt</h2>
+<p class="lead">Nachrichten gehen an <strong>mohammed-bbaat@hotmail.com</strong>.</p>
+<div class="card" style="padding:16px;">
+<form method="post" action="https://formsubmit.co/mohammed-bbaat@hotmail.com" aria-label="Kontaktformular">
+<div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;">
+<div><label class="meta" for="name">Name</label><input class="input" id="name" name="name" required/></div>
+<div><label class="meta" for="mail">E-Mail</label><input class="input" id="mail" name="email" type="email" required/></div>
+</div>
+<div class="space-s"></div>
+<div><label class="meta" for="msg">Nachricht</label><textarea class="input" id="msg" name="message" rows="5" required></textarea></div>
+<div class="space-s"></div>
+<input type="hidden" name="_captcha" value="false"><input type="hidden" name="_subject" value="Neue Nachricht über die Webseite (Dagestan)"><input type="hidden" name="_template" value="box">
+<button class="btn" type="submit">Senden</button>
+</form>
+</div>
+</div></section>
+
+
+<footer>
+<div class="container" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;">
+<div>© <span id="year"></span> Dagestan – Alle Rechte vorbehalten.</div>
+<div style="display:flex;gap:12px;"><a class="badge" href="#">Impressum</a><a class="badge" href="#">Datenschutz</a></div>
+</div>
+</footer>
+
+
+<script>
+const menuBtn=document.getElementById('menuBtn'); const mobileMenu=document.getElementById('mobileMenu');
+menuBtn?.addEventListener('click',()=>{const open = !mobileMenu.hasAttribute('hidden'); if(open){mobileMenu.setAttribute('hidden','')}else{mobileMenu.removeAttribute('hidden')} menuBtn.setAttribute('aria-expanded', String(!open));});
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
 </html>
