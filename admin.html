@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+function saveRemembered() {
+if (!qs('#remember').checked) { localStorage.removeItem('ghcfg'); return; }
+const cfg = {
+owner: qs('#owner').value.trim(),
+repo: qs('#repo').value.trim(),
+branch: qs('#branch').value.trim(),
+token: qs('#token').value
+};
+localStorage.setItem('ghcfg', JSON.stringify(cfg));
+}
+
+
+async function githubGet(path, token) {
+const res = await fetch(`https://api.github.com${path}`, {
+headers: { 'Accept':'application/vnd.github+json', 'Authorization': `Bearer ${token}` }
+});
+if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+return res.json();
+}
+
+
+async function githubPut(path, body, token) {
+const res = await fetch(`https://api.github.com${path}`, {
+method: 'PUT',
+headers: { 'Accept':'application/vnd.github+json', 'Authorization': `Bearer ${token}` },
+body: JSON.stringify(body)
+});
+if (!res.ok) throw new Error(`${res.status} ${res.statusText}\n${await res.text()}`);
+return res.json();
+}
+
+
+async function loadNewsJson(owner, repo, branch, token) {
+const dataPath = `/repos/${owner}/${repo}/contents/data/news.json?ref=${encodeURIComponent(branch)}`;
+const obj = await githubGet(dataPath, token);
+const json = JSON.parse(unb64(obj.content));
+return { list: json, sha: obj.sha };
+}
+
+
+function validateForm() {
+const required = ['owner','repo','branch','token','title','date'];
+for (const id of required) {
+const el = qs('#'+id);
+if (!el || !el.value.trim()) return false;
+}
+return true;
+}
+
+
+function renderPreview(list) {
+qs('#preview').textContent = JSON.stringify(list, null, 2);
+}
+
+
+async function onPublish() {
+try {
+qs('#status').textContent = 'Arbeite…';
+if (!validateForm()) throw new Error('Bitte Pflichtfelder ausfüllen (Owner, Repo, Branch, Token, Titel, Datum).');
+
+
+const owner = qs('#owner').value.trim();
+const repo = qs('#repo').value.trim();
+const branch= qs('#branch').value.trim();
+const token = qs('#token').value;
+saveRemembered();
+
+
+// 1) Aktuelle news.json laden
+const { list, sha } = await loadNewsJson(owner, repo, branch, token);
+
+
+// 2) neuen Eintrag bauen
+const item = {
+id: crypto.randomUUID(),
+title: qs('#title').value.trim(),
+date: new Date(qs('#date').value).toISOString(),
+tag: qs('#tag').value.trim() || undefined,
+summary: qs('#summary').value.trim() || '',
+imageUrl: qs('#imageUrl').value.trim() || undefined,
+body: qs('#body').value.trim() || undefined
+};
+
+
+// 3) einfügen & sortieren (neueste zuerst)
+const next = [item, ...list].sort((a,b)=> new Date(b.date)-new Date(a.date));
+renderPreview(next);
+
+
+// 4) Commit vorbereiten
+const path = `/repos/${owner}/${repo}/contents/data/news.json`;
+const message = `chore: add news – ${item.title}`;
+const content = base64(JSON.stringify(next, null, 2));
+const body = { message, content, branch, sha, committer: { name: "Dagestan Admin", email: "noreply@example.com" } };
+
+
+// 5) Schreiben
+await githubPut(path, body, token);
+qs('#status').innerHTML = '<span class="ok">Gespeichert! Die Start-/Newsseite lädt die neuen Daten automatisch.</span>';
+
+
+// Felder leeren (optional)
+['title','tag','summary','imageUrl','body'].forEach(id=> qs('#'+id).value='');
+} catch (err) {
+console.error(err);
+qs('#status').innerHTML = `<span class="err">Fehler: ${err.message}</span>`;
+}
+}
+
+
+qs('#publish').addEventListener('click', onPublish);
+loadRemembered();
+</script>
+</body>
+</html>
