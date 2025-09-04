@@ -1,82 +1,104 @@
 <!DOCTYPE html>
-.kicker { font-size: 12px; color: #7ea0bf; letter-spacing: .3px; text-transform: uppercase; }
-.title { font-size: 18px; font-weight: 700; margin: 6px 0; color: #eaf2fb; }
-.meta { font-size: 13px; color: #93a8be; }
-
-
-footer { border-top: 1px solid #1f2833; color: #7ea0bf; }
-.cta { display: inline-block; padding: 10px 14px; border-radius: 12px; background: #213142; border: 1px solid #2b3d52; color: #dfeaf6; text-decoration: none; font-weight: 700; margin-top: 8px; }
-.cta:hover { background: #2a3e55; }
-</style>
-</head>
-<body>
-<header>
-<div class="wrap" style="display:flex;align-items:center;justify-content:space-between;">
-<div class="brand"><span class="logo"></span><strong>Welcome to Dagestan</strong></div>
-<nav>
-<a href="/news.html">News</a>
-<a href="/admin.html">Admin</a>
-</nav>
-</div>
 </header>
 
 
 <section class="hero">
+<div class="burst" aria-hidden="true"></div>
 <div class="wrap">
-<h1>Добро пожаловать! مرحبا! Willkommen in Dagestan</h1>
-<p>Frische Geschichten, Bilder und Updates aus den Regionen Dagestans.</p>
-<a class="cta" href="/news.html">Alle News ansehen</a>
+<h1>Willkommen in Dagestan</h1>
+<p>Moderne Eindrücke, Geschichten und Bilder – kuratiert und frisch aus der Region.</p>
+<div class="cta-row">
+<a class="btn primary" href="news.html">Alle News ansehen</a>
+<a class="btn" href="#latest">Neueste Beiträge</a>
+</div>
 </div>
 </section>
 
 
 <main class="wrap">
+<h2 id="latest" style="margin:8px 0 10px">Neu & empfohlen</h2>
 <div id="newsGrid" class="grid" aria-live="polite"></div>
 </main>
 
 
 <footer>
-<div class="wrap">© <span id="y"></span> Dagestan Project. Alle Rechte vorbehalten.</div>
+<div class="wrap">© <span id="y"></span> Dagestan Project · <span style="color:var(--muted)">Handgemacht mit HTML/CSS/JS</span></div>
 </footer>
 
 
 <script>
-// === Einstellungen (liesend): Bitte an dein Repo anpassen ===
+// ==== Einstellungen (READ-ONLY): Bitte an dein Repo anpassen ====
 const GH_OWNER = "DEIN_OWNER"; // z.B. "dein-github-name"
 const GH_REPO = "DEIN_REPO"; // z.B. "dagestan-site"
 const GH_BRANCH= "main"; // z.B. "main" oder "gh-pages"
 const NEWS_PATH = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/data/news.json`;
 
 
+// Jahr einsetzen
 document.getElementById('y').textContent = new Date().getFullYear();
 
 
-async function loadNews() {
-try {
-const res = await fetch(NEWS_PATH, { cache: 'no-store' });
-if (!res.ok) throw new Error("Konnte news.json nicht laden");
+// Dark/Light (lokal, kein Flash)
+const btn = document.getElementById('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const stored = localStorage.getItem('theme');
+if(stored === 'light') document.documentElement.style.filter = 'invert(1) hue-rotate(180deg)';
+btn.addEventListener('click', ()=>{
+const isLight = document.documentElement.style.filter.includes('invert');
+if(isLight){
+document.documentElement.style.filter = '';
+localStorage.setItem('theme','dark');
+btn.textContent = '☾';
+} else {
+document.documentElement.style.filter = 'invert(1) hue-rotate(180deg)';
+localStorage.setItem('theme','light');
+btn.textContent = '☼';
+}
+});
+
+
+// News laden + rendern
+async function loadNews(){
+try{
+const res = await fetch(NEWS_PATH, {cache:'no-store'});
+if(!res.ok) throw new Error('news.json konnte nicht geladen werden');
 const items = await res.json();
-renderNews(items.slice(0, 8)); // zeige die neuesten 8
-} catch (err) {
-console.error(err);
-document.getElementById('newsGrid').innerHTML = `<p>Fehler beim Laden der News. Bitte später erneut versuchen.</p>`;
+renderNews(items.slice(0, 9));
+revealOnScroll();
+}catch(e){
+console.error(e);
+document.getElementById('newsGrid').innerHTML = '<p style="color:#ffb7b7">Fehler beim Laden der News.</p>';
 }
 }
 
 
-function renderNews(items) {
-const grid = document.getElementById('newsGrid');
-if (!items || !items.length) { grid.innerHTML = '<p>Noch keine News.</p>'; return; }
-grid.innerHTML = items.map(item => `
-<article class="card">
+function cardTemplate(item){
+return `
+<article class="card reveal">
 ${item.imageUrl ? `<img class="thumb" src="${item.imageUrl}" alt="Newsbild">` : ''}
-<div class="card-body">
+<div class="body">
 <div class="kicker">${item.tag || 'News'}</div>
 <h3 class="title">${item.title}</h3>
-<div class="meta">${new Date(item.date).toLocaleDateString('de-DE')} – ${item.summary || ''}</div>
+<div class="meta">${new Date(item.date).toLocaleDateString('de-DE')} · ${item.summary || ''}</div>
 </div>
-</article>
-`).join('');
+</article>`
+}
+
+
+function renderNews(items){
+const grid = document.getElementById('newsGrid');
+if(!items || !items.length){ grid.innerHTML = '<p>Noch keine News.</p>'; return; }
+grid.innerHTML = items.map(cardTemplate).join('');
+}
+
+
+// sanfter Scroll-Reveal
+function revealOnScroll(){
+const els = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+}, {threshold: .15});
+els.forEach(el=> io.observe(el));
 }
 
 
