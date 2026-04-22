@@ -7,784 +7,395 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600&family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── DAGESTAN FLAG COLORS: Green #009260 | Blue #003DA5 | Red #D4001A ── */
 :root {
-  --dag-green: #009260;
-  --dag-green-dark: #006e48;
-  --dag-green-light: #00b87a;
-  --dag-green-pale: rgba(0,146,96,0.12);
-  --dag-blue: #003DA5;
-  --dag-blue-dark: #002d7a;
-  --dag-blue-light: #1a5cc4;
-  --dag-blue-pale: rgba(0,61,165,0.12);
-  --dag-red: #D4001A;
-  --dag-red-dark: #a0001a;
-  --dag-red-light: #f01a30;
-  --dag-red-pale: rgba(212,0,26,0.1);
-  --dag-gold: #c9a84c;
-  --dag-gold2: #e8c97a;
-
-  --dark:  #07090f;
-  --dark2: #0d1220;
-  --dark3: #111829;
-  --surface: #161f35;
-  --surface2: #1c2840;
-  --text:  #f0ede4;
-  --text2: #b0bed8;
-  --text3: #6a82b0;
-  --border: rgba(0,61,165,0.2);
-  --border2: rgba(0,146,96,0.2);
+  --dg:#009260; --dg-d:#006e48; --dg-l:#00b87a;
+  --db:#003DA5; --db-d:#002d7a; --db-l:#1a5cc4;
+  --dr:#D4001A; --dr-d:#a0001a; --dr-l:#f01a30;
+  --gold2:#b8850a;
+  --bg:#f7f8fc; --card:#ffffff;
+  --text:#111827; --text2:#374151; --text3:#6b7280; --text4:#9ca3af;
+  --border:rgba(0,61,165,0.12); --border2:rgba(0,146,96,0.15);
+  --shadow:0 2px 16px rgba(0,0,0,0.06); --shadow-lg:0 8px 40px rgba(0,0,0,0.10);
 }
-
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{
-  font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;
-  background:var(--dark);color:var(--text);overflow-x:hidden;
-}
+body{font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-/* noise */
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:120px;
-}
+.flagbar{position:fixed;top:0;left:0;right:0;z-index:201;height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
 
-/* ── HEADER ── */
-header{
-  position:fixed;top:0;left:0;right:0;z-index:300;
-  height:70px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;
-  background:rgba(7,9,15,0.85);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.back-btn{
-  display:flex;align-items:center;gap:8px;
-  color:var(--text2);text-decoration:none;font-size:14px;
-  padding:8px 16px;border-radius:10px;
-  border:1px solid var(--border);transition:all 0.25s;
-}
-.back-btn:hover{color:var(--dag-green-light);border-color:var(--dag-green);}
-.h-logo{
-  font-family:'Amiri',serif;font-size:22px;
-  background:linear-gradient(90deg,var(--dag-green),var(--dag-blue-light),var(--dag-red));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.lang-toggle{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:24px;display:flex;overflow:hidden;
-}
-.lang-btn{
-  padding:8px 20px;font-size:13px;font-weight:600;
-  font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.25s;
-}
-.lang-btn.active{
-  background:linear-gradient(135deg,var(--dag-green-dark),var(--dag-blue));
-  color:#fff;border-radius:22px;
-}
+header{position:fixed;top:4px;left:0;right:0;z-index:200;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,61,165,0.08);box-shadow:0 1px 12px rgba(0,0,0,0.05);}
+.back-btn{display:flex;align-items:center;gap:8px;color:var(--text2);text-decoration:none;font-size:14px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--border);transition:all 0.25s;}
+.back-btn:hover{color:var(--dg-d);border-color:var(--dg);}
+.hlogo{font-family:'Amiri',serif;font-size:20px;background:linear-gradient(90deg,var(--dg-d),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ltog{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;display:flex;overflow:hidden;}
+.lbtnx{padding:7px 18px;font-size:13px;font-weight:600;font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
+.lbtnx.active{background:linear-gradient(135deg,var(--dg-d),var(--db));color:#fff;border-radius:22px;}
 
-/* ── HERO ── */
-.hero{
-  padding:140px 48px 80px;
-  position:relative;overflow:hidden;
-  text-align:center;
-}
-.hero-flag-bar{
-  position:absolute;top:0;left:0;right:0;height:6px;
-  background:linear-gradient(90deg, var(--dag-green) 33.3%, var(--dag-blue) 33.3% 66.6%, var(--dag-red) 66.6%);
-}
-.hero-bg{
-  position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 50% 60% at 20% 50%, rgba(0,146,96,0.15) 0%,transparent 60%),
-    radial-gradient(ellipse 40% 50% at 80% 30%, rgba(0,61,165,0.12) 0%,transparent 55%),
-    radial-gradient(ellipse 35% 40% at 60% 80%, rgba(212,0,26,0.08) 0%,transparent 50%);
-}
-.hero-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(0,61,165,0.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,61,165,0.05) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);
-}
+/* HERO */
+.hero{padding:130px 48px 72px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 45%,#f7f8fc 100%);text-align:center;}
+.hblob{position:absolute;border-radius:50%;pointer-events:none;}
+.hb1{width:500px;height:500px;background:rgba(0,146,96,0.1);filter:blur(90px);top:-150px;right:-100px;}
+.hb2{width:400px;height:400px;background:rgba(0,61,165,0.08);filter:blur(90px);bottom:-100px;left:-80px;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,61,165,0.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
+.hcont{position:relative;z-index:1;max-width:760px;margin:0 auto;}
 
-.hero-content{position:relative;z-index:1;max-width:800px;margin:0 auto;}
+.heye{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,96,0.08);border:1px solid rgba(0,146,96,0.2);border-radius:30px;padding:8px 22px;font-size:13px;letter-spacing:0.08em;color:var(--dg-d);margin-bottom:24px;animation:fD 0.6s 0.1s both;}
+@keyframes fD{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fU{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-.hero-badge{
-  display:inline-flex;align-items:center;gap:10px;
-  background:rgba(0,146,96,0.1);
-  border:1px solid rgba(0,146,96,0.25);
-  border-radius:30px;padding:9px 24px;
-  font-size:13px;letter-spacing:0.1em;color:var(--dag-green-light);
-  margin-bottom:28px;
-  animation:fadeD 0.7s 0.1s both;
-}
-@keyframes fadeD{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeU{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.htitle{font-family:'Amiri',serif;font-size:clamp(48px,8vw,88px);line-height:0.95;margin-bottom:16px;animation:fU 0.8s 0.2s both;}
+html[lang="de"] .htitle{font-family:'Cormorant Garamond',serif;}
+.htitle span{display:block;background:linear-gradient(135deg,var(--dg-d),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-.hero-title{
-  font-family:'Amiri',serif;
-  font-size:clamp(44px,8vw,90px);
-  line-height:1;margin-bottom:16px;
-  animation:fadeU 0.8s 0.2s both;
-}
-html[lang="de"] .hero-title{font-family:'Cormorant Garamond',serif;}
-.hero-title span{
-  background:linear-gradient(135deg,var(--dag-green-light) 0%,var(--dag-blue-light) 50%,#fff 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
+.hsub{font-size:clamp(15px,2vw,17px);color:var(--text2);line-height:1.9;max-width:560px;margin:0 auto 36px;animation:fU 0.8s 0.35s both;}
 
-.hero-sub{
-  font-size:clamp(15px,2vw,18px);color:var(--text2);line-height:1.9;
-  max-width:620px;margin:0 auto 40px;
-  animation:fadeU 0.8s 0.35s both;
-}
+.hstats{display:flex;justify-content:center;gap:0;background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:24px 0;animation:fU 0.8s 0.5s both;margin-top:36px;}
+.si{flex:1;max-width:160px;text-align:center;padding:0 20px;border-right:1px solid rgba(0,61,165,0.1);}
+html[lang="ar"] .si{border-right:none;border-left:1px solid rgba(0,61,165,0.1);}
+.si:last-child,.si:first-child{border:none;}
+.sn{font-family:'Amiri',serif;font-size:34px;line-height:1;background:linear-gradient(135deg,var(--dg),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sl{font-size:12px;color:var(--text3);margin-top:4px;}
 
-/* stats row */
-.hero-stats{
-  display:flex;justify-content:center;gap:0;
-  padding:28px 0 0;border-top:1px solid var(--border);
-  margin-top:32px;
-  animation:fadeU 0.8s 0.5s both;
-}
-.hstat{flex:1;max-width:160px;text-align:center;padding:0 20px;border-right:1px solid var(--border);}
-html[lang="ar"] .hstat{border-right:none;border-left:1px solid var(--border);}
-.hstat:last-child{border:none;}
-html[lang="ar"] .hstat:first-child{border:none;}
-.hstat-num{font-family:'Amiri',serif;font-size:38px;line-height:1;
-  background:linear-gradient(135deg,var(--dag-green-light),var(--dag-blue-light));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hstat-label{font-size:12px;color:var(--text3);margin-top:4px;}
-
-/* ── FILTER BAR ── */
-.filter-wrap{
-  position:sticky;top:70px;z-index:100;
-  background:rgba(7,9,15,0.9);backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  padding:16px 48px;
-}
-.filter-inner{max-width:1200px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-
-.filter-label{font-size:13px;color:var(--text3);margin-left:8px;}
-html[lang="de"] .filter-label{margin-left:0;margin-right:8px;}
-
-.filter-btn{
-  padding:8px 20px;border-radius:20px;
-  font-size:13px;font-weight:600;font-family:inherit;
-  border:1px solid var(--border);
-  background:var(--surface);color:var(--text2);
-  cursor:pointer;transition:all 0.25s;white-space:nowrap;
-}
-.filter-btn:hover{border-color:var(--dag-blue-light);color:var(--dag-blue-light);}
-.filter-btn.active{
-  background:linear-gradient(135deg,var(--dag-blue-dark),var(--dag-blue));
-  border-color:var(--dag-blue);color:#fff;
-  box-shadow:0 4px 16px rgba(0,61,165,0.35);
-}
-
+/* FILTER */
+.filter-wrap{position:sticky;top:70px;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,61,165,0.08);padding:14px 48px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.filter-inner{max-width:1180px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.f-label{font-size:13px;color:var(--text3);margin-left:8px;}
+html[lang="de"] .f-label{margin-left:0;margin-right:8px;}
+.fbtn{padding:7px 18px;border-radius:20px;font-size:13px;font-weight:600;font-family:inherit;border:1.5px solid var(--border);background:#fff;color:var(--text2);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.fbtn:hover{border-color:var(--db-l);color:var(--db);}
+.fbtn.active{background:linear-gradient(135deg,var(--db-d),var(--db));border-color:transparent;color:#fff;box-shadow:0 3px 12px rgba(0,61,165,0.25);}
 .search-wrap{margin-right:auto;}
 html[lang="de"] .search-wrap{margin-right:0;margin-left:auto;}
-.search-inp{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:10px;padding:9px 16px;
-  color:var(--text);font-size:14px;font-family:inherit;
-  outline:none;width:200px;transition:all 0.25s;
-}
-.search-inp:focus{border-color:var(--dag-green);box-shadow:0 0 0 3px rgba(0,146,96,0.12);}
-.search-inp::placeholder{color:var(--text3);}
+.sinp{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:8px 16px;color:var(--text);font-size:14px;font-family:inherit;outline:none;width:200px;transition:all 0.2s;}
+.sinp:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);}
+.sinp::placeholder{color:var(--text4);}
 
-/* ── MAIN CONTENT ── */
-.main-wrap{max-width:1200px;margin:0 auto;padding:48px 48px 80px;}
-
-.section-header{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:32px;
-}
+/* CARDS */
+.main-wrap{max-width:1180px;margin:0 auto;padding:40px 48px 72px;}
+.results-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
 .results-count{font-size:13px;color:var(--text3);}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
 
-/* ── CARDS GRID ── */
-.cards-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:20px;
-}
+.pcard{background:#fff;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:var(--shadow);}
+.pcard:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
 
-.prof-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:22px;overflow:hidden;
-  transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
-  position:relative;cursor:default;
-  animation:cardIn 0.5s both;
-}
-@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* top color bar per category */
+.pcard[data-cat="IT"]    .cstrip{background:linear-gradient(90deg,var(--db-d),var(--db-l));height:4px;}
+.pcard[data-cat="Bau"]   .cstrip{background:linear-gradient(90deg,var(--dr-d),var(--dr-l));height:4px;}
+.pcard[data-cat="Küche"] .cstrip{background:linear-gradient(90deg,var(--dg-d),var(--dg-l));height:4px;}
+.pcard[data-cat="Handel"].cstrip{background:linear-gradient(90deg,#8a6d0a,#e8c97a);height:4px;}
+.pcard[data-cat="Transport"].cstrip{background:linear-gradient(90deg,#5b21b6,#8b5cf6);height:4px;}
 
-.prof-card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 20px 50px rgba(0,0,0,0.4);
-}
-.prof-card[data-cat="IT"]:hover{border-color:var(--dag-blue);box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 0 1px rgba(0,61,165,0.2);}
-.prof-card[data-cat="Bau"]:hover{border-color:var(--dag-red);box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 0 1px rgba(212,0,26,0.15);}
-.prof-card[data-cat="Küche"]:hover{border-color:var(--dag-green);box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 0 1px rgba(0,146,96,0.2);}
-.prof-card[data-cat="Handel"]:hover{border-color:var(--dag-gold);box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 0 1px rgba(201,168,76,0.2);}
-.prof-card[data-cat="Transport"]:hover{border-color:#8b5cf6;box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 0 1px rgba(139,92,246,0.2);}
+.pcard:hover{border-color:var(--db);}
+.pcard[data-cat="IT"]:hover{border-color:var(--db);}
+.pcard[data-cat="Bau"]:hover{border-color:var(--dr);}
+.pcard[data-cat="Küche"]:hover{border-color:var(--dg);}
+.pcard[data-cat="Handel"]:hover{border-color:#b8850a;}
+.pcard[data-cat="Transport"]:hover{border-color:#5b21b6;}
 
-/* card top color strip */
-.card-strip{height:5px;width:100%;}
-.prof-card[data-cat="IT"] .card-strip{background:linear-gradient(90deg,var(--dag-blue-dark),var(--dag-blue-light));}
-.prof-card[data-cat="Bau"] .card-strip{background:linear-gradient(90deg,var(--dag-red-dark),var(--dag-red-light));}
-.prof-card[data-cat="Küche"] .card-strip{background:linear-gradient(90deg,var(--dag-green-dark),var(--dag-green-light));}
-.prof-card[data-cat="Handel"] .card-strip{background:linear-gradient(90deg,#8a6d0a,var(--dag-gold2));}
-.prof-card[data-cat="Transport"] .card-strip{background:linear-gradient(90deg,#5b21b6,#8b5cf6);}
+.cbody{padding:22px;}
+.ctop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.cav{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.pcard[data-cat="IT"]    .cav{background:linear-gradient(135deg,var(--db-d),var(--db-l));}
+.pcard[data-cat="Bau"]   .cav{background:linear-gradient(135deg,var(--dr-d),var(--dr-l));}
+.pcard[data-cat="Küche"] .cav{background:linear-gradient(135deg,var(--dg-d),var(--dg-l));}
+.pcard[data-cat="Handel"].cav{background:linear-gradient(135deg,#8a6d0a,#e8c97a);}
+.pcard[data-cat="Transport"].cav{background:linear-gradient(135deg,#5b21b6,#8b5cf6);}
 
-.card-body{padding:24px;}
+.cbadge{font-size:11px;font-weight:700;letter-spacing:0.06em;padding:4px 11px;border-radius:12px;}
+.pcard[data-cat="IT"]    .cbadge{background:rgba(0,61,165,0.07);color:var(--db-d);border:1px solid rgba(0,61,165,0.15);}
+.pcard[data-cat="Bau"]   .cbadge{background:rgba(212,0,26,0.06);color:var(--dr-d);border:1px solid rgba(212,0,26,0.13);}
+.pcard[data-cat="Küche"] .cbadge{background:rgba(0,146,96,0.07);color:var(--dg-d);border:1px solid rgba(0,146,96,0.15);}
+.pcard[data-cat="Handel"].cbadge{background:rgba(180,133,10,0.07);color:#8a6d0a;border:1px solid rgba(180,133,10,0.15);}
+.pcard[data-cat="Transport"].cbadge{background:rgba(91,33,182,0.07);color:#5b21b6;border:1px solid rgba(91,33,182,0.15);}
 
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.cjob{font-size:17px;font-weight:700;margin-bottom:3px;color:var(--text);}
+.cspec{font-size:13px;color:var(--text3);margin-bottom:14px;}
+.cdiv{height:1px;background:rgba(0,61,165,0.07);margin-bottom:14px;}
+.cinfo{display:flex;flex-direction:column;gap:9px;}
+.crow{display:flex;align-items:center;gap:9px;font-size:14px;}
+.cion{width:28px;height:28px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;background:var(--bg);}
+.cval{color:var(--text2);}
+.cval a{color:var(--dg-d);text-decoration:none;font-weight:500;}
+.cval a:hover{color:var(--db);}
+.cactions{margin-top:16px;display:flex;gap:8px;}
+.btn-wa-sm{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#128C7E,#25D366);color:#fff;text-decoration:none;padding:10px;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;transition:all 0.2s;border:none;cursor:pointer;}
+.btn-wa-sm:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(37,211,102,0.35);}
+.btn-tel{display:flex;align-items:center;gap:5px;color:var(--text2);text-decoration:none;padding:10px 14px;border-radius:10px;font-size:13px;border:1.5px solid var(--border);background:#fff;transition:all 0.2s;}
+.btn-tel:hover{border-color:var(--db-l);color:var(--db);}
 
-.card-avatar{
-  width:56px;height:56px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;flex-shrink:0;
-  position:relative;overflow:hidden;
-}
-.prof-card[data-cat="IT"] .card-avatar{background:linear-gradient(135deg,var(--dag-blue-dark),var(--dag-blue-light));}
-.prof-card[data-cat="Bau"] .card-avatar{background:linear-gradient(135deg,var(--dag-red-dark),var(--dag-red-light));}
-.prof-card[data-cat="Küche"] .card-avatar{background:linear-gradient(135deg,var(--dag-green-dark),var(--dag-green-light));}
-.prof-card[data-cat="Handel"] .card-avatar{background:linear-gradient(135deg,#8a6d0a,var(--dag-gold2));}
-.prof-card[data-cat="Transport"] .card-avatar{background:linear-gradient(135deg,#5b21b6,#8b5cf6);}
+.empty-state{grid-column:1/-1;text-align:center;padding:72px 20px;color:var(--text4);}
+.empty-icon{font-size:52px;margin-bottom:14px;opacity:0.35;}
 
-.cat-badge{
-  font-size:11px;font-weight:700;letter-spacing:0.08em;
-  padding:5px 12px;border-radius:12px;
-  display:inline-flex;align-items:center;gap:5px;
-}
-.prof-card[data-cat="IT"] .cat-badge{background:var(--dag-blue-pale);color:var(--dag-blue-light);border:1px solid rgba(0,61,165,0.25);}
-.prof-card[data-cat="Bau"] .cat-badge{background:var(--dag-red-pale);color:#f87070;border:1px solid rgba(212,0,26,0.2);}
-.prof-card[data-cat="Küche"] .cat-badge{background:var(--dag-green-pale);color:var(--dag-green-light);border:1px solid rgba(0,146,96,0.25);}
-.prof-card[data-cat="Handel"] .cat-badge{background:rgba(201,168,76,0.1);color:var(--dag-gold2);border:1px solid rgba(201,168,76,0.2);}
-.prof-card[data-cat="Transport"] .cat-badge{background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);}
+/* FORM */
+.form-section{background:#fff;border-top:1px solid rgba(0,61,165,0.08);padding:80px 48px;}
+.form-inner{max-width:740px;margin:0 auto;}
+.form-head{text-align:center;margin-bottom:44px;}
+.ftag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.18em;color:var(--dg-d);text-transform:uppercase;margin-bottom:14px;}
+.ftag::before{content:'';display:block;width:22px;height:2px;background:var(--dg);border-radius:2px;}
+.fmain-title{font-family:'Amiri',serif;font-size:clamp(30px,5vw,48px);line-height:1.1;margin-bottom:12px;color:var(--text);}
+html[lang="de"] .fmain-title{font-family:'Cormorant Garamond',serif;}
+.fsub{font-size:16px;color:var(--text2);line-height:1.8;}
 
-.card-job{font-size:17px;font-weight:700;margin-bottom:4px;line-height:1.3;}
-.card-spec{font-size:13px;color:var(--text3);margin-bottom:16px;}
+.fcard{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;padding:44px;box-shadow:var(--shadow);}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.ffull{grid-column:1/-1;}
+.fwrap{display:flex;flex-direction:column;gap:7px;}
+.flabel{font-size:12px;letter-spacing:0.08em;color:var(--dg-d);font-weight:600;text-transform:uppercase;}
+.finput,.fselect,.ftextarea{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px 16px;color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:all 0.2s;}
+.finput::placeholder,.ftextarea::placeholder{color:var(--text4);}
+.finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);}
+.fselect{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;}
+html[lang="de"] .fselect{background-position:right 14px center;}
+.fselect option{background:#fff;}
+.ftextarea{resize:vertical;min-height:90px;line-height:1.7;}
 
-.card-divider{height:1px;background:rgba(255,255,255,0.06);margin-bottom:16px;}
+.cat-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.cat-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all 0.2s;font-family:inherit;color:var(--text2);}
+.cat-btn[data-c="IT"]:hover,.cat-btn[data-c="IT"].sel{background:rgba(0,61,165,0.08);border-color:rgba(0,61,165,0.2);color:var(--db-d);}
+.cat-btn[data-c="Bau"]:hover,.cat-btn[data-c="Bau"].sel{background:rgba(212,0,26,0.06);border-color:rgba(212,0,26,0.15);color:var(--dr-d);}
+.cat-btn[data-c="Küche"]:hover,.cat-btn[data-c="Küche"].sel{background:rgba(0,146,96,0.08);border-color:rgba(0,146,96,0.18);color:var(--dg-d);}
+.cat-btn[data-c="Handel"]:hover,.cat-btn[data-c="Handel"].sel{background:rgba(180,133,10,0.07);border-color:rgba(180,133,10,0.18);color:#8a6d0a;}
+.cat-btn[data-c="Transport"]:hover,.cat-btn[data-c="Transport"].sel{background:rgba(91,33,182,0.07);border-color:rgba(91,33,182,0.18);color:#5b21b6;}
 
-.card-info{display:flex;flex-direction:column;gap:10px;}
-.card-info-row{display:flex;align-items:center;gap:10px;font-size:14px;}
-.ci-icon{
-  width:30px;height:30px;border-radius:8px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;background:rgba(255,255,255,0.05);
-}
-.ci-val{color:var(--text2);}
-.ci-val a{color:var(--dag-green-light);text-decoration:none;}
-.ci-val a:hover{color:var(--dag-green);}
+.btn-submit{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--dg-d),var(--dg) 50%,var(--db));color:#fff;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,146,96,0.3);}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,146,96,0.4);}
 
-.card-action{
-  margin-top:20px;display:flex;gap:8px;
-}
-.btn-wa-sm{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
-  background:linear-gradient(135deg,#128C7E,#25D366);
-  color:#fff;text-decoration:none;
-  padding:10px;border-radius:12px;
-  font-size:13px;font-weight:600;font-family:inherit;
-  transition:all 0.25s;border:none;cursor:pointer;
-}
-.btn-wa-sm:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,0.4);}
-.btn-tel{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  background:var(--surface2);color:var(--text2);text-decoration:none;
-  padding:10px 16px;border-radius:12px;
-  font-size:13px;border:1px solid var(--border);
-  transition:all 0.25s;
-}
-.btn-tel:hover{border-color:var(--dag-blue-light);color:var(--dag-blue-light);}
+.fsuccess{display:none;text-align:center;padding:40px;background:rgba(0,146,96,0.06);border:1.5px solid rgba(0,146,96,0.18);border-radius:18px;margin-top:18px;}
+.fsuccess .sico{font-size:48px;margin-bottom:10px;}
+.fsuccess h3{font-family:'Amiri',serif;font-size:26px;color:var(--dg-d);margin-bottom:6px;}
+html[lang="de"] .fsuccess h3{font-family:'Cormorant Garamond',serif;}
+.fsuccess p{font-size:14px;color:var(--text2);}
 
-/* empty state */
-.empty-state{
-  grid-column:1/-1;text-align:center;padding:80px 20px;
-  color:var(--text3);
-}
-.empty-icon{font-size:56px;margin-bottom:16px;opacity:0.4;}
+footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
+.fin{max-width:1180px;margin:0 auto;}
+.fflag{height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);border-radius:2px;margin-bottom:36px;}
+.fbot{text-align:center;font-size:12px;color:#6b7280;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);}
+.fbot a{color:var(--dg-l);text-decoration:none;}
 
-/* ── ADD ENTRY FORM ── */
-.form-section{
-  background:var(--dark2);
-  border-top:1px solid var(--border);
-  padding:80px 48px;
-}
-.form-inner{max-width:760px;margin:0 auto;}
+.rev{opacity:0;transform:translateY(22px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
+.rev.v{opacity:1;transform:translateY(0);}
 
-.form-title-area{text-align:center;margin-bottom:48px;}
-.form-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:12px;letter-spacing:0.2em;color:var(--dag-green-light);text-transform:uppercase;margin-bottom:16px;
-}
-.form-tag::before{content:'';display:block;width:24px;height:1px;background:var(--dag-green);}
-.form-main-title{
-  font-family:'Amiri',serif;font-size:clamp(32px,5vw,52px);
-  line-height:1.1;margin-bottom:12px;
-  background:linear-gradient(135deg,var(--text) 30%,var(--dag-green-light) 70%,var(--dag-blue-light));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-html[lang="de"] .form-main-title{font-family:'Cormorant Garamond',serif;}
-.form-sub{font-size:16px;color:var(--text2);line-height:1.8;}
-
-.form-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:28px;padding:48px;
-  position:relative;overflow:hidden;
-}
-.form-card::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(0,146,96,0.04),rgba(0,61,165,0.03));
-}
-
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1;}
-.form-full{grid-column:1/-1;}
-
-.field-wrap{display:flex;flex-direction:column;gap:8px;}
-.field-label{
-  font-size:13px;letter-spacing:0.06em;color:var(--dag-green-light);
-  font-weight:600;text-transform:uppercase;
-}
-.field-input, .field-select, .field-textarea{
-  background:rgba(255,255,255,0.04);
-  border:1px solid var(--border);border-radius:14px;
-  padding:14px 18px;color:var(--text);
-  font-size:15px;font-family:inherit;outline:none;
-  transition:all 0.25s;
-}
-.field-input::placeholder,.field-textarea::placeholder{color:var(--text3);}
-.field-input:focus,.field-select:focus,.field-textarea:focus{
-  border-color:var(--dag-green);
-  box-shadow:0 0 0 3px rgba(0,146,96,0.12);
-}
-.field-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a82b0' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 16px center;}
-html[lang="de"] .field-select{background-position:right 16px center;}
-.field-select option{background:var(--dark2);}
-.field-textarea{resize:vertical;min-height:100px;line-height:1.7;}
-
-/* category color preview */
-.cat-preview{
-  display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;
-}
-.cat-prev-btn{
-  padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;
-  border:1px solid transparent;cursor:pointer;transition:all 0.2s;background:none;font-family:inherit;color:var(--text2);
-}
-.cat-prev-btn[data-c="IT"]{border-color:var(--dag-blue-pale);color:var(--dag-blue-light);}
-.cat-prev-btn[data-c="Bau"]{border-color:var(--dag-red-pale);color:#f87070;}
-.cat-prev-btn[data-c="Küche"]{border-color:var(--dag-green-pale);color:var(--dag-green-light);}
-.cat-prev-btn[data-c="Handel"]{border-color:rgba(201,168,76,0.15);color:var(--dag-gold2);}
-.cat-prev-btn[data-c="Transport"]{border-color:rgba(139,92,246,0.15);color:#a78bfa;}
-.cat-prev-btn.sel[data-c="IT"]{background:var(--dag-blue-pale);}
-.cat-prev-btn.sel[data-c="Bau"]{background:var(--dag-red-pale);}
-.cat-prev-btn.sel[data-c="Küche"]{background:var(--dag-green-pale);}
-.cat-prev-btn.sel[data-c="Handel"]{background:rgba(201,168,76,0.1);}
-.cat-prev-btn.sel[data-c="Transport"]{background:rgba(139,92,246,0.1);}
-
-.btn-submit{
-  width:100%;padding:16px;border-radius:16px;border:none;
-  background:linear-gradient(135deg,var(--dag-green-dark),var(--dag-green),var(--dag-blue));
-  color:#fff;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;
-  transition:all 0.3s;
-  box-shadow:0 4px 24px rgba(0,146,96,0.35);
-  position:relative;overflow:hidden;
-}
-.btn-submit::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,0.12));opacity:0;transition:opacity 0.3s;}
-.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(0,146,96,0.5);}
-.btn-submit:hover::after{opacity:1;}
-
-.form-success{
-  display:none;text-align:center;padding:48px;
-  background:rgba(0,146,96,0.08);border:1px solid rgba(0,146,96,0.2);
-  border-radius:20px;margin-top:20px;
-}
-.form-success .suc-icon{font-size:52px;margin-bottom:12px;}
-.form-success h3{font-family:'Amiri',serif;font-size:28px;color:var(--dag-green-light);margin-bottom:8px;}
-.form-success p{font-size:14px;color:var(--text2);}
-
-/* ── FOOTER ── */
-footer{
-  background:var(--dark2);border-top:1px solid var(--border);
-  padding:40px 48px;text-align:center;
-}
-.f-flag-bar{height:4px;background:linear-gradient(90deg,var(--dag-green) 33.3%,var(--dag-blue) 33.3% 66.6%,var(--dag-red) 66.6%);margin-bottom:28px;}
-footer .f-logo{font-family:'Amiri',serif;font-size:26px;margin-bottom:8px;
-  background:linear-gradient(90deg,var(--dag-green-light),var(--dag-blue-light));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-footer p{font-size:13px;color:var(--text3);}
-footer a{color:var(--dag-green-light);text-decoration:none;}
-
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(24px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
-.reveal.v{opacity:1;transform:translateY(0);}
-
-/* ── RESPONSIVE ── */
 @media(max-width:900px){
-  header,.filter-wrap,.form-section,.main-wrap{padding-left:20px;padding-right:20px;}
-  .hero{padding:120px 20px 60px;}
-  .form-grid{grid-template-columns:1fr;}
-  .form-full{grid-column:1;}
-  .form-card{padding:28px 20px;}
-}
-@media(max-width:600px){
+  header,.filter-wrap,.main-wrap,.form-section,footer{padding-left:20px;padding-right:20px;}
+  .hero{padding-left:20px;padding-right:20px;}
   .cards-grid{grid-template-columns:1fr;}
-  .hero-stats{flex-wrap:wrap;}
+  .fgrid{grid-template-columns:1fr;}
+  .ffull{grid-column:1;}
+  .fcard{padding:24px 18px;}
+  .hstats{flex-wrap:wrap;}
 }
 </style>
 </head>
 <body>
+<div class="flagbar"></div>
 
-<!-- HEADER -->
 <header>
-  <a href="index.html" class="back-btn">
-    <span>←</span>
-    <span class="ar-text">الرئيسية</span>
-    <span class="de-text" style="display:none">Startseite</span>
-  </a>
-  <div class="h-logo ar-text">🧑‍💼 دليل المهن الداغستاني</div>
-  <div class="h-logo de-text" style="display:none">🧑‍💼 Dagestanisches Berufsverzeichnis</div>
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')">عربي</button>
-    <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
-  </div>
+  <a href="index.html" class="back-btn">← <span class="ar-text">الرئيسية</span><span class="de-text" style="display:none">Startseite</span></a>
+  <div class="hlogo ar-text">🧑‍💼 دليل المهن</div><div class="hlogo de-text" style="display:none">🧑‍💼 Berufsverzeichnis</div>
+  <div class="ltog"><button class="lbtnx active" id="btn-ar" onclick="setLang('ar')">عربي</button><button class="lbtnx" id="btn-de" onclick="setLang('de')">DE</button></div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-flag-bar"></div>
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      🧑‍💼 <span class="ar-text">دليل المهن والخدمات — مجتمع داغستان</span>
-      <span class="de-text" style="display:none">Berufsverzeichnis — Dagestan Community</span>
-    </div>
-    <h1 class="hero-title">
+  <div class="hblob hb1"></div><div class="hblob hb2"></div>
+  <div class="hcont">
+    <div class="heye">🧑‍💼 <span class="ar-text">دليل المهن والخدمات — مجتمع داغستان</span><span class="de-text" style="display:none">Berufsverzeichnis — Dagestan Community</span></div>
+    <h1 class="htitle">
       <span class="ar-text">دليل المهن</span>
-      <span class="de-text" style="display:none"><span>Berufsverzeichnis</span></span>
+      <span class="de-text" style="display:none">Berufsverzeichnis</span>
     </h1>
-    <p class="hero-sub ar-text">
-      هل تحتاج طاهياً، مبرمجاً، مقاولاً أو سائقاً؟ ابحث في دليلنا واتصل مباشرة — كل الخدمات من مجتمعنا الداغستاني
-    </p>
-    <p class="hero-sub de-text" style="display:none">
-      Suchst du einen Koch, Programmierer, Bauunternehmer oder Fahrer? Stöbere in unserem Verzeichnis und kontaktiere direkt — alle Dienste aus unserer dagestanischen Community
-    </p>
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-num" id="total-count">1</div>
-        <div class="hstat-label ar-text">إجمالي الإعلانات</div>
-        <div class="hstat-label de-text" style="display:none">Einträge gesamt</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-num">5</div>
-        <div class="hstat-label ar-text">مجالات مهنية</div>
-        <div class="hstat-label de-text" style="display:none">Berufsfelder</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-num">🆓</div>
-        <div class="hstat-label ar-text">مجاني تماماً</div>
-        <div class="hstat-label de-text" style="display:none">Komplett kostenlos</div>
-      </div>
+    <p class="hsub ar-text">هل تحتاج مبرمجاً، مقاولاً، طاهياً أو سائقاً؟ ابحث في دليلنا وتواصل مباشرة مع خبراء من مجتمعنا الداغستاني</p>
+    <p class="hsub de-text" style="display:none">Suchst du einen Programmierer, Bauunternehmer, Koch oder Fahrer? Stöbere im Verzeichnis und kontaktiere Experten aus unserer Community direkt</p>
+    <div class="hstats">
+      <div class="si"><div class="sn" id="total-count">1</div><div class="sl ar-text">إجمالي الإعلانات</div><div class="sl de-text" style="display:none">Einträge</div></div>
+      <div class="si"><div class="sn">5</div><div class="sl ar-text">مجالات</div><div class="sl de-text" style="display:none">Felder</div></div>
+      <div class="si"><div class="sn">🆓</div><div class="sl ar-text">مجاني</div><div class="sl de-text" style="display:none">Kostenlos</div></div>
     </div>
   </div>
 </section>
 
-<!-- FILTER BAR -->
 <div class="filter-wrap">
   <div class="filter-inner">
-    <span class="filter-label ar-text">تصفية:</span>
-    <span class="filter-label de-text" style="display:none">Filter:</span>
-    <button class="filter-btn active" onclick="filterCards('all',this)" data-cat="all">
-      <span class="ar-text">الكل</span><span class="de-text" style="display:none">Alle</span>
-    </button>
-    <button class="filter-btn" onclick="filterCards('IT',this)" data-cat="IT">💻 IT</button>
-    <button class="filter-btn" onclick="filterCards('Bau',this)" data-cat="Bau">🏗️ <span class="ar-text">بناء</span><span class="de-text" style="display:none">Bau</span></button>
-    <button class="filter-btn" onclick="filterCards('Küche',this)" data-cat="Küche">🍳 <span class="ar-text">مطبخ</span><span class="de-text" style="display:none">Küche</span></button>
-    <button class="filter-btn" onclick="filterCards('Handel',this)" data-cat="Handel">🛍️ <span class="ar-text">تجارة</span><span class="de-text" style="display:none">Handel</span></button>
-    <button class="filter-btn" onclick="filterCards('Transport',this)" data-cat="Transport">🚛 Transport</button>
-    <div class="search-wrap">
-      <input type="text" class="search-inp" id="search-inp" oninput="searchCards(this.value)"
-        placeholder="🔍 بحث... | Suche...">
-    </div>
+    <span class="f-label ar-text">تصفية:</span><span class="f-label de-text" style="display:none">Filter:</span>
+    <button class="fbtn active" onclick="filterCards('all',this)"><span class="ar-text">الكل</span><span class="de-text" style="display:none">Alle</span></button>
+    <button class="fbtn" onclick="filterCards('IT',this)">💻 IT</button>
+    <button class="fbtn" onclick="filterCards('Bau',this)">🏗️ <span class="ar-text">بناء</span><span class="de-text" style="display:none">Bau</span></button>
+    <button class="fbtn" onclick="filterCards('Küche',this)">🍳 <span class="ar-text">مطبخ</span><span class="de-text" style="display:none">Küche</span></button>
+    <button class="fbtn" onclick="filterCards('Handel',this)">🛍️ <span class="ar-text">تجارة</span><span class="de-text" style="display:none">Handel</span></button>
+    <button class="fbtn" onclick="filterCards('Transport',this)">🚛 Transport</button>
+    <div class="search-wrap"><input type="text" class="sinp" id="sinp" oninput="searchCards(this.value)" placeholder="🔍 بحث | Suche..."></div>
   </div>
 </div>
 
-<!-- CARDS -->
 <div class="main-wrap">
-  <div class="section-header">
-    <div class="results-count">
-      <span class="ar-text">عرض <span id="shown-count">1</span> إعلان</span>
-      <span class="de-text" style="display:none"><span id="shown-count-de">1</span> Einträge angezeigt</span>
-    </div>
+  <div class="results-row">
+    <div class="results-count"><span class="ar-text">عرض <span id="shown-count">1</span> إعلان</span><span class="de-text" style="display:none"><span id="shown-count-de">1</span> Einträge</span></div>
+    <a href="#add-entry" style="font-size:14px;color:var(--dg-d);text-decoration:none;font-weight:600;" class="ar-text">+ أضف إعلانك</a>
+    <a href="#add-entry" style="font-size:14px;color:var(--dg-d);text-decoration:none;font-weight:600;" class="de-text" style="display:none">+ Eintrag hinzufügen</a>
   </div>
-  <div class="cards-grid" id="cards-grid">
-    <!-- Cards rendered by JS -->
-  </div>
+  <div class="cards-grid" id="cards-grid"></div>
 </div>
 
-<!-- ADD ENTRY FORM -->
 <section class="form-section" id="add-entry">
   <div class="form-inner">
-    <div class="form-title-area reveal">
-      <div class="form-tag ar-text">أضف إعلانك</div>
-      <div class="form-tag de-text" style="display:none">EINTRAG HINZUFÜGEN</div>
-      <h2 class="form-main-title ar-text">سجّل خدمتك هنا</h2>
-      <h2 class="form-main-title de-text" style="display:none">Trage dich ein</h2>
-      <p class="form-sub ar-text">هل تقدم خدمة أو تمتهن مهنة؟ أضف بياناتك مجاناً ليجدك أفراد مجتمعنا الداغستاني</p>
-      <p class="form-sub de-text" style="display:none">Bietest du eine Dienstleistung an? Trag dich kostenlos ein, damit dich unsere dagestanische Community finden kann</p>
+    <div class="form-head rev">
+      <div class="ftag ar-text">أضف إعلانك</div><div class="ftag de-text" style="display:none">EINTRAG HINZUFÜGEN</div>
+      <h2 class="fmain-title ar-text">سجّل خدمتك هنا</h2><h2 class="fmain-title de-text" style="display:none">Trage dich ein</h2>
+      <p class="fsub ar-text">أضف بياناتك مجاناً ليجدك أفراد مجتمعنا الداغستاني في ألمانيا</p>
+      <p class="fsub de-text" style="display:none">Trag dich kostenlos ein, damit dich unsere Community finden kann</p>
     </div>
-
-    <div class="form-card reveal">
+    <div class="fcard rev">
       <form id="entry-form" onsubmit="submitEntry(event)">
-        <div class="form-grid">
-
-          <div class="field-wrap form-full">
-            <label class="field-label ar-text">المجال المهني *</label>
-            <label class="field-label de-text" style="display:none">BERUFSFELD *</label>
-            <div class="cat-preview">
-              <button type="button" class="cat-prev-btn" data-c="IT" onclick="selectCat('IT',this)">💻 IT</button>
-              <button type="button" class="cat-prev-btn" data-c="Bau" onclick="selectCat('Bau',this)">🏗️ <span class="ar-text">بناء</span><span class="de-text" style="display:none">Bau</span></button>
-              <button type="button" class="cat-prev-btn" data-c="Küche" onclick="selectCat('Küche',this)">🍳 <span class="ar-text">مطبخ</span><span class="de-text" style="display:none">Küche</span></button>
-              <button type="button" class="cat-prev-btn" data-c="Handel" onclick="selectCat('Handel',this)">🛍️ <span class="ar-text">تجارة</span><span class="de-text" style="display:none">Handel</span></button>
-              <button type="button" class="cat-prev-btn" data-c="Transport" onclick="selectCat('Transport',this)">🚛 Transport</button>
+        <div class="fgrid">
+          <div class="fwrap ffull">
+            <div class="flabel ar-text">المجال المهني *</div><div class="flabel de-text" style="display:none">BERUFSFELD *</div>
+            <div class="cat-btns">
+              <button type="button" class="cat-btn" data-c="IT" onclick="selCat('IT',this)">💻 IT</button>
+              <button type="button" class="cat-btn" data-c="Bau" onclick="selCat('Bau',this)">🏗️ <span class="ar-text">بناء</span><span class="de-text" style="display:none">Bau</span></button>
+              <button type="button" class="cat-btn" data-c="Küche" onclick="selCat('Küche',this)">🍳 <span class="ar-text">مطبخ</span><span class="de-text" style="display:none">Küche</span></button>
+              <button type="button" class="cat-btn" data-c="Handel" onclick="selCat('Handel',this)">🛍️ <span class="ar-text">تجارة</span><span class="de-text" style="display:none">Handel</span></button>
+              <button type="button" class="cat-btn" data-c="Transport" onclick="selCat('Transport',this)">🚛 Transport</button>
             </div>
             <input type="hidden" id="sel-cat" required>
           </div>
-
-          <div class="field-wrap">
-            <label class="field-label ar-text">المسمى الوظيفي *</label>
-            <label class="field-label de-text" style="display:none">BERUFSBEZEICHNUNG *</label>
-            <input type="text" class="field-input" id="f-job" required
-              placeholder="z.B. IT-Systemintegration | مثال: تكامل أنظمة">
+          <div class="fwrap">
+            <div class="flabel ar-text">المسمى الوظيفي *</div><div class="flabel de-text" style="display:none">BERUFSBEZEICHNUNG *</div>
+            <input type="text" class="finput" id="f-job" required placeholder="z.B. IT-Systemintegration">
           </div>
-
-          <div class="field-wrap">
-            <label class="field-label ar-text">التخصص</label>
-            <label class="field-label de-text" style="display:none">SPEZIALISIERUNG</label>
-            <input type="text" class="field-input" id="f-spec"
-              placeholder="z.B. Netzwerk, Windows Server...">
+          <div class="fwrap">
+            <div class="flabel ar-text">التخصص</div><div class="flabel de-text" style="display:none">SPEZIALISIERUNG</div>
+            <input type="text" class="finput" id="f-spec" placeholder="z.B. Netzwerk, Windows...">
           </div>
-
-          <div class="field-wrap">
-            <label class="field-label ar-text">الاسم الكامل *</label>
-            <label class="field-label de-text" style="display:none">VOLLSTÄNDIGER NAME *</label>
-            <input type="text" class="field-input" id="f-name" required
-              placeholder="Mohammed Babat">
+          <div class="fwrap">
+            <div class="flabel ar-text">الاسم الكامل *</div><div class="flabel de-text" style="display:none">VOLLSTÄNDIGER NAME *</div>
+            <input type="text" class="finput" id="f-name" required placeholder="Mohammed Babat">
           </div>
-
-          <div class="field-wrap">
-            <label class="field-label ar-text">رقم الهاتف *</label>
-            <label class="field-label de-text" style="display:none">TELEFONNUMMER *</label>
-            <input type="tel" class="field-input" id="f-phone" required
-              placeholder="+49 160 1234567">
+          <div class="fwrap">
+            <div class="flabel ar-text">رقم الهاتف *</div><div class="flabel de-text" style="display:none">TELEFONNUMMER *</div>
+            <input type="tel" class="finput" id="f-phone" required placeholder="+49 160 1234567">
           </div>
-
-          <div class="field-wrap">
-            <label class="field-label ar-text">المدينة *</label>
-            <label class="field-label de-text" style="display:none">STADT *</label>
-            <input type="text" class="field-input" id="f-city" required
-              placeholder="Köln">
+          <div class="fwrap">
+            <div class="flabel ar-text">المدينة *</div><div class="flabel de-text" style="display:none">STADT *</div>
+            <input type="text" class="finput" id="f-city" required placeholder="Köln">
           </div>
-
-          <div class="field-wrap">
-            <label class="field-label ar-text">واتساب متاح؟</label>
-            <label class="field-label de-text" style="display:none">WHATSAPP VERFÜGBAR?</label>
-            <select class="field-select" id="f-wa">
-              <option value="yes" class="ar-text">نعم، واتساب متاح</option>
-              <option value="no" class="ar-text">لا، هاتف فقط</option>
+          <div class="fwrap">
+            <div class="flabel ar-text">واتساب متاح؟</div><div class="flabel de-text" style="display:none">WHATSAPP?</div>
+            <select class="fselect" id="f-wa">
+              <option value="yes" class="ar-text">نعم</option>
+              <option value="no" class="ar-text">لا</option>
             </select>
           </div>
-
-          <div class="field-wrap form-full">
-            <label class="field-label ar-text">وصف قصير (اختياري)</label>
-            <label class="field-label de-text" style="display:none">KURZE BESCHREIBUNG (OPTIONAL)</label>
-            <textarea class="field-textarea" id="f-desc"
-              placeholder="أضف وصفاً مختصراً عن خدماتك... | Kurze Beschreibung deiner Dienstleistung..."></textarea>
+          <div class="fwrap ffull">
+            <div class="flabel ar-text">وصف قصير</div><div class="flabel de-text" style="display:none">BESCHREIBUNG</div>
+            <textarea class="ftextarea" id="f-desc" placeholder="أضف وصفاً مختصراً | Kurze Beschreibung..."></textarea>
           </div>
-
-          <div class="field-wrap form-full">
-            <button type="submit" class="btn-submit">
-              <span class="ar-text">✅ أضف إعلاني إلى الدليل</span>
-              <span class="de-text" style="display:none">✅ Meinen Eintrag hinzufügen</span>
-            </button>
+          <div class="fwrap ffull">
+            <button type="submit" class="btn-submit"><span class="ar-text">✅ أضف إعلاني</span><span class="de-text" style="display:none">✅ Eintrag hinzufügen</span></button>
           </div>
         </div>
       </form>
-      <div class="form-success" id="form-success">
-        <div class="suc-icon">🎉</div>
-        <h3 class="ar-text">تمت الإضافة بنجاح!</h3>
-        <h3 class="de-text" style="display:none">Erfolgreich hinzugefügt!</h3>
-        <p class="ar-text">ظهر إعلانك في الدليل — شكراً لمساهمتك في مجتمعنا</p>
-        <p class="de-text" style="display:none">Dein Eintrag ist jetzt im Verzeichnis sichtbar — Danke für deinen Beitrag zur Community</p>
+      <div class="fsuccess" id="fsuccess">
+        <div class="sico">🎉</div>
+        <h3 class="ar-text">تمت الإضافة بنجاح!</h3><h3 class="de-text" style="display:none">Erfolgreich hinzugefügt!</h3>
+        <p class="ar-text">ظهر إعلانك في الدليل — شكراً لمساهمتك</p><p class="de-text" style="display:none">Dein Eintrag ist jetzt sichtbar — Danke!</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="f-flag-bar"></div>
-  <div class="f-logo ar-text">🧑‍💼 دليل المهن الداغستاني</div>
-  <div class="f-logo de-text" style="display:none">🧑‍💼 Dagestanisches Berufsverzeichnis</div>
-  <p><a href="index.html" class="ar-text">← العودة للصفحة الرئيسية</a><a href="index.html" class="de-text" style="display:none">← Zurück zur Startseite</a></p>
-  <p style="margin-top:8px;font-size:11px;opacity:0.4;">Dagestan Community — Deutschland</p>
-</footer>
+<footer><div class="fin">
+  <div class="fflag"></div>
+  <div class="fbot">
+    <p style="font-size:20px;font-family:'Amiri',serif;color:#fff;margin-bottom:6px;" class="ar-text">🧑‍💼 دليل المهن الداغستاني</p>
+    <p style="font-size:20px;font-family:'Cormorant Garamond',serif;color:#fff;margin-bottom:6px;" class="de-text" style="display:none">🧑‍💼 Dagestanisches Berufsverzeichnis</p>
+    <p style="margin-top:12px;"><a href="index.html">← <span class="ar-text">الرئيسية</span><span class="de-text" style="display:none">Startseite</span></a></p>
+  </div>
+</div></footer>
 
 <script>
-// ── LANGUAGE ──
-function setLang(l){
-  const html=document.documentElement;
-  html.lang=l;html.dir=l==='ar'?'rtl':'ltr';
-  document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
-  document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');
-  document.getElementById('btn-ar').classList.toggle('active',l==='ar');
-  document.getElementById('btn-de').classList.toggle('active',l==='de');
-  localStorage.setItem('dag_lang',l);
-}
-setLang(localStorage.getItem('dag_lang')||'ar');
+const ICONS={IT:'💻',Bau:'🏗️',Küche:'🍳',Handel:'🛍️',Transport:'🚛'};
+let entries=[{id:1,cat:'IT',job:'IT-Systemintegration',spec:'Netzwerk & Windows Server',name:'Mohammed Babat',phone:'+4916097940319',city:'Köln',wa:true,desc:'IT-Systemintegration, Netzwerke, Support'}];
+const saved=localStorage.getItem('dag_berufe');
+if(saved){try{const p=JSON.parse(saved);if(p.length>0)entries=[entries[0],...p.filter(e=>e.id>1)];}catch(e){}}
 
-// ── DATA ──
-const CAT_ICONS={IT:'💻',Bau:'🏗️',Küche:'🍳',Handel:'🛍️',Transport:'🚛'};
+let curFilter='all',curSearch='',selCatV='';
 
-// Initial entries — add more here!
-let entries=[
-  {
-    id:1,cat:'IT',
-    job:'IT-Systemintegration',
-    spec:'Netzwerk & Windows Server',
-    name:'Mohammed Babat',
-    phone:'+4916097940319',
-    city:'Köln',
-    wa:true,
-    desc:'IT-Systemintegration, Netzwerke, Windows Server, Support'
-  }
-];
-
-// Load from localStorage
-const saved = localStorage.getItem('dag_berufe');
-if(saved){ try{ const parsed=JSON.parse(saved); if(parsed.length>0) entries=[...entries,...parsed.filter(e=>e.id>1)]; }catch(e){} }
-
-let currentFilter='all';
-let currentSearch='';
-let selectedCat='';
-
-// ── RENDER ──
 function renderCards(){
   const grid=document.getElementById('cards-grid');
   let filtered=entries.filter(e=>{
-    const matchCat=currentFilter==='all'||e.cat===currentFilter;
-    const q=currentSearch.toLowerCase();
-    const matchSearch=!q||
-      e.job.toLowerCase().includes(q)||
-      e.name.toLowerCase().includes(q)||
-      e.city.toLowerCase().includes(q)||
-      (e.spec||'').toLowerCase().includes(q)||
-      (e.desc||'').toLowerCase().includes(q);
-    return matchCat&&matchSearch;
+    const mc=curFilter==='all'||e.cat===curFilter;
+    const q=curSearch.toLowerCase();
+    const ms=!q||[e.job,e.name,e.city,e.spec||'',e.desc||''].some(v=>v.toLowerCase().includes(q));
+    return mc&&ms;
   });
-
+  const lang=document.documentElement.lang;
   document.getElementById('total-count').textContent=entries.length;
   document.getElementById('shown-count').textContent=filtered.length;
   document.getElementById('shown-count-de').textContent=filtered.length;
 
-  if(filtered.length===0){
-    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div>
-      <p class="ar-text" style="font-size:16px;">لا توجد نتائج مطابقة</p>
-      <p class="de-text" style="display:${document.documentElement.lang==='de'?'block':'none'};font-size:16px;">Keine passenden Einträge gefunden</p>
-    </div>`;
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div><p style="font-size:16px;color:var(--text3);" class="ar-text">لا توجد نتائج</p><p style="font-size:16px;color:var(--text3);display:${lang==='de'?'block':'none'}" class="de-text">Keine Ergebnisse</p></div>`;
     return;
   }
-
   grid.innerHTML=filtered.map((e,i)=>`
-    <div class="prof-card" data-cat="${e.cat}" style="animation-delay:${i*0.06}s">
-      <div class="card-strip"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-avatar">${CAT_ICONS[e.cat]}</div>
-          <div class="cat-badge">${CAT_ICONS[e.cat]} ${e.cat}</div>
+    <div class="pcard" data-cat="${e.cat}" style="animation:cardIn 0.4s ${i*0.05}s both">
+      <div class="cstrip"></div>
+      <div class="cbody">
+        <div class="ctop"><div class="cav">${ICONS[e.cat]}</div><div class="cbadge">${ICONS[e.cat]} ${e.cat}</div></div>
+        <div class="cjob">${e.job}</div>
+        ${e.spec?`<div class="cspec">${e.spec}</div>`:''}
+        <div class="cdiv"></div>
+        <div class="cinfo">
+          <div class="crow"><div class="cion">👤</div><div class="cval">${e.name}</div></div>
+          <div class="crow"><div class="cion">📍</div><div class="cval">${e.city}</div></div>
+          <div class="crow"><div class="cion">📱</div><div class="cval"><a href="tel:${e.phone}">${e.phone}</a></div></div>
+          ${e.desc?`<div class="crow"><div class="cion">📝</div><div class="cval" style="font-size:12px;color:var(--text3)">${e.desc}</div></div>`:''}
         </div>
-        <div class="card-job">${e.job}</div>
-        ${e.spec?`<div class="card-spec">${e.spec}</div>`:''}
-        <div class="card-divider"></div>
-        <div class="card-info">
-          <div class="card-info-row"><div class="ci-icon">👤</div><div class="ci-val">${e.name}</div></div>
-          <div class="card-info-row"><div class="ci-icon">📍</div><div class="ci-val">${e.city}</div></div>
-          <div class="card-info-row"><div class="ci-icon">📱</div><div class="ci-val"><a href="tel:${e.phone}">${e.phone}</a></div></div>
-          ${e.desc?`<div class="card-info-row"><div class="ci-icon">📝</div><div class="ci-val" style="font-size:13px;color:var(--text3)">${e.desc}</div></div>`:''}
-        </div>
-        <div class="card-action">
-          ${e.wa?`<a href="https://wa.me/${e.phone.replace(/[^0-9]/g,'')}" class="btn-wa-sm" target="_blank">💬 WhatsApp</a>`:''}
-          <a href="tel:${e.phone}" class="btn-tel">📞 <span class="ar-text">اتصال</span><span class="de-text" style="display:${document.documentElement.lang==='de'?'inline':'none'}">Anrufen</span></a>
+        <div class="cactions">
+          ${e.wa?`<a href="https://wa.me/${e.phone.replace(/\D/g,'')}" class="btn-wa-sm" target="_blank">💬 WhatsApp</a>`:''}
+          <a href="tel:${e.phone}" class="btn-tel">📞 <span class="ar-text">اتصال</span><span class="de-text" style="display:${lang==='de'?'inline':'none'}">Anrufen</span></a>
         </div>
       </div>
     </div>
   `).join('');
 }
 
-// ── FILTER ──
-function filterCards(cat,btn){
-  currentFilter=cat;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCards();
-}
+function filterCards(cat,btn){curFilter=cat;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCards();}
+function searchCards(q){curSearch=q;renderCards();}
+function selCat(cat,btn){selCatV=cat;document.getElementById('sel-cat').value=cat;document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
 
-function searchCards(q){
-  currentSearch=q;
-  renderCards();
-}
-
-// ── CAT SELECT (form) ──
-function selectCat(cat,btn){
-  selectedCat=cat;
-  document.getElementById('sel-cat').value=cat;
-  document.querySelectorAll('.cat-prev-btn').forEach(b=>b.classList.remove('sel'));
-  btn.classList.add('sel');
-}
-
-// ── SUBMIT ──
 function submitEntry(e){
   e.preventDefault();
-  if(!selectedCat){ alert('Bitte Berufsfeld auswählen | الرجاء اختيار المجال'); return; }
-  const newEntry={
-    id:Date.now(),
-    cat:selectedCat,
-    job:document.getElementById('f-job').value.trim(),
-    spec:document.getElementById('f-spec').value.trim(),
-    name:document.getElementById('f-name').value.trim(),
-    phone:document.getElementById('f-phone').value.trim(),
-    city:document.getElementById('f-city').value.trim(),
-    wa:document.getElementById('f-wa').value==='yes',
-    desc:document.getElementById('f-desc').value.trim()
-  };
-  entries.push(newEntry);
-  // Save new entries (excluding pre-seeded ones)
-  const toSave=entries.filter(e=>e.id>1);
-  localStorage.setItem('dag_berufe',JSON.stringify(toSave));
+  if(!selCatV){alert('Berufsfeld wählen | اختر المجال');return;}
+  const ne={id:Date.now(),cat:selCatV,job:document.getElementById('f-job').value.trim(),spec:document.getElementById('f-spec').value.trim(),name:document.getElementById('f-name').value.trim(),phone:document.getElementById('f-phone').value.trim(),city:document.getElementById('f-city').value.trim(),wa:document.getElementById('f-wa').value==='yes',desc:document.getElementById('f-desc').value.trim()};
+  entries.push(ne);
+  localStorage.setItem('dag_berufe',JSON.stringify(entries.filter(e=>e.id>1)));
   renderCards();
   document.getElementById('entry-form').reset();
-  document.querySelectorAll('.cat-prev-btn').forEach(b=>b.classList.remove('sel'));
-  selectedCat='';
-  document.getElementById('sel-cat').value='';
-  const suc=document.getElementById('form-success');
-  suc.style.display='block';
-  suc.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>suc.style.display='none',4000);
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('sel'));
+  selCatV='';document.getElementById('sel-cat').value='';
+  const s=document.getElementById('fsuccess');s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>s.style.display='none',4000);
 }
 
-// ── REVEAL ──
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target);}});
-},{threshold:0.08});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+function setLang(l){
+  const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
+  document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
+  document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');
+  document.getElementById('btn-ar').classList.toggle('active',l==='ar');
+  document.getElementById('btn-de').classList.toggle('active',l==='de');
+  localStorage.setItem('dag_lang',l);
+  renderCards();
+}
+setLang(localStorage.getItem('dag_lang')||'ar');
 
-// ── INIT ──
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}});},{threshold:0.08});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+const style=document.createElement('style');
+style.textContent='@keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}';
+document.head.appendChild(style);
+
 renderCards();
 </script>
 </body>

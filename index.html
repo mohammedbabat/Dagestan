@@ -3,358 +3,414 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606; | Dagestan</title>
+<title>داغستان | Dagestan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600&family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--dg:#009260;--dg-d:#006e48;--dg-l:#00b87a;--dg-p:rgba(0,146,96,0.12);--db:#003DA5;--db-d:#002d7a;--db-l:#1a5cc4;--db-p:rgba(0,61,165,0.12);--dr:#D4001A;--dr-d:#a0001a;--dr-l:#f01a30;--gold:#c9a84c;--gold2:#e8c97a;--dark:#07090f;--dark2:#0d1118;--surface:#141a2e;--surface2:#1a2238;--text:#f0ede4;--text2:#aab8d4;--text3:#5a72a8;--border:rgba(0,61,165,0.18);--border2:rgba(0,146,96,0.18);--glow-g:rgba(0,146,96,0.3);}
-*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
-body{font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden;}
+:root {
+  --dg:#009260; --dg-d:#006e48; --dg-l:#00b87a;
+  --db:#003DA5; --db-d:#002d7a; --db-l:#1a5cc4;
+  --dr:#D4001A; --dr-d:#a0001a; --dr-l:#f01a30;
+  --gold2:#b8850a;
+  --bg:#f7f8fc; --bg2:#eef0f7; --card:#ffffff;
+  --text:#111827; --text2:#374151; --text3:#6b7280; --text4:#9ca3af;
+  --border:rgba(0,61,165,0.12); --border2:rgba(0,146,96,0.15);
+  --shadow:0 2px 16px rgba(0,0,0,0.06); --shadow-lg:0 8px 40px rgba(0,0,0,0.10);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
 /* LOGIN */
-#login-screen{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;background:var(--dark);overflow:hidden;}
-.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.35;animation:oF 8s ease-in-out infinite alternate;}
-.orb1{width:500px;height:500px;background:radial-gradient(circle,var(--dg),transparent 70%);top:-100px;right:-100px;}
-.orb2{width:400px;height:400px;background:radial-gradient(circle,var(--db),transparent 70%);bottom:-80px;left:-80px;animation-delay:-3s;}
-.orb3{width:220px;height:220px;background:radial-gradient(circle,var(--dr),transparent 70%);top:50%;left:50%;opacity:0.2;animation-delay:-5s;}
-@keyframes oF{from{transform:translate(0,0)}to{transform:translate(25px,15px)}}
-.lcard{position:relative;z-index:1;background:rgba(13,17,24,0.88);border:1px solid var(--border);border-radius:28px;padding:60px 52px;width:100%;max-width:460px;text-align:center;backdrop-filter:blur(24px);box-shadow:0 40px 100px rgba(0,0,0,0.7),0 0 80px var(--glow-g);animation:lIn 0.8s cubic-bezier(0.16,1,0.3,1) both;}
-@keyframes lIn{from{opacity:0;transform:translateY(36px) scale(0.96)}to{opacity:1;transform:none}}
-.lflag{height:5px;border-radius:3px;margin-bottom:28px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
-.lmtn{font-size:60px;margin-bottom:8px;filter:drop-shadow(0 0 20px var(--glow-g));}
-.ltitle{font-family:'Amiri',serif;font-size:44px;background:linear-gradient(135deg,var(--dg-l),var(--db-l),var(--dr-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.lsub{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--text3);letter-spacing:0.2em;margin:4px 0 32px;}
-.linp{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:14px;padding:16px 22px;color:var(--text);font-size:18px;font-family:inherit;text-align:center;letter-spacing:0.2em;outline:none;transition:all 0.3s;margin-bottom:14px;}
-.linp::placeholder{color:var(--text3);font-size:14px;letter-spacing:0.1em;}
-.linp:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.15);}
+#login-screen{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#e8f5f0 0%,#e8edf8 50%,#fde8eb 100%);overflow:hidden;}
+.ldeco{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;}
+.ld1{width:400px;height:400px;background:rgba(0,146,96,0.2);top:-80px;right:-80px;}
+.ld2{width:350px;height:350px;background:rgba(0,61,165,0.15);bottom:-60px;left:-60px;}
+.ld3{width:200px;height:200px;background:rgba(212,0,26,0.12);top:50%;left:50%;}
+.lcard{position:relative;z-index:1;background:#fff;border:1px solid rgba(0,61,165,0.1);border-radius:28px;padding:56px 48px;width:100%;max-width:440px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.12);animation:lIn 0.7s cubic-bezier(0.16,1,0.3,1) both;}
+@keyframes lIn{from{opacity:0;transform:translateY(30px) scale(0.97)}to{opacity:1;transform:none}}
+.lflag{height:6px;border-radius:4px;margin-bottom:28px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
+.lmtn{font-size:56px;margin-bottom:8px;line-height:1;}
+.ltitle{font-family:'Amiri',serif;font-size:42px;line-height:1;background:linear-gradient(135deg,var(--dg-d),var(--db),var(--dr));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.lsub{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--text3);letter-spacing:0.2em;margin:4px 0 28px;}
+.linp{width:100%;background:#f8faff;border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;color:var(--text);font-size:16px;font-family:inherit;text-align:center;letter-spacing:0.15em;outline:none;transition:all 0.25s;margin-bottom:12px;}
+.linp::placeholder{color:var(--text4);font-size:13px;letter-spacing:0.05em;}
+.linp:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);background:#fff;}
 .linp.error{border-color:var(--dr);animation:shake 0.4s ease;}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
-.lbtn{width:100%;background:linear-gradient(135deg,var(--dg-d),var(--dg),var(--db));border:none;border-radius:14px;padding:16px;color:#fff;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 20px rgba(0,146,96,0.4);}
-.lbtn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,146,96,0.55);}
-.lerr{color:var(--dr-l);font-size:13px;margin-top:12px;min-height:20px;}
-.lhint{font-size:11px;color:var(--text3);margin-top:20px;opacity:0.6;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.lbtn{width:100%;background:linear-gradient(135deg,var(--dg-d),var(--dg) 50%,var(--db));border:none;border-radius:12px;padding:14px;color:#fff;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 16px rgba(0,146,96,0.3);}
+.lbtn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,146,96,0.4);}
+.lerr{color:var(--dr);font-size:13px;margin-top:10px;min-height:18px;}
+.lhint{font-size:11px;color:var(--text4);margin-top:18px;}
+
 /* MAIN */
 #main-site{display:none;}
 .flagbar{position:fixed;top:0;left:0;right:0;z-index:201;height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
-header{position:fixed;top:4px;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(7,9,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:height 0.3s;}
-header.sc{height:55px;background:rgba(7,9,15,0.95);}
-.hlogo{font-family:'Amiri',serif;font-size:23px;text-decoration:none;background:linear-gradient(90deg,var(--dg-l),var(--db-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* HEADER */
+header{position:fixed;top:4px;left:0;right:0;z-index:200;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,61,165,0.08);box-shadow:0 1px 12px rgba(0,0,0,0.05);transition:height 0.3s;}
+header.sc{height:54px;}
+.hlogo{font-family:'Amiri',serif;font-size:22px;text-decoration:none;background:linear-gradient(90deg,var(--dg-d),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 nav{display:flex;gap:28px;align-items:center;}
 nav a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
-nav a:hover{color:var(--dg-l);}
-.nh{color:var(--gold2)!important;}
-.nr{color:var(--dr-l)!important;}
-.ltog{background:var(--surface);border:1px solid var(--border2);border-radius:24px;display:flex;overflow:hidden;}
-.lbtnx{padding:8px 20px;font-size:13px;font-weight:600;font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.25s;}
+nav a:hover{color:var(--dg);}
+.nh{color:var(--dg-d)!important;font-weight:600;}
+.nr{color:var(--dr)!important;font-weight:600;}
+.ltog{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;display:flex;overflow:hidden;}
+.lbtnx{padding:7px 18px;font-size:13px;font-weight:600;font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
 .lbtnx.active{background:linear-gradient(135deg,var(--dg-d),var(--db));color:#fff;border-radius:22px;}
+
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:130px 48px 80px;}
-.hbg1{position:absolute;width:700px;height:700px;border-radius:50%;background:var(--db);opacity:0.1;filter:blur(120px);top:-200px;left:-200px;}
-.hbg2{position:absolute;width:500px;height:500px;border-radius:50%;background:var(--dg);opacity:0.08;filter:blur(120px);bottom:-100px;right:-100px;}
-.hbg3{position:absolute;width:300px;height:300px;border-radius:50%;background:var(--dr);opacity:0.05;filter:blur(100px);top:40%;left:55%;}
-.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,61,165,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,61,165,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);}
-.hcont{position:relative;z-index:1;text-align:center;max-width:920px;}
-.heye{display:inline-flex;align-items:center;gap:10px;background:rgba(0,146,96,0.1);border:1px solid rgba(0,146,96,0.22);border-radius:30px;padding:8px 24px;font-size:13px;letter-spacing:0.1em;color:var(--dg-l);margin-bottom:32px;animation:fD 0.7s 0.2s both;}
-@keyframes fD{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fU{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
-.htitle{font-family:'Amiri',serif;font-size:clamp(68px,12vw,128px);line-height:0.95;margin-bottom:20px;animation:fU 0.9s 0.3s both;}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 48px 80px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 45%,#fef0f2 100%);}
+.hblob{position:absolute;border-radius:50%;pointer-events:none;}
+.hb1{width:600px;height:600px;background:rgba(0,146,96,0.1);filter:blur(100px);top:-200px;right:-100px;}
+.hb2{width:500px;height:500px;background:rgba(0,61,165,0.08);filter:blur(100px);bottom:-150px;left:-100px;}
+.hb3{width:300px;height:300px;background:rgba(212,0,26,0.07);filter:blur(80px);top:40%;left:60%;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,61,165,0.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
+.hcont{position:relative;z-index:1;text-align:center;max-width:860px;}
+.heye{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,96,0.08);border:1px solid rgba(0,146,96,0.2);border-radius:30px;padding:8px 22px;font-size:13px;letter-spacing:0.08em;color:var(--dg-d);margin-bottom:28px;animation:fD 0.6s 0.2s both;}
+@keyframes fD{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fU{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.htitle{font-family:'Amiri',serif;font-size:clamp(64px,11vw,118px);line-height:0.95;margin-bottom:20px;animation:fU 0.8s 0.3s both;}
 html[lang="de"] .htitle{font-family:'Cormorant Garamond',serif;}
-.htitle .t1{display:block;background:linear-gradient(135deg,var(--text) 0%,var(--dg-l) 40%,var(--db-l) 70%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.htitle .t2{display:block;font-size:0.42em;-webkit-text-fill-color:var(--text3);color:var(--text3);letter-spacing:0.12em;margin-top:8px;}
-.hsub{font-size:clamp(15px,2vw,19px);color:var(--text2);line-height:1.9;max-width:650px;margin:0 auto 48px;animation:fU 0.9s 0.5s both;}
-.hbtns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:fU 0.9s 0.6s both;}
-.bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--dg-d),var(--dg));color:#fff;text-decoration:none;padding:15px 34px;border-radius:14px;font-size:15px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 24px rgba(0,146,96,0.35);}
-.bp:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,146,96,0.5);}
-.bs{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--db-d),var(--db));color:#fff;text-decoration:none;padding:15px 34px;border-radius:14px;font-size:15px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 24px rgba(0,61,165,0.35);}
+.htitle .t1{display:block;background:linear-gradient(135deg,var(--dg-d) 0%,var(--db) 50%,var(--dr) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.htitle .t2{display:block;font-size:0.38em;color:var(--text3);-webkit-text-fill-color:var(--text3);letter-spacing:0.12em;margin-top:8px;font-weight:400;}
+.hsub{font-size:clamp(15px,2vw,18px);color:var(--text2);line-height:1.9;max-width:620px;margin:0 auto 44px;animation:fU 0.8s 0.45s both;}
+.hbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fU 0.8s 0.6s both;}
+.bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--dg-d),var(--dg));color:#fff;text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,146,96,0.3);}
+.bp:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,146,96,0.4);}
+.bs{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--db-d),var(--db));color:#fff;text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,61,165,0.28);}
 .bs:hover{transform:translateY(-3px);}
-.bg{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--border);color:var(--text2);text-decoration:none;padding:15px 34px;border-radius:14px;font-size:15px;transition:all 0.3s;}
-.bg:hover{border-color:var(--gold);color:var(--gold2);transform:translateY(-3px);}
-.hstats{display:flex;justify-content:center;gap:0;margin-top:64px;padding-top:36px;border-top:1px solid rgba(0,61,165,0.15);animation:fU 0.9s 0.8s both;}
-.si{flex:1;max-width:180px;text-align:center;padding:0 24px;border-right:1px solid rgba(0,61,165,0.15);}
-html[lang="ar"] .si{border-right:none;border-left:1px solid rgba(0,61,165,0.15);}
+.bg2{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);color:var(--text2);text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;transition:all 0.25s;box-shadow:var(--shadow);}
+.bg2:hover{border-color:var(--dg);color:var(--dg-d);transform:translateY(-3px);}
+.hstats{display:flex;justify-content:center;gap:0;margin-top:52px;background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:28px 0;animation:fU 0.8s 0.8s both;}
+.si{flex:1;max-width:180px;text-align:center;padding:0 20px;border-right:1px solid rgba(0,61,165,0.1);}
+html[lang="ar"] .si{border-right:none;border-left:1px solid rgba(0,61,165,0.1);}
 .si:last-child,.si:first-child{border:none;}
-.sn{font-family:'Amiri',serif;font-size:42px;line-height:1;background:linear-gradient(135deg,var(--dg-l),var(--db-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sn{font-family:'Amiri',serif;font-size:38px;line-height:1;background:linear-gradient(135deg,var(--dg),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .sl{font-size:12px;color:var(--text3);margin-top:4px;}
+
 /* SECTIONS */
-.sec{padding:100px 48px;}.sin{max-width:1140px;margin:0 auto;}
-.stag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.2em;color:var(--dg-l);text-transform:uppercase;margin-bottom:16px;}
-.stag::before{content:'';display:block;width:24px;height:1px;background:var(--dg);}
-.stitle{font-family:'Amiri',serif;font-size:clamp(34px,5vw,54px);line-height:1.1;margin-bottom:14px;background:linear-gradient(135deg,var(--text) 40%,var(--dg-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sec{padding:90px 48px;}
+.sin{max-width:1120px;margin:0 auto;}
+.stag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.18em;color:var(--dg-d);text-transform:uppercase;margin-bottom:14px;}
+.stag::before{content:'';display:block;width:22px;height:2px;background:var(--dg);border-radius:2px;}
+.stitle{font-family:'Amiri',serif;font-size:clamp(32px,5vw,50px);line-height:1.1;margin-bottom:12px;color:var(--text);}
 html[lang="de"] .stitle{font-family:'Cormorant Garamond',serif;}
-.ssub{font-size:16px;color:var(--text2);line-height:1.8;max-width:580px;}
+.ssub{font-size:16px;color:var(--text2);line-height:1.8;max-width:560px;}
+
 /* ABOUT */
-#about{background:var(--dark2);}
-.abgrid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;margin-top:64px;}
-.abt p{font-size:15px;color:var(--text2);line-height:2;margin-bottom:20px;}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}
-.chip{background:rgba(0,61,165,0.08);border:1px solid rgba(0,61,165,0.18);color:var(--db-l);border-radius:20px;padding:6px 16px;font-size:13px;}
-.fcs{display:flex;flex-direction:column;gap:16px;}
-.fc{background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:24px 28px;display:flex;gap:20px;align-items:flex-start;position:relative;overflow:hidden;transition:all 0.35s cubic-bezier(0.16,1,0.3,1);}
-.fc::before{content:'';position:absolute;inset:0;opacity:0;background:linear-gradient(135deg,rgba(0,146,96,0.05),rgba(0,61,165,0.04));transition:opacity 0.35s;}
-.fc:hover{transform:translateX(-6px);border-color:var(--dg);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
-.fc:hover::before{opacity:1;}
+#about{background:#fff;}
+.abgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:72px;align-items:center;margin-top:60px;}
+.abt p{font-size:15px;color:var(--text2);line-height:2;margin-bottom:18px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
+.chip{background:rgba(0,61,165,0.07);border:1px solid rgba(0,61,165,0.15);color:var(--db-d);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:500;}
+.fcs{display:flex;flex-direction:column;gap:14px;}
+.fc{background:var(--bg);border:1px solid rgba(0,61,165,0.1);border-radius:18px;padding:22px 24px;display:flex;gap:18px;align-items:flex-start;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:var(--shadow);}
+.fc:hover{transform:translateX(-6px);border-color:var(--dg);background:#fff;box-shadow:0 6px 24px rgba(0,146,96,0.12);}
 html[lang="de"] .fc:hover{transform:translateX(6px);}
-.fci{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:linear-gradient(135deg,var(--dg-d),var(--dg));box-shadow:0 4px 16px rgba(0,146,96,0.25);position:relative;z-index:1;}
-.fct{font-size:16px;font-weight:600;margin-bottom:4px;position:relative;z-index:1;}
-.fcd{font-size:13px;color:var(--text3);line-height:1.7;position:relative;z-index:1;}
+.fci{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:linear-gradient(135deg,var(--dg-d),var(--dg));box-shadow:0 3px 12px rgba(0,146,96,0.2);}
+.fct{font-size:15px;font-weight:600;margin-bottom:3px;color:var(--text);}
+.fcd{font-size:13px;color:var(--text3);line-height:1.6;}
+
 /* GALLERY */
-#gallery{background:var(--dark);}
-.gg{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:240px 240px;gap:16px;margin-top:56px;}
-.gi{border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--border2);position:relative;cursor:pointer;transition:all 0.35s cubic-bezier(0.16,1,0.3,1);}
-.gi:hover{transform:scale(1.02);box-shadow:0 24px 60px rgba(0,0,0,0.5),0 0 0 2px var(--dg);}
+#gallery{background:var(--bg);}
+.gg{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:230px 230px;gap:14px;margin-top:48px;}
+.gi{border-radius:16px;overflow:hidden;background:#fff;border:1px solid rgba(0,61,165,0.08);position:relative;cursor:pointer;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:var(--shadow);}
+.gi:hover{transform:scale(1.025);box-shadow:0 16px 48px rgba(0,0,0,0.12),0 0 0 2px var(--dg);}
 .gi:first-child{grid-row:span 2;}
-.gph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:200px;background:linear-gradient(135deg,var(--surface),var(--surface2));}
-.gic{font-size:44px;filter:drop-shadow(0 4px 12px rgba(0,146,96,0.3));}
-.glb{font-size:13px;color:var(--text3);}
-.gov{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,9,15,0.85),transparent 55%);opacity:0;transition:opacity 0.3s;display:flex;align-items:flex-end;padding:20px;}
+.gph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:200px;background:linear-gradient(135deg,#f0faf5,#eef2fb);}
+.gic{font-size:40px;}
+.glb{font-size:13px;color:var(--text3);font-weight:500;}
+.gov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,30,60,0.75),transparent 55%);opacity:0;transition:opacity 0.3s;display:flex;align-items:flex-end;padding:18px;}
 .gi:hover .gov{opacity:1;}
-.gcp{font-size:14px;font-weight:600;}
+.gcp{font-size:14px;font-weight:600;color:#fff;}
+
 /* BERUFE TEASER */
-#bt{background:var(--dark2);}
-.btcard{background:var(--surface);border:1px solid var(--border);border-radius:28px;margin-top:56px;padding:56px;position:relative;overflow:hidden;display:flex;gap:56px;align-items:center;}
-.btcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,146,96,0.06),rgba(0,61,165,0.05));}
-.bicons{flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative;z-index:1;}
-.bi2{width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;transition:transform 0.25s;}
-.bi2:hover{transform:scale(1.1);}
+#bt{background:#fff;}
+.btcard{background:linear-gradient(135deg,#f0faf5,#eef2fb);border:1.5px solid rgba(0,146,96,0.15);border-radius:24px;margin-top:48px;padding:52px;display:flex;gap:52px;align-items:center;box-shadow:0 4px 32px rgba(0,146,96,0.08);}
+.bicons{flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.bi2{width:66px;height:66px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;transition:transform 0.2s;box-shadow:0 3px 12px rgba(0,0,0,0.1);}
+.bi2:hover{transform:scale(1.08);}
 .bi2-it{background:linear-gradient(135deg,var(--db-d),var(--db-l));}
 .bi2-bau{background:linear-gradient(135deg,var(--dr-d),var(--dr-l));}
 .bi2-k{background:linear-gradient(135deg,var(--dg-d),var(--dg-l));}
 .bi2-h{background:linear-gradient(135deg,#8a6d0a,#e8c97a);}
-.bi2-t{background:linear-gradient(135deg,#5b21b6,#8b5cf6);grid-column:span 2;width:100%;border-radius:14px;justify-content:center;}
-.binfo{flex:1;position:relative;z-index:1;}
-.btitle{font-family:'Amiri',serif;font-size:36px;color:var(--dg-l);line-height:1.2;margin-bottom:12px;}
+.bi2-t{background:linear-gradient(135deg,#5b21b6,#8b5cf6);grid-column:span 2;width:100%;border-radius:13px;}
+.binfo{flex:1;}
+.btitle{font-family:'Amiri',serif;font-size:34px;color:var(--dg-d);line-height:1.2;margin-bottom:10px;}
 html[lang="de"] .btitle{font-family:'Cormorant Garamond',serif;}
-.bsub{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:28px;}
-.bcats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
-.bcat{padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid transparent;}
-.bit{background:rgba(0,61,165,0.1);color:var(--db-l);border-color:rgba(0,61,165,0.2);}
-.bbau{background:rgba(212,0,26,0.08);color:#f87070;border-color:rgba(212,0,26,0.15);}
-.bk{background:rgba(0,146,96,0.1);color:var(--dg-l);border-color:rgba(0,146,96,0.2);}
-.bh{background:rgba(201,168,76,0.08);color:var(--gold2);border-color:rgba(201,168,76,0.15);}
-.btr{background:rgba(139,92,246,0.08);color:#a78bfa;border-color:rgba(139,92,246,0.15);}
-/* EVENT */
-#ev{background:var(--dark);}
-.evc{background:var(--surface);border:1px solid var(--border);border-radius:28px;margin-top:56px;padding:56px;position:relative;overflow:hidden;display:flex;gap:60px;align-items:center;}
-.evc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,0,26,0.04),rgba(0,61,165,0.04));}
-.ering{width:140px;height:140px;border-radius:50%;border:3px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--dark2);position:relative;flex-shrink:0;box-shadow:0 0 40px rgba(0,61,165,0.3);}
-.ering::before{content:'';position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(var(--db-l) 0deg,var(--dr) 120deg,transparent 120deg);z-index:-1;}
-.enum{font-family:'Amiri',serif;font-size:40px;color:var(--db-l);line-height:1;}
-.elbl{font-size:11px;color:var(--text3);letter-spacing:0.1em;margin-top:2px;}
-.edate{font-size:13px;color:var(--text3);margin-top:16px;text-align:center;}
-.einfo{flex:1;position:relative;z-index:1;}
-.ebadge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,61,165,0.12);border:1px solid rgba(0,61,165,0.25);color:var(--db-l);border-radius:20px;padding:5px 14px;font-size:12px;margin-bottom:16px;}
-.bdot{width:6px;height:6px;border-radius:50%;background:var(--db-l);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
-.etitle{font-family:'Amiri',serif;font-size:36px;color:var(--db-l);line-height:1.2;margin-bottom:12px;}
-html[lang="de"] .etitle{font-family:'Cormorant Garamond',serif;font-size:32px;}
-.esub{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:28px;}
-.emetas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px;}
-.em2{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text3);background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:10px;padding:8px 14px;}
-.em2 strong{color:var(--text2);font-weight:500;}
-.bev{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--db-d),var(--db),var(--dr));color:#fff;text-decoration:none;padding:15px 36px;border-radius:14px;font-size:15px;font-weight:600;font-family:inherit;transition:all 0.3s;box-shadow:0 4px 24px rgba(0,61,165,0.35);}
-.bev:hover{transform:translateY(-3px);}
-/* MEMBERS */
-#mem{background:var(--dark2);}
-.mbanner{background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border);border-radius:28px;padding:60px;text-align:center;margin-top:56px;position:relative;overflow:hidden;}
-.mbanner::before{content:'&#128507;';position:absolute;font-size:300px;opacity:0.025;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
-.mtitle{font-family:'Amiri',serif;font-size:36px;margin-bottom:12px;background:linear-gradient(135deg,var(--dg-l),var(--db-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-html[lang="de"] .mtitle{font-family:'Cormorant Garamond',serif;}
-.msub{font-size:16px;color:var(--text2);line-height:1.8;max-width:520px;margin:0 auto 36px;}
-.mrow{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
-.mchip{display:flex;align-items:center;gap:12px;background:var(--dark2);border:1px solid var(--border2);border-radius:14px;padding:14px 20px;transition:all 0.25s;}
-.mchip:hover{border-color:var(--dg);transform:translateY(-3px);}
-.mav{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;background:linear-gradient(135deg,var(--dg),var(--db));color:#fff;flex-shrink:0;}
-.mn2{font-size:14px;font-weight:600;}.mr2{font-size:12px;color:var(--text3);}
-/* FOOTER */
-footer{background:var(--dark2);border-top:1px solid var(--border);padding:56px 48px 36px;}
-.fin{max-width:1140px;margin:0 auto;}
-.fflag{height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);border-radius:2px;margin-bottom:40px;}
-.ftop{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;margin-bottom:40px;}
-.fbrand .flogo{font-family:'Amiri',serif;font-size:30px;background:linear-gradient(90deg,var(--dg-l),var(--db-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:8px;}
-.fbrand p{font-size:14px;color:var(--text3);line-height:1.7;max-width:240px;}
-.flinks h4{font-size:12px;letter-spacing:0.12em;color:var(--dg-l);text-transform:uppercase;margin-bottom:14px;}
-.flinks a{display:block;color:var(--text2);text-decoration:none;font-size:14px;margin-bottom:10px;transition:color 0.2s;}
-.flinks a:hover{color:var(--dg-l);}
-.fbot{border-top:1px solid var(--border);padding-top:20px;text-align:center;font-size:12px;color:var(--text3);}
-/* REVEAL */
-.rev{opacity:0;transform:translateY(28px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);}
-.rev.v{opacity:1;transform:translateY(0);}
-.revl{opacity:0;transform:translateX(-28px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);}
-.revl.v{opacity:1;transform:translateX(0);}
-html[lang="de"] .revl{transform:translateX(28px);}
-@media(max-width:900px){header,footer{padding-left:20px;padding-right:20px;}.hero,.sec{padding-left:20px;padding-right:20px;}nav{display:none;}.abgrid{grid-template-columns:1fr;gap:36px;}.gg{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.gi:first-child{grid-row:span 1;}.btcard,.evc{flex-direction:column;padding:28px 20px;gap:24px;}.ftop{flex-direction:column;}}
-</style></head><body>
-<div id="login-screen">
-<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
-<div class="lcard">
-<div class="lflag"></div>
-<div class="lmtn">&#127956;&#65039;</div>
-<div class="ltitle">&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;</div>
-<div class="lsub">DAGESTAN COMMUNITY</div>
-<input type="password" id="pw" class="linp" placeholder="Passwort | &#1603;&#1604;&#1605;&#1577; &#1575;&#1604;&#1605;&#1585;&#1608;&#1585;" onkeydown="if(event.key==='Enter')doLogin()">
-<button class="lbtn" onclick="doLogin()"><span class="ar-text">&#1583;&#1582;&#1608;&#1604; &#8592;</span><span class="de-text" style="display:none">Einloggen &#8594;</span></button>
-<div class="lerr" id="lerr"></div>
-<div class="lhint">&#128274; Nur f&uuml;r Mitglieder | &#1604;&#1604;&#1571;&#1593;&#1590;&#1575;&#1569; &#1601;&#1602;&#1591;</div>
-</div></div>
+.bsub{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:24px;}
+.bcats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.bcat{padding:5px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1.5px solid transparent;}
+.bit{background:rgba(0,61,165,0.07);color:var(--db-d);border-color:rgba(0,61,165,0.18);}
+.bbau{background:rgba(212,0,26,0.06);color:var(--dr-d);border-color:rgba(212,0,26,0.15);}
+.bk{background:rgba(0,146,96,0.07);color:var(--dg-d);border-color:rgba(0,146,96,0.18);}
+.bh{background:rgba(180,133,10,0.07);color:var(--gold2);border-color:rgba(180,133,10,0.18);}
+.btr{background:rgba(91,33,182,0.07);color:#5b21b6;border-color:rgba(91,33,182,0.18);}
 
+/* EVENT */
+#ev{background:var(--bg);}
+.evc{background:#fff;border:1.5px solid rgba(0,61,165,0.12);border-radius:24px;margin-top:48px;padding:52px;display:flex;gap:52px;align-items:center;box-shadow:0 4px 32px rgba(0,61,165,0.07);}
+.ering{width:136px;height:136px;border-radius:50%;flex-shrink:0;border:4px solid transparent;background:linear-gradient(white,white) padding-box,linear-gradient(135deg,var(--db),var(--dr)) border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,61,165,0.15);}
+.enum{font-family:'Amiri',serif;font-size:40px;color:var(--db);line-height:1;}
+.elbl{font-size:11px;color:var(--text3);letter-spacing:0.1em;margin-top:2px;}
+.edate{font-size:12px;color:var(--text3);margin-top:14px;text-align:center;}
+.einfo{flex:1;}
+.ebadge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,61,165,0.07);border:1px solid rgba(0,61,165,0.18);color:var(--db);border-radius:20px;padding:5px 14px;font-size:12px;margin-bottom:14px;}
+.bdot{width:6px;height:6px;border-radius:50%;background:var(--db);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.4)}}
+.etitle{font-family:'Amiri',serif;font-size:34px;color:var(--db);line-height:1.2;margin-bottom:10px;}
+html[lang="de"] .etitle{font-family:'Cormorant Garamond',serif;font-size:30px;}
+.esub{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:24px;}
+.emetas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.em2{display:flex;align-items:center;gap:7px;font-size:14px;color:var(--text3);background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:7px 14px;}
+.em2 strong{color:var(--text2);font-weight:600;}
+.bev{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--db-d),var(--db) 60%,var(--dr));color:#fff;text-decoration:none;padding:13px 30px;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,61,165,0.28);}
+.bev:hover{transform:translateY(-2px);}
+
+/* MEMBERS */
+#mem{background:#fff;}
+.mbanner{background:linear-gradient(135deg,#f0faf5,#eef2fb,#fef0f2);border:1.5px solid rgba(0,61,165,0.1);border-radius:24px;padding:56px;text-align:center;margin-top:48px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+.mbanner::before{content:'🏔️';position:absolute;font-size:260px;opacity:0.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.mtitle{font-family:'Amiri',serif;font-size:34px;margin-bottom:10px;color:var(--text);}
+html[lang="de"] .mtitle{font-family:'Cormorant Garamond',serif;}
+.msub{font-size:16px;color:var(--text2);line-height:1.8;max-width:500px;margin:0 auto 32px;}
+.mrow{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.mchip{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:14px 20px;transition:all 0.25s;box-shadow:var(--shadow);}
+.mchip:hover{border-color:var(--dg);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,146,96,0.12);}
+.mav{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;background:linear-gradient(135deg,var(--dg),var(--db));color:#fff;flex-shrink:0;}
+.mn2{font-size:14px;font-weight:600;color:var(--text);}
+.mr2{font-size:12px;color:var(--text3);}
+
+/* FOOTER */
+footer{background:var(--text);color:#e5e7eb;padding:56px 48px 32px;}
+.fin{max-width:1120px;margin:0 auto;}
+.fflag{height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);border-radius:2px;margin-bottom:40px;}
+.ftop{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;margin-bottom:36px;}
+.fbrand .flogo{font-family:'Amiri',serif;font-size:28px;color:#fff;display:block;margin-bottom:8px;}
+.fbrand p{font-size:14px;color:#9ca3af;line-height:1.7;max-width:230px;}
+.flinks h4{font-size:12px;letter-spacing:0.12em;color:var(--dg-l);text-transform:uppercase;margin-bottom:12px;}
+.flinks a{display:block;color:#d1d5db;text-decoration:none;font-size:14px;margin-bottom:8px;transition:color 0.2s;}
+.flinks a:hover{color:var(--dg-l);}
+.fbot{border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;text-align:center;font-size:12px;color:#6b7280;}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(24px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
+.rev.v{opacity:1;transform:translateY(0);}
+.revl{opacity:0;transform:translateX(-24px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
+.revl.v{opacity:1;transform:translateX(0);}
+html[lang="de"] .revl{transform:translateX(24px);}
+
+@media(max-width:900px){
+  header,footer{padding-left:20px;padding-right:20px;}
+  .hero,.sec{padding-left:20px;padding-right:20px;}
+  nav{display:none;}
+  .abgrid{grid-template-columns:1fr;gap:36px;}
+  .gg{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .gi:first-child{grid-row:span 1;}
+  .btcard,.evc{flex-direction:column;padding:28px 20px;gap:24px;}
+  .ftop{flex-direction:column;}
+  .hstats{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="ldeco ld1"></div><div class="ldeco ld2"></div><div class="ldeco ld3"></div>
+  <div class="lcard">
+    <div class="lflag"></div>
+    <div class="lmtn">🏔️</div>
+    <div class="ltitle">داغستان</div>
+    <div class="lsub">DAGESTAN COMMUNITY</div>
+    <input type="password" id="pw" class="linp" placeholder="Passwort | كلمة المرور" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="lbtn" onclick="doLogin()">
+      <span class="ar-text">دخول ←</span><span class="de-text" style="display:none">Einloggen →</span>
+    </button>
+    <div class="lerr" id="lerr"></div>
+    <div class="lhint">🔒 Nur für Mitglieder | للأعضاء فقط</div>
+  </div>
+</div>
+
+<!-- MAIN -->
 <div id="main-site">
 <div class="flagbar"></div>
 <header id="hdr">
-<a href="#" class="hlogo">&#127956;&#65039; <span class="ar-text">&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;</span><span class="de-text" style="display:none">Dagestan</span></a>
-<nav>
-<a href="#about" class="ar-text">&#1593;&#1606; &#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;</a><a href="#about" class="de-text" style="display:none">&Uuml;ber uns</a>
-<a href="#gallery" class="ar-text">&#1605;&#1593;&#1585;&#1590;</a><a href="#gallery" class="de-text" style="display:none">Galerie</a>
-<a href="#ev" class="ar-text">&#1575;&#1604;&#1601;&#1593;&#1575;&#1604;&#1610;&#1575;&#1578;</a><a href="#ev" class="de-text" style="display:none">Events</a>
-<a href="berufe.html" class="nh ar-text">&#129489;&#8205;&#128188; &#1583;&#1604;&#1610;&#1604; &#1575;&#1604;&#1605;&#1607;&#1606;</a><a href="berufe.html" class="nh de-text" style="display:none">&#129489;&#8205;&#128188; Berufe</a>
-<a href="event.html" class="nr ar-text">&#128197; &#1578;&#1580;&#1605;&#1593; 2026</a><a href="event.html" class="nr de-text" style="display:none">&#128197; Sammlung 2026</a>
-</nav>
-<div class="ltog">
-<button class="lbtnx active" id="btn-ar" onclick="setLang('ar')">&#1593;&#1585;&#1576;&#1610;</button>
-<button class="lbtnx" id="btn-de" onclick="setLang('de')">DE</button>
-</div>
+  <a href="#" class="hlogo">🏔️ <span class="ar-text">داغستان</span><span class="de-text" style="display:none">Dagestan</span></a>
+  <nav>
+    <a href="#about" class="ar-text">عن داغستان</a><a href="#about" class="de-text" style="display:none">Über uns</a>
+    <a href="#gallery" class="ar-text">معرض</a><a href="#gallery" class="de-text" style="display:none">Galerie</a>
+    <a href="#ev" class="ar-text">الفعاليات</a><a href="#ev" class="de-text" style="display:none">Events</a>
+    <a href="berufe.html" class="nh ar-text">🧑‍💼 دليل المهن</a><a href="berufe.html" class="nh de-text" style="display:none">🧑‍💼 Berufe</a>
+    <a href="event.html" class="nr ar-text">🗓️ تجمع 2026</a><a href="event.html" class="nr de-text" style="display:none">🗓️ Sammlung 2026</a>
+  </nav>
+  <div class="ltog">
+    <button class="lbtnx active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+    <button class="lbtnx" id="btn-de" onclick="setLang('de')">DE</button>
+  </div>
 </header>
 
 <section class="hero" id="home">
-<div class="hbg1"></div><div class="hbg2"></div><div class="hbg3"></div><div class="hgrid"></div>
-<div class="hcont">
-<div class="heye">&#127807; <span class="ar-text">&#1571;&#1585;&#1590; &#1575;&#1604;&#1580;&#1576;&#1575;&#1604; &#1608;&#1575;&#1604;&#1578;&#1585;&#1575;&#1579; &#1575;&#1604;&#1593;&#1585;&#1610;&#1602;</span><span class="de-text" style="display:none">Land der Berge und Kultur</span></div>
-<h1 class="htitle">
-<span class="t1 ar-text">&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;</span><span class="t1 de-text" style="display:none">Dagestan</span>
-<span class="t2 ar-text">DAGESTAN &#8212; &#1575;&#1604;&#1580;&#1605;&#1607;&#1608;&#1585;&#1610;&#1577; &#1575;&#1604;&#1602;&#1608;&#1602;&#1575;&#1586;&#1610;&#1577;</span><span class="t2 de-text" style="display:none">DIE KAUKASISCHE REPUBLIK</span>
-</h1>
-<p class="hsub ar-text">&#1605;&#1608;&#1591;&#1606; &#1571;&#1603;&#1579;&#1585; &#1605;&#1606; &#1579;&#1604;&#1575;&#1579;&#1610;&#1606; &#1588;&#1593;&#1576;&#1575;&#1611; &#1608;&#1571;&#1603;&#1579;&#1585; &#1605;&#1606; &#1605;&#1574;&#1577; &#1604;&#1594;&#1577; &#8212; &#1571;&#1585;&#1590; &#1575;&#1604;&#1580;&#1576;&#1575;&#1604; &#1575;&#1604;&#1588;&#1575;&#1605;&#1582;&#1577; &#1608;&#1575;&#1604;&#1578;&#1606;&#1608;&#1593; &#1575;&#1604;&#1579;&#1602;&#1575;&#1601;&#1610; &#1575;&#1604;&#1601;&#1585;&#1610;&#1583; &#1593;&#1604;&#1609; &#1590;&#1601;&#1575;&#1601; &#1576;&#1581;&#1585; &#1602;&#1586;&#1608;&#1610;&#1606;</p>
-<p class="hsub de-text" style="display:none">Heimat von &uuml;ber dreißig V&ouml;lkern und hundert Sprachen &mdash; Land der Berge und kultureller Vielfalt am Kaspischen Meer</p>
-<div class="hbtns">
-<a href="berufe.html" class="bp"><span class="ar-text">&#129489;&#8205;&#128188; &#1583;&#1604;&#1610;&#1604; &#1575;&#1604;&#1605;&#1607;&#1606;</span><span class="de-text" style="display:none">&#129489;&#8205;&#128188; Berufsverzeichnis</span></a>
-<a href="event.html" class="bs"><span class="ar-text">&#128197; &#1578;&#1580;&#1605;&#1593; 2026</span><span class="de-text" style="display:none">&#128197; Sammlung 2026</span></a>
-<a href="#about" class="bg"><span class="ar-text">&#1575;&#1603;&#1578;&#1588;&#1601; &#1575;&#1604;&#1605;&#1586;&#1610;&#1583;</span><span class="de-text" style="display:none">Mehr entdecken</span></a>
-</div>
-<div class="hstats">
-<div class="si"><div class="sn">50+</div><div class="sl ar-text">&#1588;&#1593;&#1608;&#1628;&#1611;</div><div class="sl de-text" style="display:none">V&ouml;lker</div></div>
-<div class="si"><div class="sn">300+</div><div class="sl ar-text">&#1593;&#1590;&#1608; &#1606;&#1588;&#1610;&#1591;</div><div class="sl de-text" style="display:none">Mitglieder</div></div>
-<div class="si"><div class="sn">3000م</div><div class="sl ar-text">&#1575;&#1585;&#1578;&#1601;&#1575;&#1593; &#1575;&#1604;&#1602;&#1605;&#1605;</div><div class="sl de-text" style="display:none">Bergh&ouml;he</div></div>
-<div class="si"><div class="sn">2026</div><div class="sl ar-text">&#1578;&#1580;&#1605;&#1593;&#1606;&#1575; &#1575;&#1604;&#1602;&#1575;&#1583;&#1605;</div><div class="sl de-text" style="display:none">N&auml;chstes Event</div></div>
-</div>
-</div></section>
+  <div class="hblob hb1"></div><div class="hblob hb2"></div><div class="hblob hb3"></div>
+  <div class="hcont">
+    <div class="heye">🌿 <span class="ar-text">أرض الجبال والتراث العريق</span><span class="de-text" style="display:none">Land der Berge und Kultur</span></div>
+    <h1 class="htitle">
+      <span class="t1 ar-text">داغستان</span><span class="t1 de-text" style="display:none">Dagestan</span>
+      <span class="t2 ar-text">DAGESTAN — الجمهورية القوقازية</span><span class="t2 de-text" style="display:none">DIE KAUKASISCHE REPUBLIK</span>
+    </h1>
+    <p class="hsub ar-text">موطن أكثر من ثلاثين شعباً وأكثر من مئة لغة — أرض الجبال الشامخة والتنوع الثقافي الفريد على ضفاف بحر قزوين</p>
+    <p class="hsub de-text" style="display:none">Heimat von über dreißig Völkern und hundert Sprachen — Land der Berge und kultureller Vielfalt am Kaspischen Meer</p>
+    <div class="hbtns">
+      <a href="berufe.html" class="bp"><span class="ar-text">🧑‍💼 دليل المهن</span><span class="de-text" style="display:none">🧑‍💼 Berufsverzeichnis</span></a>
+      <a href="event.html" class="bs"><span class="ar-text">🗓️ تجمع 2026</span><span class="de-text" style="display:none">🗓️ Sammlung 2026</span></a>
+      <a href="#about" class="bg2"><span class="ar-text">اكتشف المزيد</span><span class="de-text" style="display:none">Mehr entdecken</span></a>
+    </div>
+    <div class="hstats">
+      <div class="si"><div class="sn">50+</div><div class="sl ar-text">شعباً وقوميةً</div><div class="sl de-text" style="display:none">Völker</div></div>
+      <div class="si"><div class="sn">300+</div><div class="sl ar-text">عضو نشيط</div><div class="sl de-text" style="display:none">Mitglieder</div></div>
+      <div class="si"><div class="sn">3000م</div><div class="sl ar-text">ارتفاع القمم</div><div class="sl de-text" style="display:none">Berghöhe</div></div>
+      <div class="si"><div class="sn">2026</div><div class="sl ar-text">تجمعنا القادم</div><div class="sl de-text" style="display:none">Nächstes Event</div></div>
+    </div>
+  </div>
+</section>
 
 <section class="sec" id="about"><div class="sin">
-<div class="stag ar-text">&#1575;&#1604;&#1578;&#1593;&#1585;&#1610;&#1601;</div><div class="stag de-text" style="display:none">&Uuml;BER DAGESTAN</div>
-<h2 class="stitle ar-text">&#1571;&#1585;&#1590; &#1575;&#1604;&#1580;&#1576;&#1575;&#1604; &#1608;&#1575;&#1604;&#1578;&#1606;&#1608;&#1593;</h2><h2 class="stitle de-text" style="display:none">Land der Berge &amp; Vielfalt</h2>
-<p class="ssub ar-text">&#1580;&#1605;&#1607;&#1608;&#1585;&#1610;&#1577; &#1585;&#1608;&#1587;&#1610;&#1577; &#1601;&#1585;&#1610;&#1583;&#1577; &#1601;&#1610; &#1602;&#1604;&#1576; &#1575;&#1604;&#1602;&#1608;&#1602;&#1575;&#1586;</p><p class="ssub de-text" style="display:none">Eine einzigartige russische Republik im Herzen des Kaukasus</p>
-<div class="abgrid">
-<div class="abt revl">
-<p class="ar-text">&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606; &#1580;&#1605;&#1607;&#1608;&#1585;&#1610;&#1577; &#1601;&#1610;&#1583;&#1585;&#1575;&#1604;&#1610;&#1577; &#1585;&#1608;&#1587;&#1610;&#1577; &#1578;&#1602;&#1593; &#1601;&#1610; &#1575;&#1604;&#1591;&#1585;&#1601; &#1575;&#1604;&#1588;&#1605;&#1575;&#1604;&#1610; &#1575;&#1604;&#1588;&#1585;&#1602;&#1610; &#1605;&#1606; &#1575;&#1604;&#1602;&#1608;&#1602;&#1575;&#1586;&#1548; &#1578;&#1593;&#1583;&#1617; &#1605;&#1606; &#1571;&#1603;&#1579;&#1585; &#1605;&#1606;&#1575;&#1591;&#1602; &#1575;&#1604;&#1593;&#1575;&#1604;&#1605; &#1578;&#1606;&#1608;&#1617;&#1593;&#1575;&#1611; &#1573;&#1579;&#1606;&#1610;&#1575;&#1611; &#1608;&#1604;&#1594;&#1608;&#1610;&#1575;&#1611;.</p>
-<p class="de-text" style="display:none">Dagestan ist eine f&ouml;derale Republik Russlands im nordostlichen Kaukasus &mdash; eine der ethnisch und sprachlich vielfaltisten Regionen der Welt.</p>
-<p class="ar-text">&#1610;&#1593;&#1585;&#1601; &#1576;&#1600;&#8220;&#1571;&#1585;&#1590; &#1575;&#1604;&#1580;&#1576;&#1575;&#1604;&#8221; &#8212; &#1578;&#1590;&#1575;&#1585;&#1610;&#1587;&#1607; &#1578;&#1589;&#1604; &#1584;&#1585;&#1608;&#1578;&#1607;&#1575; &#1573;&#1604;&#1609; &#1571;&#1603;&#1579;&#1585; &#1605;&#1606; &#1579;&#1604;&#1575;&#1579;&#1577; &#1570;&#1604;&#1575;&#1601; &#1605;&#1578;&#1585; &#1608;&#1587;&#1608;&#1575;&#1581;&#1604;&#1607; &#1575;&#1604;&#1580;&#1605;&#1610;&#1604;&#1577; &#1610;&#1580;&#1593;&#1604;&#1575;&#1606;&#1607; &#1608;&#1580;&#1607;&#1577; &#1601;&#1585;&#1610;&#1583;&#1577;.</p>
-<p class="de-text" style="display:none">Bekannt als "Land der Berge" &mdash; mit Gipfeln &uuml;ber 3000 Meter und sch&ouml;nen K&uuml;sten am Kaspischen Meer.</p>
-<div class="chips">
-<span class="chip ar-text">&#127956;&#65039; &#1580;&#1576;&#1575;&#1604; &#1575;&#1604;&#1602;&#1608;&#1602;&#1575;&#1586;</span><span class="chip ar-text">&#127754; &#1576;&#1581;&#1585; &#1602;&#1586;&#1608;&#1610;&#1606;</span><span class="chip ar-text">&#128332;&#65039; &#1578;&#1585;&#1575;&#1579; &#1573;&#1587;&#1604;&#1575;&#1605;&#1610;</span><span class="chip ar-text">&#129340; &#1605;&#1589;&#1575;&#1585;&#1593;&#1577; &#1593;&#1575;&#1604;&#1605;&#1610;&#1577;</span>
-<span class="chip de-text" style="display:none">&#127956;&#65039; Kaukasus</span><span class="chip de-text" style="display:none">&#127754; Kasp. Meer</span><span class="chip de-text" style="display:none">&#128332;&#65039; Islam. Erbe</span><span class="chip de-text" style="display:none">&#129340; Weltklasse-Sport</span>
-</div></div>
-<div class="fcs">
-<div class="fc rev"><div class="fci">&#127956;&#65039;</div><div><div class="fct ar-text">&#1575;&#1604;&#1591;&#1576;&#1610;&#1593;&#1577; &#1608;&#1575;&#1604;&#1580;&#1594;&#1585;&#1575;&#1601;&#1610;&#1575;</div><div class="fct de-text" style="display:none">Natur &amp; Geografie</div><div class="fcd ar-text">&#1580;&#1576;&#1575;&#1604; &#1575;&#1604;&#1602;&#1608;&#1602;&#1575;&#1586;&#1548; &#1608;&#1583;&#1610;&#1575;&#1606; &#1582;&#1604;&#1575;&#1576;&#1577;&#1548; &#1588;&#1608;&#1575;&#1591;&#1574; &#1576;&#1581;&#1585; &#1602;&#1586;&#1608;&#1610;&#1606;</div><div class="fcd de-text" style="display:none">Gro&szlig;er Kaukasus, T&auml;ler, Strande am Kaspischen Meer</div></div></div>
-<div class="fc rev"><div class="fci">&#128332;&#65039;</div><div><div class="fct ar-text">&#1575;&#1604;&#1579;&#1602;&#1575;&#1601;&#1577; &#1608;&#1575;&#1604;&#1578;&#1575;&#1585;&#1610;&#1582;</div><div class="fct de-text" style="display:none">Kultur &amp; Geschichte</div><div class="fcd ar-text">&#1581;&#1590;&#1575;&#1585;&#1577; &#1593;&#1585;&#1610;&#1602;&#1577;&#1548; &#1601;&#1606;&#1608;&#1606; &#1578;&#1602;&#1604;&#1610;&#1583;&#1610;&#1577;&#1548; &#1593;&#1605;&#1575;&#1585;&#1577; &#1573;&#1587;&#1604;&#1575;&#1605;&#1610;&#1577;</div><div class="fcd de-text" style="display:none">Uralte Zivilisation, Volkskunst, islamische Architektur</div></div></div>
-<div class="fc rev"><div class="fci">&#129340;</div><div><div class="fct ar-text">&#1575;&#1604;&#1585;&#1610;&#1575;&#1590;&#1577; &#1608;&#1575;&#1604;&#1605;&#1589;&#1575;&#1585;&#1593;&#1577;</div><div class="fct de-text" style="display:none">Sport &amp; Kampfsport</div><div class="fcd ar-text">&#1608;&#1591;&#1606; &#1571;&#1576;&#1591;&#1575;&#1604; &#1575;&#1604;&#1605;&#1589;&#1575;&#1585;&#1593;&#1577; &#1575;&#1604;&#1581;&#1585;&#1577; &#1608;&#1575;&#1604;&#1601;&#1606;&#1608;&#1606; &#1575;&#1604;&#1602;&#1578;&#1575;&#1604;&#1610;&#1577; &#1575;&#1604;&#1605;&#1582;&#1578;&#1604;&#1591;&#1577;</div><div class="fcd de-text" style="display:none">Heimat von Weltklasse-Ringern und MMA-K&auml;mpfern</div></div></div>
-<div class="fc rev"><div class="fci">&#129362;</div><div><div class="fct ar-text">&#1575;&#1604;&#1605;&#1591;&#1576;&#1582; &#1575;&#1604;&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;&#1610;</div><div class="fct de-text" style="display:none">Dagestanische K&uuml;che</div><div class="fcd ar-text">&#1582;&#1610;&#1606;&#1603;&#1575;&#1604;&#1548; &#1603;&#1608;&#1585;&#1586;&#1610;&#1548; &#1588;&#1575;&#1588;&#1604;&#1610;&#1603; &#8212; &#1571;&#1591;&#1576;&#1575;&#1602; &#1578;&#1602;&#1604;&#1610;&#1583;&#1610;&#1577; &#1604;&#1575; &#1578;&#1606;&#1587;&#1609;</div><div class="fcd de-text" style="display:none">Khinkali, Kurze, Schaschlik &mdash; unvergessliche Speisen</div></div></div>
-</div></div></div></section>
+  <div class="stag ar-text">التعريف</div><div class="stag de-text" style="display:none">ÜBER DAGESTAN</div>
+  <h2 class="stitle ar-text">أرض الجبال والتنوع</h2><h2 class="stitle de-text" style="display:none">Land der Berge & Vielfalt</h2>
+  <p class="ssub ar-text">جمهورية روسية فريدة في قلب القوقاز على ضفاف بحر قزوين</p>
+  <p class="ssub de-text" style="display:none">Eine einzigartige russische Republik im Herzen des Kaukasus</p>
+  <div class="abgrid">
+    <div class="abt revl">
+      <p class="ar-text">داغستان جمهورية فيدرالية روسية تقع في الطرف الشمالي الشرقي من القوقاز. تُعدّ من أكثر مناطق العالم تنوعاً إثنياً ولغوياً.</p>
+      <p class="de-text" style="display:none">Dagestan ist eine föderale Republik Russlands im nordöstlichen Kaukasus — eine der vielfältigsten Regionen der Welt mit über 50 Völkern.</p>
+      <p class="ar-text">يُعرف بـ"أرض الجبال" — تضاريسه تصل ذروتها إلى أكثر من ثلاثة آلاف متر، وسواحله الجميلة على بحر قزوين لا تُنسى.</p>
+      <p class="de-text" style="display:none">Bekannt als "Land der Berge" — mit Gipfeln über 3000 Meter und wunderschönen Küsten am Kaspischen Meer.</p>
+      <div class="chips">
+        <span class="chip ar-text">🏔️ جبال القوقاز</span><span class="chip ar-text">🌊 بحر قزوين</span><span class="chip ar-text">🕌 تراث إسلامي</span><span class="chip ar-text">🤼 مصارعة عالمية</span>
+        <span class="chip de-text" style="display:none">🏔️ Kaukasus</span><span class="chip de-text" style="display:none">🌊 Kasp. Meer</span><span class="chip de-text" style="display:none">🕌 Islamisches Erbe</span><span class="chip de-text" style="display:none">🤼 Weltklasse-Sport</span>
+      </div>
+    </div>
+    <div class="fcs">
+      <div class="fc rev"><div class="fci">🏔️</div><div><div class="fct ar-text">الطبيعة والجغرافيا</div><div class="fct de-text" style="display:none">Natur & Geografie</div><div class="fcd ar-text">جبال القوقاز الكبرى، وديان خلابة، شواطئ بحر قزوين</div><div class="fcd de-text" style="display:none">Großer Kaukasus, Täler, Strände am Kaspischen Meer</div></div></div>
+      <div class="fc rev"><div class="fci">🕌</div><div><div class="fct ar-text">الثقافة والتاريخ</div><div class="fct de-text" style="display:none">Kultur & Geschichte</div><div class="fcd ar-text">حضارة عريقة، فنون تقليدية، عمارة إسلامية في دربند</div><div class="fcd de-text" style="display:none">Uralte Zivilisation, Volkskunst, islamische Architektur</div></div></div>
+      <div class="fc rev"><div class="fci">🤼</div><div><div class="fct ar-text">الرياضة والمصارعة</div><div class="fct de-text" style="display:none">Sport & Kampfsport</div><div class="fcd ar-text">وطن أبطال المصارعة الحرة والفنون القتالية المختلطة عالمياً</div><div class="fcd de-text" style="display:none">Heimat von Weltklasse-Ringern und MMA-Kämpfern</div></div></div>
+      <div class="fc rev"><div class="fci">🍖</div><div><div class="fct ar-text">المطبخ الداغستاني</div><div class="fct de-text" style="display:none">Dagestanische Küche</div><div class="fcd ar-text">خينكال، كورزي، شاشليك — أطباق تقليدية لا تُنسى</div><div class="fcd de-text" style="display:none">Khinkali, Kurze, Schaschlik — unvergessliche Speisen</div></div></div>
+    </div>
+  </div>
+</div></section>
 
 <section class="sec" id="gallery"><div class="sin">
-<div class="stag ar-text">&#1605;&#1593;&#1585;&#1590; &#1575;&#1604;&#1589;&#1608;&#1585;</div><div class="stag de-text" style="display:none">GALERIE</div>
-<h2 class="stitle ar-text">&#1604;&#1602;&#1591;&#1575;&#1578; &#1605;&#1606; &#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;</h2><h2 class="stitle de-text" style="display:none">Bilder aus Dagestan</h2>
-<div class="gg rev">
-<div class="gi" style="grid-row:span 2"><div class="gph" style="height:100%;min-height:496px;"><div class="gic">&#127956;&#65039;</div><div class="glb ar-text">&#1580;&#1576;&#1575;&#1604; &#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;</div><div class="glb de-text" style="display:none">Berge</div></div><div class="gov"><span class="gcp ar-text">&#1580;&#1576;&#1575;&#1604; &#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606; &#1575;&#1604;&#1588;&#1575;&#1605;&#1582;&#1577;</span><span class="gcp de-text" style="display:none">Majest&auml;tische Berge</span></div></div>
-<div class="gi"><div class="gph"><div class="gic">&#128332;&#65039;</div><div class="glb ar-text">&#1580;&#1575;&#1605;&#1593; &#1583;&#1585;&#1576;&#1606;&#1583;</div><div class="glb de-text" style="display:none">Moschee</div></div><div class="gov"><span class="gcp ar-text">&#1580;&#1575;&#1605;&#1593; &#1583;&#1585;&#1576;&#1606;&#1583; &#1575;&#1604;&#1578;&#1575;&#1585;&#1610;&#1582;&#1610;</span><span class="gcp de-text" style="display:none">Historische Moschee</span></div></div>
-<div class="gi"><div class="gph"><div class="gic">&#127754;</div><div class="glb ar-text">&#1576;&#1581;&#1585; &#1602;&#1586;&#1608;&#1610;&#1606;</div><div class="glb de-text" style="display:none">Kasp. Meer</div></div><div class="gov"><span class="gcp ar-text">&#1587;&#1575;&#1581;&#1604; &#1576;&#1581;&#1585; &#1602;&#1586;&#1608;&#1610;&#1606;</span><span class="gcp de-text" style="display:none">Kaspische K&uuml;ste</span></div></div>
-<div class="gi"><div class="gph"><div class="gic">&#128131;</div><div class="glb ar-text">&#1575;&#1604;&#1585;&#1602;&#1589; &#1575;&#1604;&#1578;&#1602;&#1604;&#1610;&#1583;&#1610;</div><div class="glb de-text" style="display:none">Tanz</div></div><div class="gov"><span class="gcp ar-text">&#1601;&#1608;&#1604;&#1603;&#1604;&#1608;&#1585; &#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;&#1610;</span><span class="gcp de-text" style="display:none">Folklor</span></div></div>
-<div class="gi"><div class="gph"><div class="gic">&#127960;&#65039;</div><div class="glb ar-text">&#1602;&#1585;&#1609; &#1575;&#1604;&#1580;&#1576;&#1575;&#1604;</div><div class="glb de-text" style="display:none">Bergd&ouml;rfer</div></div><div class="gov"><span class="gcp ar-text">&#1602;&#1585;&#1610;&#1577; &#1580;&#1576;&#1604;&#1610;&#1577;</span><span class="gcp de-text" style="display:none">Altes Bergdorf</span></div></div>
-</div></div></section>
+  <div class="stag ar-text">معرض الصور</div><div class="stag de-text" style="display:none">GALERIE</div>
+  <h2 class="stitle ar-text">لقطات من داغستان</h2><h2 class="stitle de-text" style="display:none">Bilder aus Dagestan</h2>
+  <div class="gg rev">
+    <div class="gi" style="grid-row:span 2"><div class="gph" style="height:100%;min-height:474px;"><div class="gic">🏔️</div><div class="glb ar-text">جبال داغستان</div><div class="glb de-text" style="display:none">Berge</div></div><div class="gov"><span class="gcp ar-text">جبال داغستان الشامخة</span><span class="gcp de-text" style="display:none">Majestätische Berge</span></div></div>
+    <div class="gi"><div class="gph"><div class="gic">🕌</div><div class="glb ar-text">جامع دربند</div><div class="glb de-text" style="display:none">Moschee</div></div><div class="gov"><span class="gcp ar-text">جامع دربند التاريخي</span><span class="gcp de-text" style="display:none">Historische Moschee</span></div></div>
+    <div class="gi"><div class="gph"><div class="gic">🌊</div><div class="glb ar-text">بحر قزوين</div><div class="glb de-text" style="display:none">Kasp. Meer</div></div><div class="gov"><span class="gcp ar-text">ساحل بحر قزوين</span><span class="gcp de-text" style="display:none">Kaspische Küste</span></div></div>
+    <div class="gi"><div class="gph"><div class="gic">💃</div><div class="glb ar-text">الرقص التقليدي</div><div class="glb de-text" style="display:none">Tanz</div></div><div class="gov"><span class="gcp ar-text">فولكلور داغستاني</span><span class="gcp de-text" style="display:none">Folklor</span></div></div>
+    <div class="gi"><div class="gph"><div class="gic">🏘️</div><div class="glb ar-text">قرى الجبال</div><div class="glb de-text" style="display:none">Bergdörfer</div></div><div class="gov"><span class="gcp ar-text">قرية جبلية قديمة</span><span class="gcp de-text" style="display:none">Altes Bergdorf</span></div></div>
+  </div>
+</div></section>
 
 <section class="sec" id="bt"><div class="sin">
-<div class="stag ar-text">&#1575;&#1604;&#1582;&#1583;&#1605;&#1575;&#1578;</div><div class="stag de-text" style="display:none">BERUFE</div>
-<h2 class="stitle ar-text">&#1583;&#1604;&#1610;&#1604; &#1575;&#1604;&#1605;&#1607;&#1606; &#1575;&#1604;&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;&#1610;</h2><h2 class="stitle de-text" style="display:none">Dagestanisches Berufsverzeichnis</h2>
-<div class="btcard rev">
-<div class="bicons">
-<div class="bi2 bi2-it">&#128187;</div><div class="bi2 bi2-bau">&#127959;&#65039;</div>
-<div class="bi2 bi2-k">&#127859;</div><div class="bi2 bi2-h">&#128717;&#65039;</div>
-<div class="bi2 bi2-t">&#128667;</div>
-</div>
-<div class="binfo">
-<div class="btitle ar-text">&#1575;&#1576;&#1581;&#1579; &#1593;&#1606; &#1575;&#1604;&#1582;&#1576;&#1610;&#1585; &#1575;&#1604;&#1584;&#1610; &#1578;&#1581;&#1578;&#1575;&#1580;&#1607;</div>
-<div class="btitle de-text" style="display:none">Finde den Experten, den du brauchst</div>
-<p class="bsub ar-text">&#1583;&#1604;&#1610;&#1604; &#1588;&#1575;&#1605;&#1604; &#1604;&#1605;&#1607;&#1606;&#1610;&#1610;&#1606; &#1605;&#1606; &#1605;&#1580;&#1578;&#1605;&#1593;&#1606;&#1575; &#1575;&#1604;&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;&#1610; &#1601;&#1610; &#1571;&#1604;&#1605;&#1575;&#1606;&#1610;&#1575; &#8212; IT&#1548; &#1576;&#1606;&#1575;&#1569;&#1548; &#1605;&#1591;&#1576;&#1582;&#1548; &#1578;&#1580;&#1575;&#1585;&#1577;&#1548; &#1606;&#1602;&#1604;</p>
-<p class="bsub de-text" style="display:none">Fachleute aus unserer dagestanischen Community in Deutschland &mdash; IT, Bau, K&uuml;che, Handel, Transport</p>
-<div class="bcats">
-<span class="bcat bit">&#128187; IT</span>
-<span class="bcat bbau ar-text">&#127959;&#65039; &#1576;&#1606;&#1575;&#1569;</span><span class="bcat bbau de-text" style="display:none">&#127959;&#65039; Bau</span>
-<span class="bcat bk ar-text">&#127859; &#1605;&#1591;&#1576;&#1582;</span><span class="bcat bk de-text" style="display:none">&#127859; K&uuml;che</span>
-<span class="bcat bh ar-text">&#128717;&#65039; &#1578;&#1580;&#1575;&#1585;&#1577;</span><span class="bcat bh de-text" style="display:none">&#128717;&#65039; Handel</span>
-<span class="bcat btr">&#128667; Transport</span>
-</div>
-<a href="berufe.html" class="bp"><span class="ar-text">&#1575;&#1603;&#1578;&#1588;&#1601; &#1575;&#1604;&#1583;&#1604;&#1610;&#1604; &#8592;</span><span class="de-text" style="display:none">Zum Verzeichnis &#8594;</span></a>
-</div></div></div></section>
+  <div class="stag ar-text">الخدمات</div><div class="stag de-text" style="display:none">BERUFE</div>
+  <h2 class="stitle ar-text">دليل المهن الداغستاني</h2><h2 class="stitle de-text" style="display:none">Dagestanisches Berufsverzeichnis</h2>
+  <div class="btcard rev">
+    <div class="bicons">
+      <div class="bi2 bi2-it">💻</div><div class="bi2 bi2-bau">🏗️</div>
+      <div class="bi2 bi2-k">🍳</div><div class="bi2 bi2-h">🛍️</div>
+      <div class="bi2 bi2-t">🚛</div>
+    </div>
+    <div class="binfo">
+      <div class="btitle ar-text">ابحث عن الخبير الذي تحتاجه</div><div class="btitle de-text" style="display:none">Finde den Experten, den du brauchst</div>
+      <p class="bsub ar-text">دليل شامل لمهنيين من مجتمعنا الداغستاني في ألمانيا — IT، بناء، مطبخ، تجارة، نقل</p>
+      <p class="bsub de-text" style="display:none">Fachleute aus unserer dagestanischen Community in Deutschland — IT, Bau, Küche, Handel, Transport</p>
+      <div class="bcats">
+        <span class="bcat bit">💻 IT</span>
+        <span class="bcat bbau ar-text">🏗️ بناء</span><span class="bcat bbau de-text" style="display:none">🏗️ Bau</span>
+        <span class="bcat bk ar-text">🍳 مطبخ</span><span class="bcat bk de-text" style="display:none">🍳 Küche</span>
+        <span class="bcat bh ar-text">🛍️ تجارة</span><span class="bcat bh de-text" style="display:none">🛍️ Handel</span>
+        <span class="bcat btr">🚛 Transport</span>
+      </div>
+      <a href="berufe.html" class="bp"><span class="ar-text">اكتشف الدليل ←</span><span class="de-text" style="display:none">Zum Verzeichnis →</span></a>
+    </div>
+  </div>
+</div></section>
 
 <section class="sec" id="ev"><div class="sin">
-<div class="stag ar-text">&#1575;&#1604;&#1581;&#1583;&#1579; &#1575;&#1604;&#1602;&#1575;&#1583;&#1605;</div><div class="stag de-text" style="display:none">N&Auml;CHSTES EVENT</div>
-<h2 class="stitle ar-text">&#1578;&#1580;&#1605;&#1593; &#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606; 2026</h2><h2 class="stitle de-text" style="display:none">Dagestan Sammlung 2026</h2>
-<div class="evc rev">
-<div>
-<div class="ering"><div class="enum" id="days-left">&#8212;</div><div class="elbl ar-text">&#1610;&#1608;&#1605;</div><div class="elbl de-text" style="display:none">Tage</div></div>
-<div class="edate ar-text">30 &#1610;&#1608;&#1604;&#1610;&#1608; &#8212; 1 &#1571;&#1594;&#1587;&#1591;&#1587; 2026</div>
-<div class="edate de-text" style="display:none">30. Juli &#8212; 1. Aug. 2026</div>
-</div>
-<div class="einfo">
-<div class="ebadge"><div class="bdot"></div><span class="ar-text">&#1602;&#1575;&#1583;&#1605; &#1602;&#1585;&#1610;&#1576;&#1575;&#1611;</span><span class="de-text" style="display:none">Bald</span></div>
-<div class="etitle ar-text">&#1578;&#1580;&#1605;&#1593; &#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606; 2026</div>
-<div class="etitle de-text" style="display:none">Dagestan Sammlung 2026</div>
-<p class="esub ar-text">&#1579;&#1604;&#1575;&#1579;&#1577; &#1571;&#1610;&#1575;&#1605; &#1605;&#1606; &#1575;&#1604;&#1604;&#1602;&#1575;&#1569; &#1608;&#1575;&#1604;&#1601;&#1585;&#1581; &#1601;&#1610; &#1602;&#1604;&#1576; &#1571;&#1604;&#1605;&#1575;&#1606;&#1610;&#1575;</p>
-<p class="esub de-text" style="display:none">Drei Tage Begegnung und Freude im Herzen Deutschlands</p>
-<div class="emetas">
-<div class="em2">&#128197; <strong>30.07&#8211;01.08.2026</strong></div>
-<div class="em2">&#128205; <strong>Bestwig, NRW</strong></div>
-</div>
-<a href="event.html" class="bev"><span class="ar-text">&#1593;&#1585;&#1590; &#1575;&#1604;&#1578;&#1601;&#1575;&#1589;&#1610;&#1604; &#8592;</span><span class="de-text" style="display:none">Details &#8594;</span></a>
-</div></div></div></section>
+  <div class="stag ar-text">الحدث القادم</div><div class="stag de-text" style="display:none">NÄCHSTES EVENT</div>
+  <h2 class="stitle ar-text">تجمع داغستان 2026</h2><h2 class="stitle de-text" style="display:none">Dagestan Sammlung 2026</h2>
+  <div class="evc rev">
+    <div>
+      <div class="ering"><div class="enum" id="days-left">—</div><div class="elbl ar-text">يوم</div><div class="elbl de-text" style="display:none">Tage</div></div>
+      <div class="edate ar-text">30 يوليو — 1 أغسطس 2026</div><div class="edate de-text" style="display:none">30. Juli — 1. Aug. 2026</div>
+    </div>
+    <div class="einfo">
+      <div class="ebadge"><div class="bdot"></div><span class="ar-text">قادم قريباً</span><span class="de-text" style="display:none">Bald</span></div>
+      <div class="etitle ar-text">تجمع داغستان 2026</div><div class="etitle de-text" style="display:none">Dagestan Sammlung 2026</div>
+      <p class="esub ar-text">ثلاثة أيام من اللقاء والفرح في قلب ألمانيا — طعام، موسيقى، رياضة وذكريات لا تُنسى</p>
+      <p class="esub de-text" style="display:none">Drei Tage Begegnung und Freude — Essen, Musik, Sport und unvergessliche Erinnerungen</p>
+      <div class="emetas">
+        <div class="em2">📅 <strong>30.07 – 01.08.2026</strong></div>
+        <div class="em2">📍 <strong>Bestwig, NRW</strong></div>
+      </div>
+      <a href="event.html" class="bev"><span class="ar-text">عرض التفاصيل ←</span><span class="de-text" style="display:none">Details →</span></a>
+    </div>
+  </div>
+</div></section>
 
 <section class="sec" id="mem"><div class="sin">
-<div class="stag ar-text">&#1605;&#1580;&#1578;&#1605;&#1593;&#1606;&#1575;</div><div class="stag de-text" style="display:none">COMMUNITY</div>
-<h2 class="stitle ar-text">&#1605;&#1606;&#1591;&#1602;&#1577; &#1575;&#1604;&#1571;&#1593;&#1590;&#1575;&#1569;</h2><h2 class="stitle de-text" style="display:none">Mitgliederbereich</h2>
-<div class="mbanner rev">
-<div class="mtitle ar-text">&#127956;&#65039; &#1605;&#1580;&#1578;&#1605;&#1593;&#1606;&#1575; &#1575;&#1604;&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;&#1610;</div><div class="mtitle de-text" style="display:none">&#127956;&#65039; Unsere Gemeinschaft</div>
-<p class="msub ar-text">&#1571;&#1603;&#1579;&#1585; &#1605;&#1606; 300 &#1593;&#1590;&#1608; &#1606;&#1588;&#1610;&#1591; &#1610;&#1585;&#1576;&#1591;&#1607;&#1605; &#1575;&#1604;&#1575;&#1606;&#1578;&#1605;&#1575;&#1569; &#1604;&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;</p>
-<p class="msub de-text" style="display:none">&Uuml;ber 300 aktive Mitglieder vereint durch Dagestan</p>
-<div class="mrow">
-<div class="mchip"><div class="mav">&#1587;</div><div><div class="mn2">Saad Abo Aldar</div><div class="mr2 ar-text">&#1575;&#1604;&#1605;&#1606;&#1587;&#1602;</div><div class="mr2 de-text" style="display:none">Koordinator</div></div></div>
-<div class="mchip"><div class="mav">&#1605;</div><div><div class="mn2">Mohammed Babat</div><div class="mr2 ar-text">IT &#8212; &#1603;&#1608;&#1604;&#1606;</div><div class="mr2 de-text" style="display:none">IT &mdash; K&ouml;ln</div></div></div>
-<div class="mchip"><div class="mav">+</div><div><div class="mn2">300+</div><div class="mr2 ar-text">&#1593;&#1590;&#1608;</div><div class="mr2 de-text" style="display:none">Mitglieder</div></div></div>
-</div></div></div></section>
+  <div class="stag ar-text">مجتمعنا</div><div class="stag de-text" style="display:none">COMMUNITY</div>
+  <h2 class="stitle ar-text">منطقة الأعضاء</h2><h2 class="stitle de-text" style="display:none">Mitgliederbereich</h2>
+  <div class="mbanner rev">
+    <div class="mtitle ar-text">🏔️ مجتمعنا الداغستاني</div><div class="mtitle de-text" style="display:none">🏔️ Unsere Gemeinschaft</div>
+    <p class="msub ar-text">أكثر من 300 عضو نشيط يربطهم الانتماء لداغستان الجميلة</p>
+    <p class="msub de-text" style="display:none">Über 300 aktive Mitglieder vereint durch die Liebe zu Dagestan</p>
+    <div class="mrow">
+      <div class="mchip"><div class="mav">س</div><div><div class="mn2">Saad Abo Aldar</div><div class="mr2 ar-text">المنسق</div><div class="mr2 de-text" style="display:none">Koordinator</div></div></div>
+      <div class="mchip"><div class="mav">م</div><div><div class="mn2">Mohammed Babat</div><div class="mr2 ar-text">IT — كولن</div><div class="mr2 de-text" style="display:none">IT — Köln</div></div></div>
+      <div class="mchip"><div class="mav">+</div><div><div class="mn2">300+</div><div class="mr2 ar-text">عضو</div><div class="mr2 de-text" style="display:none">Mitglieder</div></div></div>
+    </div>
+  </div>
+</div></section>
 
 <footer><div class="fin">
-<div class="fflag"></div>
-<div class="ftop">
-<div class="fbrand"><span class="flogo">&#127956;&#65039; <span class="ar-text">&#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;</span><span class="de-text" style="display:none">Dagestan</span></span><p class="ar-text">&#1605;&#1580;&#1578;&#1605;&#1593; &#1583;&#1575;&#1594;&#1587;&#1578;&#1575;&#1606;&#1610; &#1601;&#1610; &#1571;&#1604;&#1605;&#1575;&#1606;&#1610;&#1575;</p><p class="de-text" style="display:none">Dagestanische Gemeinschaft in Deutschland</p></div>
-<div class="flinks"><h4 class="ar-text">&#1585;&#1608;&#1575;&#1576;&#1591;</h4><h4 class="de-text" style="display:none">Links</h4>
-<a href="berufe.html" class="ar-text">&#129489;&#8205;&#128188; &#1583;&#1604;&#1610;&#1604; &#1575;&#1604;&#1605;&#1607;&#1606;</a><a href="berufe.html" class="de-text" style="display:none">&#129489;&#8205;&#128188; Berufsverzeichnis</a>
-<a href="event.html" class="ar-text">&#128197; &#1578;&#1580;&#1605;&#1593; 2026</a><a href="event.html" class="de-text" style="display:none">&#128197; Sammlung 2026</a>
-</div>
-<div class="flinks"><h4 class="ar-text">&#1578;&#1608;&#1575;&#1589;&#1604;</h4><h4 class="de-text" style="display:none">Kontakt</h4>
-<a href="https://wa.me/491715003741">&#128241; +49 171 500 3741</a>
-<a href="#">Saad Abo Aldar</a>
-</div></div>
-<div class="fbot">&copy; 2025 Dagestan Community &mdash; Hosted on GitHub Pages</div>
+  <div class="fflag"></div>
+  <div class="ftop">
+    <div class="fbrand"><span class="flogo">🏔️ <span class="ar-text">داغستان</span><span class="de-text" style="display:none">Dagestan</span></span><p class="ar-text">مجتمع داغستاني في ألمانيا</p><p class="de-text" style="display:none">Dagestanische Gemeinschaft in Deutschland</p></div>
+    <div class="flinks"><h4 class="ar-text">روابط</h4><h4 class="de-text" style="display:none">Links</h4><a href="berufe.html" class="ar-text">🧑‍💼 دليل المهن</a><a href="berufe.html" class="de-text" style="display:none">🧑‍💼 Berufsverzeichnis</a><a href="event.html" class="ar-text">🗓️ تجمع 2026</a><a href="event.html" class="de-text" style="display:none">🗓️ Sammlung 2026</a></div>
+    <div class="flinks"><h4 class="ar-text">تواصل</h4><h4 class="de-text" style="display:none">Kontakt</h4><a href="https://wa.me/491715003741">📱 +49 171 500 3741</a><a href="#">Saad Abo Aldar</a></div>
+  </div>
+  <div class="fbot">© 2025 Dagestan Community — Hosted on GitHub Pages</div>
 </div></footer>
 </div>
 
 <script>
 const PWD="dagestan2025";
-function doLogin(){const i=document.getElementById('pw'),e=document.getElementById('lerr');if(i.value===PWD){sessionStorage.setItem('dag_auth','1');document.getElementById('login-screen').style.display='none';document.getElementById('main-site').style.display='block';initSite();}else{i.classList.add('error');e.textContent='&#10060; Falsches Passwort | &#1603;&#1604;&#1605;&#1577; &#1575;&#1604;&#1605;&#1585;&#1608;&#1585; &#1582;&#1575;&#1591;&#1574;&#1577;';setTimeout(()=>i.classList.remove('error'),500);i.value='';}}
+function doLogin(){
+  const i=document.getElementById('pw'),e=document.getElementById('lerr');
+  if(i.value===PWD){sessionStorage.setItem('dag_auth','1');document.getElementById('login-screen').style.display='none';document.getElementById('main-site').style.display='block';initSite();}
+  else{i.classList.add('error');e.textContent='❌ Falsches Passwort | كلمة المرور خاطئة';setTimeout(()=>i.classList.remove('error'),500);i.value='';}
+}
 if(sessionStorage.getItem('dag_auth')==='1'){document.getElementById('login-screen').style.display='none';document.getElementById('main-site').style.display='block';setTimeout(initSite,50);}
-function setLang(l){const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');document.getElementById('btn-ar').classList.toggle('active',l==='ar');document.getElementById('btn-de').classList.toggle('active',l==='de');localStorage.setItem('dag_lang',l);}
+function setLang(l){
+  const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
+  document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
+  document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');
+  document.getElementById('btn-ar').classList.toggle('active',l==='ar');
+  document.getElementById('btn-de').classList.toggle('active',l==='de');
+  localStorage.setItem('dag_lang',l);
+}
 setLang(localStorage.getItem('dag_lang')||'ar');
 function initSite(){
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target);}});},{threshold:0.1});
-document.querySelectorAll('.rev,.revl').forEach(el=>obs.observe(el));
-window.addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('sc',scrollY>60));
-const t=new Date('2026-07-30T00:00:00');
-function upd(){const d=t-Date.now();if(d>0)document.getElementById('days-left').textContent=Math.ceil(d/86400000);}
-upd();setInterval(upd,60000);
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}});},{threshold:0.1});
+  document.querySelectorAll('.rev,.revl').forEach(el=>obs.observe(el));
+  window.addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('sc',scrollY>60));
+  const t=new Date('2026-07-30T00:00:00');
+  function upd(){const d=t-Date.now();if(d>0)document.getElementById('days-left').textContent=Math.ceil(d/86400000);}
+  upd();setInterval(upd,60000);
 }
-</script></body></html>
+</script>
+</body>
+</html>
