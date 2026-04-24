@@ -13,114 +13,173 @@
   --dr:#D4001A;--dr-d:#a0001a;
   --bg:#f7f8fc;--card:#ffffff;
   --text:#111827;--text2:#374151;--text3:#6b7280;--text4:#9ca3af;
-  --border:rgba(0,61,165,0.12);--border2:rgba(0,146,96,0.15);
+  --border:rgba(0,61,165,0.12);
   --shadow:0 2px 16px rgba(0,0,0,0.06);--shadow-lg:0 8px 40px rgba(0,0,0,0.10);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
-.flagbar{position:fixed;top:0;left:0;right:0;z-index:201;height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
-header{position:fixed;top:4px;left:0;right:0;z-index:200;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,61,165,0.08);box-shadow:0 1px 12px rgba(0,0,0,0.05);}
-.back-btn{display:flex;align-items:center;gap:8px;color:var(--text2);text-decoration:none;font-size:14px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--border);transition:all 0.25s;}
+.flagbar{position:fixed;top:0;left:0;right:0;z-index:201;height:4px;
+  background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
+header{position:fixed;top:4px;left:0;right:0;z-index:200;height:66px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 48px;
+  background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,61,165,0.08);box-shadow:0 1px 12px rgba(0,0,0,0.05);}
+.back-btn{display:flex;align-items:center;gap:8px;color:var(--text2);text-decoration:none;
+  font-size:14px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--border);transition:all 0.25s;}
 .back-btn:hover{color:var(--dg-d);border-color:var(--dg);}
-.hlogo{font-family:'Amiri',serif;font-size:20px;background:linear-gradient(90deg,var(--dg-d),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hlogo{font-family:'Amiri',serif;font-size:20px;
+  background:linear-gradient(90deg,var(--dg-d),var(--db));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .ltog{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;display:flex;overflow:hidden;}
-.lbtnx{padding:7px 18px;font-size:13px;font-weight:600;font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
+.lbtnx{padding:7px 18px;font-size:13px;font-weight:600;font-family:inherit;border:none;
+  background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
 .lbtnx.active{background:linear-gradient(135deg,var(--dg-d),var(--db));color:#fff;border-radius:22px;}
 /* HERO */
-.hero{padding:130px 48px 72px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 45%,#f7f8fc 100%);text-align:center;}
+.hero{padding:130px 48px 72px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 45%,#f7f8fc 100%);text-align:center;}
 .hblob{position:absolute;border-radius:50%;pointer-events:none;}
 .hb1{width:500px;height:500px;background:rgba(0,146,96,0.1);filter:blur(90px);top:-150px;right:-100px;}
 .hb2{width:400px;height:400px;background:rgba(0,61,165,0.08);filter:blur(90px);bottom:-100px;left:-80px;}
-.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,61,165,0.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
+.hero::before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(0,61,165,0.1) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
 .hcont{position:relative;z-index:1;max-width:760px;margin:0 auto;}
-.heye{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,96,0.08);border:1px solid rgba(0,146,96,0.2);border-radius:30px;padding:8px 22px;font-size:13px;color:var(--dg-d);margin-bottom:24px;}
+.heye{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,96,0.08);
+  border:1px solid rgba(0,146,96,0.2);border-radius:30px;padding:8px 22px;
+  font-size:13px;color:var(--dg-d);margin-bottom:24px;}
 .htitle{font-family:'Amiri',serif;font-size:clamp(48px,8vw,88px);line-height:0.95;margin-bottom:16px;}
 html[lang="de"] .htitle{font-family:'Cormorant Garamond',serif;}
-.htitle span{display:block;background:linear-gradient(135deg,var(--dg-d),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.htitle span{display:block;background:linear-gradient(135deg,var(--dg-d),var(--db));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hsub{font-size:clamp(15px,2vw,17px);color:var(--text2);line-height:1.9;max-width:560px;margin:0 auto 36px;}
-.hstats{display:flex;justify-content:center;gap:0;background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:24px 0;margin-top:36px;}
-.si{flex:1;max-width:160px;text-align:center;padding:0 20px;border-right:1px solid rgba(0,61,165,0.1);}
+.hstats{display:flex;justify-content:center;background:#fff;border-radius:18px;
+  box-shadow:var(--shadow);padding:24px 0;margin-top:36px;}
+.si{flex:1;max-width:160px;text-align:center;padding:0 20px;
+  border-right:1px solid rgba(0,61,165,0.1);}
 html[lang="ar"] .si{border-right:none;border-left:1px solid rgba(0,61,165,0.1);}
 .si:last-child,.si:first-child{border:none;}
-.sn{font-family:'Amiri',serif;font-size:34px;line-height:1;background:linear-gradient(135deg,var(--dg),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sn{font-family:'Amiri',serif;font-size:34px;line-height:1;
+  background:linear-gradient(135deg,var(--dg),var(--db));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .sl{font-size:12px;color:var(--text3);margin-top:4px;}
-/* FILTER */
-.filter-wrap{position:sticky;top:70px;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,61,165,0.08);padding:14px 48px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
-.filter-inner{max-width:1180px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.sinp{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:9px 16px;color:var(--text);font-size:14px;font-family:inherit;outline:none;flex:1;min-width:200px;transition:all 0.2s;}
+/* FILTER BAR */
+.filter-wrap{position:sticky;top:70px;z-index:100;background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,61,165,0.08);
+  padding:14px 48px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.filter-inner{max-width:1180px;margin:0 auto;display:flex;gap:10px;align-items:center;}
+.sinp{background:#fff;border:1.5px solid var(--border);border-radius:10px;
+  padding:9px 16px;color:var(--text);font-size:14px;font-family:inherit;
+  outline:none;flex:1;transition:all 0.2s;}
 .sinp:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);}
 .sinp::placeholder{color:var(--text4);}
-.add-link{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--dg-d),var(--dg));color:#fff;text-decoration:none;padding:9px 20px;border-radius:10px;font-size:13px;font-weight:600;white-space:nowrap;box-shadow:0 3px 10px rgba(0,146,96,0.25);transition:all 0.2s;}
-.add-link:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,146,96,0.35);}
-/* LOADING */
-.loading-wrap{grid-column:1/-1;text-align:center;padding:60px 20px;}
-.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--dg);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
-@keyframes spin{to{transform:rotate(360deg)}}
-/* CARDS */
+.add-link{display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,var(--dg-d),var(--dg));color:#fff;
+  text-decoration:none;padding:9px 20px;border-radius:10px;
+  font-size:13px;font-weight:600;white-space:nowrap;
+  box-shadow:0 3px 10px rgba(0,146,96,0.25);transition:all 0.2s;}
+.add-link:hover{transform:translateY(-2px);}
+/* CARDS AREA */
 .main-wrap{max-width:1180px;margin:0 auto;padding:36px 48px 72px;}
 .results-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
 .rcount{font-size:13px;color:var(--text3);}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
-.pcard{background:#fff;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:var(--shadow);}
+/* Loading */
+.loading-wrap{grid-column:1/-1;text-align:center;padding:60px 20px;}
+.spinner{width:44px;height:44px;border:4px solid var(--border);
+  border-top-color:var(--dg);border-radius:50%;
+  animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-txt{font-size:15px;color:var(--text3);}
+/* CARDS */
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.pcard{background:#fff;border:1.5px solid var(--border);border-radius:20px;
+  overflow:hidden;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:var(--shadow);animation:cardIn 0.4s both;}
 .pcard:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--dg);}
 .cstrip{height:4px;background:linear-gradient(90deg,var(--dg-d),var(--db-l));}
 .cbody{padding:22px;}
 .ctop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
-.cav{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:linear-gradient(135deg,var(--dg-d),var(--dg));}
-.cbadge{font-size:11px;font-weight:700;padding:4px 11px;border-radius:12px;background:rgba(0,61,165,0.07);color:var(--db-d);border:1px solid rgba(0,61,165,0.15);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cav{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--dg-d),var(--dg));}
+.cbadge{font-size:11px;font-weight:700;padding:4px 11px;border-radius:12px;
+  background:rgba(0,61,165,0.07);color:var(--db-d);
+  border:1px solid rgba(0,61,165,0.15);
+  max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .cjob{font-size:17px;font-weight:700;margin-bottom:14px;color:var(--text);}
 .cdiv{height:1px;background:rgba(0,61,165,0.07);margin-bottom:14px;}
 .cinfo{display:flex;flex-direction:column;gap:9px;}
 .crow{display:flex;align-items:flex-start;gap:9px;font-size:14px;}
-.cion{width:28px;height:28px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;background:var(--bg);margin-top:1px;}
+.cion{width:28px;height:28px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;background:var(--bg);margin-top:1px;}
 .cval{color:var(--text2);line-height:1.5;}
 .cval a{color:var(--dg-d);text-decoration:none;font-weight:500;}
 .cval a:hover{color:var(--db);}
-.cdesc{font-size:12px;color:var(--text3);}
+.cdesc{font-size:12px;color:var(--text3);line-height:1.6;}
 .cactions{margin-top:16px;display:flex;gap:8px;}
-.btn-wa-sm{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#128C7E,#25D366);color:#fff;text-decoration:none;padding:10px;border-radius:10px;font-size:13px;font-weight:600;transition:all 0.2s;border:none;cursor:pointer;}
+.btn-wa-sm{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  background:linear-gradient(135deg,#128C7E,#25D366);color:#fff;
+  text-decoration:none;padding:10px;border-radius:10px;
+  font-size:13px;font-weight:600;transition:all 0.2s;border:none;cursor:pointer;}
 .btn-wa-sm:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(37,211,102,0.35);}
-.btn-tel{display:flex;align-items:center;gap:5px;color:var(--text2);text-decoration:none;padding:10px 14px;border-radius:10px;font-size:13px;border:1.5px solid var(--border);background:#fff;transition:all 0.2s;}
+.btn-tel{display:flex;align-items:center;gap:5px;color:var(--text2);
+  text-decoration:none;padding:10px 14px;border-radius:10px;
+  font-size:13px;border:1.5px solid var(--border);background:#fff;transition:all 0.2s;}
 .btn-tel:hover{border-color:var(--db-l);color:var(--db);}
-.empty-state{grid-column:1/-1;text-align:center;padding:72px 20px;color:var(--text4);}
+.empty-state{grid-column:1/-1;text-align:center;padding:72px 20px;}
 .empty-icon{font-size:52px;margin-bottom:14px;opacity:0.35;}
+.empty-txt{font-size:16px;color:var(--text3);}
 /* FORM */
 .form-section{background:#fff;border-top:1px solid rgba(0,61,165,0.08);padding:80px 48px;}
 .form-inner{max-width:740px;margin:0 auto;}
 .form-head{text-align:center;margin-bottom:44px;}
-.ftag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.18em;color:var(--dg-d);text-transform:uppercase;margin-bottom:14px;}
+.ftag{display:inline-flex;align-items:center;gap:8px;font-size:12px;
+  letter-spacing:0.18em;color:var(--dg-d);text-transform:uppercase;margin-bottom:14px;}
 .ftag::before{content:'';display:block;width:22px;height:2px;background:var(--dg);border-radius:2px;}
-.fmain{font-family:'Amiri',serif;font-size:clamp(28px,5vw,46px);line-height:1.1;margin-bottom:12px;color:var(--text);}
+.fmain{font-family:'Amiri',serif;font-size:clamp(28px,5vw,46px);
+  line-height:1.1;margin-bottom:12px;color:var(--text);}
 html[lang="de"] .fmain{font-family:'Cormorant Garamond',serif;}
-.fsub-text{font-size:16px;color:var(--text2);line-height:1.8;}
-.fcard{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;padding:44px;box-shadow:var(--shadow);}
+.fsub-txt{font-size:16px;color:var(--text2);line-height:1.8;}
+.fcard{background:var(--bg);border:1.5px solid var(--border);
+  border-radius:24px;padding:44px;box-shadow:var(--shadow);}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 .ffull{grid-column:1/-1;}
 .fwrap{display:flex;flex-direction:column;gap:7px;}
 .flabel{font-size:12px;letter-spacing:0.08em;color:var(--dg-d);font-weight:600;text-transform:uppercase;}
-.finput,.fselect,.ftextarea{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px 16px;color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:all 0.2s;width:100%;}
+.finput,.fselect,.ftextarea{
+  background:#fff;border:1.5px solid var(--border);border-radius:12px;
+  padding:12px 16px;color:var(--text);font-size:15px;font-family:inherit;
+  outline:none;transition:all 0.2s;width:100%;}
 .finput::placeholder,.ftextarea::placeholder{color:var(--text4);}
-.finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);}
-.fselect{cursor:pointer;appearance:none;background-image:("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;}
+.finput:focus,.fselect:focus,.ftextarea:focus{
+  border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);}
+.fselect{cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left 14px center;}
 html[lang="de"] .fselect{background-position:right 14px center;}
 .ftextarea{resize:vertical;min-height:90px;line-height:1.7;}
-/* Quick category suggestions */
 .cat-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
-.cat-tag{padding:5px 13px;border-radius:16px;font-size:12px;border:1.5px solid var(--border);background:#fff;cursor:pointer;color:var(--text2);transition:all 0.2s;font-family:inherit;}
+.cat-tag{padding:5px 13px;border-radius:16px;font-size:12px;
+  border:1.5px solid var(--border);background:#fff;cursor:pointer;
+  color:var(--text2);transition:all 0.2s;font-family:inherit;}
 .cat-tag:hover{border-color:var(--dg);color:var(--dg-d);background:rgba(0,146,96,0.05);}
 .field-hint{font-size:12px;color:var(--text3);margin-top:4px;}
-.btn-submit{width:100%;padding:16px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--dg-d),var(--dg) 50%,var(--db));color:#fff;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,146,96,0.3);}
+.btn-submit{width:100%;padding:16px;border-radius:14px;border:none;
+  background:linear-gradient(135deg,var(--dg-d),var(--dg) 50%,var(--db));
+  color:#fff;font-size:16px;font-weight:700;font-family:inherit;
+  cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,146,96,0.3);}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,146,96,0.4);}
 .btn-submit:disabled{opacity:0.6;transform:none;cursor:not-allowed;}
-.fsuccess{display:none;text-align:center;padding:32px;background:rgba(0,146,96,0.06);border:1.5px solid rgba(0,146,96,0.18);border-radius:18px;margin-top:18px;}
-.fsuccess .sico{font-size:48px;margin-bottom:10px;}
-.fsuccess h3{font-family:'Amiri',serif;font-size:28px;color:var(--dg-d);margin-bottom:6px;}
-html[lang="de"] .fsuccess h3{font-family:'Cormorant Garamond',serif;}
-.fsuccess p{font-size:14px;color:var(--text2);}
-.ferror{display:none;text-align:center;padding:20px;background:rgba(212,0,26,0.05);border:1.5px solid rgba(212,0,26,0.15);border-radius:14px;margin-top:16px;font-size:14px;color:var(--dr-d);}
-/* notice box */
-.notice{background:rgba(180,133,10,0.07);border:1.5px solid rgba(180,133,10,0.2);border-radius:14px;padding:18px 22px;margin-bottom:24px;font-size:13px;color:#8a6d0a;line-height:1.8;display:none;}
+.msg{display:none;text-align:center;padding:28px;border-radius:18px;margin-top:18px;}
+.msg-ok{background:rgba(0,146,96,0.06);border:1.5px solid rgba(0,146,96,0.18);}
+.msg-err{background:rgba(212,0,26,0.05);border:1.5px solid rgba(212,0,26,0.15);color:var(--dr-d);font-size:14px;}
+.msg-ok .sico{font-size:48px;margin-bottom:10px;}
+.msg-ok h3{font-family:'Amiri',serif;font-size:26px;color:var(--dg-d);margin-bottom:6px;}
+html[lang="de"] .msg-ok h3{font-family:'Cormorant Garamond',serif;}
+.msg-ok p{font-size:14px;color:var(--text2);}
 footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
 .fin{max-width:1180px;margin:0 auto;}
 .fflag{height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);border-radius:2px;margin-bottom:36px;}
@@ -142,8 +201,12 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
 <div class="flagbar"></div>
 <header>
   <a href="index.html" class="back-btn">← <span class="ar-text">الرئيسية</span><span class="de-text" style="display:none">Startseite</span></a>
-  <div class="hlogo ar-text">🧑‍💼 دليل المهن</div><div class="hlogo de-text" style="display:none">🧑‍💼 Berufsverzeichnis</div>
-  <div class="ltog"><button class="lbtnx active" id="btn-ar" onclick="setLang('ar',true)">عربي</button><button class="lbtnx" id="btn-de" onclick="setLang('de',true)">DE</button></div>
+  <div class="hlogo ar-text">🧑‍💼 دليل المهن</div>
+  <div class="hlogo de-text" style="display:none">🧑‍💼 Berufsverzeichnis</div>
+  <div class="ltog">
+    <button class="lbtnx active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+    <button class="lbtnx" id="btn-de" onclick="setLang('de')">DE</button>
+  </div>
 </header>
 
 <section class="hero">
@@ -152,9 +215,9 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
     <div class="heye">🧑‍💼 <span class="ar-text">دليل المهن — مجتمع داغستان</span><span class="de-text" style="display:none">Berufsverzeichnis — Dagestan Community</span></div>
     <h1 class="htitle"><span class="ar-text">دليل المهن</span><span class="de-text" style="display:none">Berufsverzeichnis</span></h1>
     <p class="hsub ar-text">ابحث عن خبير أو أضف مهنتك — جميع الأعضاء يرون كل الإعلانات، محفوظة في Google Sheets</p>
-    <p class="hsub de-text" style="display:none">Finde einen Experten oder füge deinen Beruf hinzu — alle Mitglieder sehen alle Einträge, gespeichert in Google Sheets</p>
+    <p class="hsub de-text" style="display:none">Finde einen Experten oder füge deinen Beruf hinzu — alle Mitglieder sehen alle Einträge</p>
     <div class="hstats">
-      <div class="si"><div class="sn" id="total-count">...</div><div class="sl ar-text">إجمالي الإعلانات</div><div class="sl de-text" style="display:none">Einträge</div></div>
+      <div class="si"><div class="sn" id="total-count">...</div><div class="sl ar-text">إعلانات</div><div class="sl de-text" style="display:none">Einträge</div></div>
       <div class="si"><div class="sn">☁️</div><div class="sl ar-text">محفوظ للجميع</div><div class="sl de-text" style="display:none">Für alle gespeichert</div></div>
       <div class="si"><div class="sn">🆓</div><div class="sl ar-text">مجاني</div><div class="sl de-text" style="display:none">Kostenlos</div></div>
     </div>
@@ -181,8 +244,8 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
   <div class="cards-grid" id="cards-grid">
     <div class="loading-wrap">
       <div class="spinner"></div>
-      <div style="font-size:15px;color:var(--text3);" class="ar-text">جاري تحميل الإعلانات...</div>
-      <div style="font-size:15px;color:var(--text3);" class="de-text" style="display:none">Einträge werden geladen...</div>
+      <div class="load-txt ar-text">جاري التحميل...</div>
+      <div class="load-txt de-text" style="display:none">Wird geladen...</div>
     </div>
   </div>
 </div>
@@ -193,21 +256,17 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
     <div class="form-head rev">
       <div class="ftag ar-text">أضف إعلانك</div><div class="ftag de-text" style="display:none">EINTRAG HINZUFÜGEN</div>
       <h2 class="fmain ar-text">سجّل مهنتك هنا</h2><h2 class="fmain de-text" style="display:none">Trage deinen Beruf ein</h2>
-      <p class="fsub-text ar-text">أضف بياناتك — ستُحفظ في Google Sheets وتظهر لجميع أعضاء المجتمع</p>
-      <p class="fsub-text de-text" style="display:none">Füge deine Daten ein — sie werden in Google Sheets gespeichert und für alle sichtbar</p>
-    </div>
-    <div class="notice" id="setup-notice">
-      ⚠️ <strong>Admin:</strong>
-      <span class="ar-text">يجب إضافة رابط Google Apps Script في متغير SCRIPT_ داخل الكود لتفعيل الحفظ.</span>
-      <span class="de-text" style="display:none">Bitte die Google Apps Script  in der Variable SCRIPT_ im Code eintragen.</span>
+      <p class="fsub-txt ar-text">أضف بياناتك — ستُحفظ في Google Sheets وتظهر لجميع أعضاء المجتمع</p>
+      <p class="fsub-txt de-text" style="display:none">Füge deine Daten ein — gespeichert in Google Sheets, sichtbar für alle</p>
     </div>
     <div class="fcard rev">
       <form id="entry-form" onsubmit="submitEntry(event)">
         <div class="fgrid">
+          <!-- FREE CATEGORY -->
           <div class="fwrap ffull">
             <div class="flabel ar-text">المجال المهني *</div><div class="flabel de-text" style="display:none">BERUFSFELD *</div>
             <input type="text" class="finput" id="f-cat" required
-              placeholder="مثال: IT، بناء، طب، مطبخ... | z.B. IT, Bau, Medizin, Küche...">
+              placeholder="مثال: IT، بناء، طب، مطبخ... | z.B. IT, Bau, Küche, Medizin...">
             <div class="cat-suggestions">
               <button type="button" class="cat-tag" onclick="setCat('IT')">💻 IT</button>
               <button type="button" class="cat-tag" onclick="setCat('Bau')">🏗️ Bau</button>
@@ -218,13 +277,13 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
               <button type="button" class="cat-tag" onclick="setCat('Handwerk')">🔧 Handwerk</button>
               <button type="button" class="cat-tag" onclick="setCat('Bildung')">📚 Bildung</button>
             </div>
-            <div class="field-hint ar-text">اضغط على اقتراح أو اكتب مجالك الخاص بحرية</div>
-            <div class="field-hint de-text" style="display:none">Klicke auf einen Vorschlag oder schreibe dein eigenes Feld</div>
+            <div class="field-hint ar-text">اضغط على اقتراح أو اكتب مجالك بحرية</div>
+            <div class="field-hint de-text" style="display:none">Klicke auf Vorschlag oder schreibe dein Feld</div>
           </div>
           <div class="fwrap">
             <div class="flabel ar-text">المسمى الوظيفي *</div><div class="flabel de-text" style="display:none">BERUFSBEZEICHNUNG *</div>
             <input type="text" class="finput" id="f-job" required
-              placeholder="مثال: مبرمج، مقاول، طاهي | Programmierer, Maurer">
+              placeholder="مثال: مبرمج، مقاول | z.B. Programmierer, Maurer">
           </div>
           <div class="fwrap">
             <div class="flabel ar-text">الاسم الكامل *</div><div class="flabel de-text" style="display:none">VOLLSTÄNDIGER NAME *</div>
@@ -241,32 +300,32 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
           <div class="fwrap">
             <div class="flabel ar-text">واتساب متاح؟</div><div class="flabel de-text" style="display:none">WHATSAPP?</div>
             <select class="fselect" id="f-wa">
-              <option value="Ja">✅ <span class="ar-text">نعم</span><span class="de-text" style="display:none">Ja</span></option>
-              <option value="Nein">❌ <span class="ar-text">لا</span><span class="de-text" style="display:none">Nein</span></option>
+              <option value="Ja">✅ Ja / نعم</option>
+              <option value="Nein">❌ Nein / لا</option>
             </select>
           </div>
           <div class="fwrap ffull">
             <div class="flabel ar-text">وصف قصير (اختياري)</div><div class="flabel de-text" style="display:none">BESCHREIBUNG (OPTIONAL)</div>
             <textarea class="ftextarea" id="f-desc"
-              placeholder="أضف وصفاً عن خدماتك وخبرتك... | Kurze Beschreibung deiner Dienstleistung..."></textarea>
+              placeholder="أضف وصفاً عن خدماتك وخبرتك... | Kurze Beschreibung..."></textarea>
           </div>
           <div class="fwrap ffull">
             <button type="submit" class="btn-submit" id="submit-btn">
               <span class="ar-text">✅ إضافة إعلاني — سيظهر لجميع الأعضاء</span>
-              <span class="de-text" style="display:none">✅ Eintrag hinzufügen — sichtbar für alle Mitglieder</span>
+              <span class="de-text" style="display:none">✅ Eintrag hinzufügen — sichtbar für alle</span>
             </button>
           </div>
         </div>
       </form>
-      <div class="fsuccess" id="fsuccess">
+      <div class="msg msg-ok" id="msg-ok">
         <div class="sico">🎉</div>
-        <h3 class="ar-text">تمت الإضافة بنجاح!</h3><h3 class="de-text" style="display:none">Erfolgreich hinzugefügt!</h3>
-        <p class="ar-text">إعلانك محفوظ في Google Sheets ويظهر الآن لجميع الأعضاء</p>
-        <p class="de-text" style="display:none">Dein Eintrag wurde in Google Sheets gespeichert und ist jetzt für alle sichtbar</p>
+        <h3 class="ar-text">تمت الإضافة بنجاح!</h3><h3 class="de-text" style="display:none">Erfolgreich!</h3>
+        <p class="ar-text">إعلانك محفوظ في Google Sheets ويظهر الآن للجميع</p>
+        <p class="de-text" style="display:none">Dein Eintrag wurde gespeichert und ist für alle sichtbar</p>
       </div>
-      <div class="ferror" id="ferror">
+      <div class="msg msg-err" id="msg-err">
         ⚠️ <span class="ar-text">حدث خطأ — تأكد من الاتصال بالإنترنت وحاول مرة أخرى</span>
-        <span class="de-text" style="display:none">Fehler — Internetverbindung prüfen und erneut versuchen</span>
+        <span class="de-text" style="display:none">Fehler — Verbindung prüfen und erneut versuchen</span>
       </div>
     </div>
   </div>
@@ -282,152 +341,193 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
 </div></footer>
 
 <script>
-// ══════════════════════════════════════════════════════
-// 🔑 SCHRITT 4: DEINE GOOGLE APPS SCRIPT  HIER EINFÜGEN
-// Beispiel: https://script.google.com/macros/s/ABC123.../exec
-// ══════════════════════════════════════════════════════
+// ── Google Apps Script URL ──
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxJkuAauVvcNoXAaEu_YCrF01zJWCGzBUUt7_aQ1HB6LgGCDi2NatPWS5jpydH7y0Qq/exec';
 
-const CONFIGURED = SCRIPT_URL !== 'DEINE_SCRIPT_URL_HIER';
+// ── Fest eingetragene Einträge (immer sichtbar) ──
+const FIXED_ENTRIES = [
+  {
+    id:'fixed-1',
+    name:'Mohammed Babat',
+    job:'IT-Systemintegration',
+    cat:'IT',
+    city:'Köln',
+    phone:'+4916097940319',
+    wa:'Ja',
+    desc:'IT-Systemintegration, Netzwerke, Windows Server, Support'
+  }
+];
 
-// Fester Eintrag — immer angezeigt
-const FIXED = {id:'f1',name:'Mohammed Babat',job:'IT-Systemintegration',
-  cat:'IT',city:'Köln',phone:'+4916097940319',wa:'Ja',
-  desc:'IT-Systemintegration, Netzwerke, Windows Server, Support'};
-
-let allEntries = [];
+let allEntries = [...FIXED_ENTRIES];
 let curSearch  = '';
+let langReady  = false;
 
-function setLang(l, rerender){
-  const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
-  document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
-  document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');
-  document.getElementById('btn-ar').classList.toggle('active',l==='ar');
-  document.getElementById('btn-de').classList.toggle('active',l==='de');
-  localStorage.setItem('dag_lang',l);
-  if(rerender) renderCards();
+// ── Language ──
+function setLang(l) {
+  const h = document.documentElement;
+  h.lang = l; h.dir = l === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.ar-text').forEach(e => e.style.display = l === 'ar' ? '' : 'none');
+  document.querySelectorAll('.de-text').forEach(e => e.style.display = l === 'de' ? '' : 'none');
+  document.getElementById('btn-ar').classList.toggle('active', l === 'ar');
+  document.getElementById('btn-de').classList.toggle('active', l === 'de');
+  localStorage.setItem('dag_lang', l);
+  if (langReady) renderCards(); // only re-render after initial load
 }
-setLang(localStorage.getItem('dag_lang')||'ar', false);
+setLang(localStorage.getItem('dag_lang') || 'ar');
 
-function setCat(v){
-  document.getElementById('f-cat').value=v;
+// ── Quick category ──
+function setCat(v) {
+  document.getElementById('f-cat').value = v;
   document.getElementById('f-cat').focus();
 }
 
-function renderCards(){
-  const grid=document.getElementById('cards-grid');
-  const q=curSearch.toLowerCase();
-  const lang=document.documentElement.lang;
-  const filtered=allEntries.filter(e=>{
-    if(!q) return true;
-    return [e.name,e.job,e.cat,e.city,e.desc||''].some(v=>v.toLowerCase().includes(q));
+// ── Render cards ──
+function renderCards() {
+  const grid = document.getElementById('cards-grid');
+  const q    = curSearch.toLowerCase();
+  const lang = document.documentElement.lang;
+
+  const filtered = allEntries.filter(e => {
+    if (!q) return true;
+    return [e.name, e.job, e.cat, e.city, e.desc || '']
+      .some(v => v.toLowerCase().includes(q));
   });
-  document.getElementById('total-count').textContent=allEntries.length;
-  document.getElementById('shown-count').textContent=filtered.length;
-  document.getElementById('shown-count-de').textContent=filtered.length;
-  if(!filtered.length){
-    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div>
-      <p style="font-size:16px;" class="ar-text">لا توجد نتائج</p>
-      <p style="font-size:16px;display:${lang==='de'?'block':'none'}" class="de-text">Keine Ergebnisse</p></div>`;
+
+  document.getElementById('total-count').textContent    = allEntries.length;
+  document.getElementById('shown-count').textContent    = filtered.length;
+  document.getElementById('shown-count-de').textContent = filtered.length;
+
+  if (!filtered.length) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <div class="empty-txt ar-text">لا توجد نتائج — جرب كلمة أخرى</div>
+        <div class="empty-txt de-text" style="display:${lang==='de'?'block':'none'}">Keine Ergebnisse</div>
+      </div>`;
     return;
   }
-  grid.innerHTML=filtered.map((e,i)=>`
-    <div class="pcard" style="animation:cardIn 0.4s ${i*0.04}s both">
+
+  grid.innerHTML = filtered.map((e, i) => `
+    <div class="pcard" style="animation-delay:${i * 0.04}s">
       <div class="cstrip"></div>
       <div class="cbody">
         <div class="ctop">
           <div class="cav">🧑‍💼</div>
-          <div class="cbadge" title="${e.cat}">${e.cat}</div>
+          <div class="cbadge" title="${esc(e.cat)}">${esc(e.cat)}</div>
         </div>
-        <div class="cjob">${e.job}</div>
+        <div class="cjob">${esc(e.job)}</div>
         <div class="cdiv"></div>
         <div class="cinfo">
-          <div class="crow"><div class="cion">👤</div><div class="cval">${e.name}</div></div>
-          <div class="crow"><div class="cion">📍</div><div class="cval">${e.city}</div></div>
-          <div class="crow"><div class="cion">📱</div><div class="cval"><a href="tel:${e.phone}">${e.phone}</a></div></div>
-          ${e.desc?`<div class="crow"><div class="cion">📝</div><div class="cval cdesc">${e.desc}</div></div>`:''}
+          <div class="crow"><div class="cion">👤</div><div class="cval">${esc(e.name)}</div></div>
+          <div class="crow"><div class="cion">📍</div><div class="cval">${esc(e.city)}</div></div>
+          <div class="crow"><div class="cion">📱</div><div class="cval">
+            <a href="tel:${esc(e.phone)}">${esc(e.phone)}</a>
+          </div></div>
+          ${e.desc ? `<div class="crow"><div class="cion">📝</div>
+            <div class="cval cdesc">${esc(e.desc)}</div></div>` : ''}
         </div>
         <div class="cactions">
-          ${e.wa==='Ja'?`<a href="https://wa.me/${e.phone.replace(/\D/g,'')}" class="btn-wa-sm" target="_blank">💬 WhatsApp</a>`:''}
-          <a href="tel:${e.phone}" class="btn-tel">📞 <span class="ar-text">اتصال</span><span class="de-text" style="display:${lang==='de'?'inline':'none'}">Anrufen</span></a>
+          ${e.wa === 'Ja' ? `
+            <a href="https://wa.me/${e.phone.replace(/\D/g,'')}"
+               class="btn-wa-sm" target="_blank">💬 WhatsApp</a>` : ''}
+          <a href="tel:${esc(e.phone)}" class="btn-tel">
+            📞 <span class="ar-text">اتصال</span>
+            <span class="de-text" style="display:${lang==='de'?'inline':'none'}">Anrufen</span>
+          </a>
         </div>
       </div>
     </div>`).join('');
-  const s=document.createElement('style');
-  s.textContent='@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}';
-  document.head.appendChild(s);
 }
 
-function searchCards(q){curSearch=q;renderCards();}
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
-async function loadEntries(){
-  // Always show fixed entry immediately
-  allEntries=[FIXED];
+function searchCards(q) { curSearch = q; renderCards(); }
+
+// ── Load from Google Sheets ──
+async function loadEntries() {
+  // Show fixed entries immediately
+  allEntries = [...FIXED_ENTRIES];
+  langReady  = true;
   renderCards();
 
-  if(!CONFIGURED){
-    document.getElementById('setup-notice').style.display='block';
-    return;
-  }
-  // Then try to load from Google Sheets
-  try{
-    const r=await fetch(SCRIPT_URL+'?t='+Date.now());
-    const d=await r.json();
-    if(d.status==='ok'&&d.entries&&d.entries.length){
-      allEntries=[FIXED,...d.entries];
+  try {
+    const res  = await fetch(SCRIPT_URL + '?t=' + Date.now());
+    const data = await res.json();
+
+    if (data.status === 'ok' && Array.isArray(data.entries)) {
+      // Merge: fixed entries + sheet entries (avoid duplicates by name+phone)
+      const sheetEntries = data.entries.filter(e => e.name && e.job);
+      allEntries = [...FIXED_ENTRIES, ...sheetEntries];
       renderCards();
     }
-  }catch(err){console.warn('Sheets load error:',err);}
+  } catch (err) {
+    console.warn('Google Sheets Fehler:', err);
+    // Fixed entries are already shown — no problem
+  }
 }
 
-async function submitEntry(ev){
+// ── Submit form ──
+async function submitEntry(ev) {
   ev.preventDefault();
-  const btn=document.getElementById('submit-btn');
-  btn.disabled=true;
-  const entry={
-    name:document.getElementById('f-name').value.trim(),
-    job:document.getElementById('f-job').value.trim(),
-    cat:document.getElementById('f-cat').value.trim(),
-    city:document.getElementById('f-city').value.trim(),
-    phone:document.getElementById('f-phone').value.trim(),
-    wa:document.getElementById('f-wa').value,
-    desc:document.getElementById('f-desc').value.trim()
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+
+  const entry = {
+    name:  document.getElementById('f-name').value.trim(),
+    job:   document.getElementById('f-job').value.trim(),
+    cat:   document.getElementById('f-cat').value.trim(),
+    city:  document.getElementById('f-city').value.trim(),
+    phone: document.getElementById('f-phone').value.trim(),
+    wa:    document.getElementById('f-wa').value,
+    desc:  document.getElementById('f-desc').value.trim()
   };
-  if(!CONFIGURED){
-    // Demo mode
-    allEntries.push({...entry,id:'demo-'+Date.now()});
+
+  try {
+    // Send to Google Sheets
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(entry)
+    });
+
+    // Add immediately to local list for instant feedback
+    allEntries.push({ ...entry, id: 'new-' + Date.now() });
     renderCards();
+
+    // Reset form
     document.getElementById('entry-form').reset();
-    showMsg('fsuccess');
-    btn.disabled=false;
-    return;
+
+    // Show success
+    showMsg('msg-ok');
+  } catch (err) {
+    showMsg('msg-err');
   }
-  try{
-    await fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify(entry)});
-    allEntries.push({...entry,id:'new-'+Date.now()});
-    renderCards();
-    document.getElementById('entry-form').reset();
-    showMsg('fsuccess');
-  }catch(err){
-    showMsg('ferror');
-  }
-  btn.disabled=false;
+
+  btn.disabled = false;
 }
 
-function showMsg(id){
-  const el=document.getElementById(id);
-  el.style.display='block';
-  el.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>el.style.display='none',5000);
+function showMsg(id) {
+  const el = document.getElementById(id);
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => el.style.display = 'none', 5000);
 }
 
-// Auth check
-if(!sessionStorage.getItem('dag_role')) window.location.href='index.html';
+// ── Auth check ──
+if (!sessionStorage.getItem('dag_role')) {
+  window.location.href = 'index.html';
+}
 
-// Reveal
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}});},{threshold:0.08});
-document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+// ── Reveal animation ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rev').forEach(el => obs.observe(el));
 
+// ── Start ──
 loadEntries();
 </script>
 </body>
