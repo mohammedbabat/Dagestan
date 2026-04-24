@@ -445,27 +445,28 @@ function esc(s) {
 
 function searchCards(q) { curSearch = q; renderCards(); }
 
-// ── Load from Google Sheets ──
-async function loadEntries() {
+// ── Load from Google Sheets via JSONP (avoids CORS) ──
+function loadEntries() {
   // Show fixed entries immediately
   allEntries = [...FIXED_ENTRIES];
   langReady  = true;
   renderCards();
 
-  try {
-    const res  = await fetch(SCRIPT_URL + '?t=' + Date.now());
-    const data = await res.json();
+  // JSONP: inject a script tag — bypasses CORS completely
+  window._sheetsCallback = function(data) {
+    try {
+      if (data && data.status === 'ok' && Array.isArray(data.entries)) {
+        const sheetEntries = data.entries.filter(e => e.name && e.job);
+        allEntries = [...FIXED_ENTRIES, ...sheetEntries];
+        renderCards();
+      }
+    } catch(err) { console.warn('Sheets parse error:', err); }
+  };
 
-    if (data.status === 'ok' && Array.isArray(data.entries)) {
-      // Merge: fixed entries + sheet entries (avoid duplicates by name+phone)
-      const sheetEntries = data.entries.filter(e => e.name && e.job);
-      allEntries = [...FIXED_ENTRIES, ...sheetEntries];
-      renderCards();
-    }
-  } catch (err) {
-    console.warn('Google Sheets Fehler:', err);
-    // Fixed entries are already shown — no problem
-  }
+  const s = document.createElement('script');
+  s.src = SCRIPT_URL + '?callback=_sheetsCallback&t=' + Date.now();
+  s.onerror = () => console.warn('Sheets load failed — showing local entries');
+  document.head.appendChild(s);
 }
 
 // ── Submit form ──
@@ -485,9 +486,10 @@ async function submitEntry(ev) {
   };
 
   try {
-    // Send to Google Sheets
+    // Send to Google Sheets (no-cors to avoid CORS error)
     await fetch(SCRIPT_URL, {
       method: 'POST',
+      mode: 'no-cors',
       body: JSON.stringify(entry)
     });
 
