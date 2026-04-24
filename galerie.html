@@ -10,236 +10,143 @@
 :root {
   --dg:#009260; --dg-d:#006e48; --dg-l:#00b87a;
   --db:#003DA5; --db-d:#002d7a; --db-l:#1a5cc4;
-  --dr:#D4001A; --dr-d:#a0001a; --dr-l:#f01a30;
+  --dr:#D4001A; --dr-d:#a0001a;
   --bg:#f7f8fc; --card:#ffffff;
   --text:#111827; --text2:#374151; --text3:#6b7280; --text4:#9ca3af;
   --border:rgba(0,61,165,0.12); --border2:rgba(0,146,96,0.15);
-  --shadow:0 2px 16px rgba(0,0,0,0.06); --shadow-lg:0 8px 40px rgba(0,0,0,0.10);
+  --shadow:0 2px 16px rgba(0,0,0,0.06); --shadow-lg:0 8px 40px rgba(0,0,0,0.12);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+body{font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
 
+/* FLAG BAR */
 .flagbar{position:fixed;top:0;left:0;right:0;z-index:201;height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
 
+/* HEADER */
 header{position:fixed;top:4px;left:0;right:0;z-index:200;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,61,165,0.08);box-shadow:0 1px 12px rgba(0,0,0,0.05);}
-.back-btn{display:flex;align-items:center;gap:8px;color:var(--text2);text-decoration:none;font-size:14px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--border);transition:all 0.25s;}
+.back-btn{display:flex;align-items:center;gap:8px;color:var(--text2);text-decoration:none;font-size:14px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--border);transition:all 0.25s;white-space:nowrap;}
 .back-btn:hover{color:var(--dg-d);border-color:var(--dg);}
 .hlogo{font-family:'Amiri',serif;font-size:21px;background:linear-gradient(90deg,var(--dg-d),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .ltog{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;display:flex;overflow:hidden;}
 .lbtnx{padding:7px 18px;font-size:13px;font-weight:600;font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
 .lbtnx.active{background:linear-gradient(135deg,var(--dg-d),var(--db));color:#fff;border-radius:22px;}
 
-/* HERO */
-.hero{padding:130px 48px 72px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 45%,#f7f8fc 100%);text-align:center;}
-.hblob{position:absolute;border-radius:50%;pointer-events:none;}
-.hb1{width:500px;height:500px;background:rgba(0,146,96,0.1);filter:blur(90px);top:-150px;right:-100px;}
-.hb2{width:400px;height:400px;background:rgba(0,61,165,0.08);filter:blur(90px);bottom:-100px;left:-80px;}
-.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,61,165,0.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
-.hcont{position:relative;z-index:1;max-width:780px;margin:0 auto;}
-.heye{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,96,0.08);border:1px solid rgba(0,146,96,0.2);border-radius:30px;padding:8px 22px;font-size:13px;letter-spacing:0.08em;color:var(--dg-d);margin-bottom:24px;}
-.htitle{font-family:'Amiri',serif;font-size:clamp(48px,8vw,88px);line-height:0.95;margin-bottom:16px;}
-html[lang="de"] .htitle{font-family:'Cormorant Garamond',serif;}
-.htitle span{display:block;background:linear-gradient(135deg,var(--dg-d),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hsub{font-size:clamp(15px,2vw,17px);color:var(--text2);line-height:1.9;max-width:560px;margin:0 auto 40px;}
-
-/* BIG ONEDRIVE BUTTON */
-.od-btn{
-  display:inline-flex;align-items:center;gap:14px;
-  background:linear-gradient(135deg,var(--db-d),var(--db));
-  color:#fff;text-decoration:none;
-  padding:20px 48px;border-radius:18px;
-  font-size:18px;font-weight:700;font-family:inherit;
-  transition:all 0.3s;
-  box-shadow:0 6px 28px rgba(0,61,165,0.35);
-  margin-bottom:16px;
+/* MAIN CONTENT — centered vertically */
+.main{
+  flex:1; display:flex; align-items:center; justify-content:center;
+  padding:100px 48px 60px;
+  position:relative; overflow:hidden;
+  background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 50%,#fef0f2 100%);
 }
-.od-btn:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,61,165,0.45);}
-.od-icon{font-size:28px;line-height:1;}
-.od-text{display:flex;flex-direction:column;text-align:right;}
-html[lang="de"] .od-text{text-align:left;}
-.od-main{font-size:18px;font-weight:700;}
-.od-sub{font-size:12px;font-weight:400;opacity:0.85;margin-top:2px;}
 
-.od-hint{font-size:13px;color:var(--text3);margin-top:10px;}
+/* Background blobs */
+.blob{position:absolute;border-radius:50%;pointer-events:none;}
+.b1{width:600px;height:600px;background:rgba(0,146,96,0.1);filter:blur(100px);top:-200px;right:-100px;}
+.b2{width:500px;height:500px;background:rgba(0,61,165,0.08);filter:blur(100px);bottom:-150px;left:-100px;}
+.b3{width:300px;height:300px;background:rgba(212,0,26,0.07);filter:blur(80px);top:30%;left:55%;}
 
-/* STATS ROW */
-.stats-row{display:flex;justify-content:center;gap:0;background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:24px 0;margin-top:44px;}
-.si{flex:1;max-width:160px;text-align:center;padding:0 20px;border-right:1px solid rgba(0,61,165,0.1);}
-html[lang="ar"] .si{border-right:none;border-left:1px solid rgba(0,61,165,0.1);}
-.si:last-child,.si:first-child{border:none;}
-.sn{font-family:'Amiri',serif;font-size:34px;line-height:1;background:linear-gradient(135deg,var(--dg),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.sl{font-size:12px;color:var(--text3);margin-top:4px;}
+/* Dot grid */
+.main::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,61,165,0.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
 
-/* SECTIONS */
-.section{padding:72px 48px;}
-.sin{max-width:1120px;margin:0 auto;}
-.stag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.18em;color:var(--dg-d);text-transform:uppercase;margin-bottom:14px;}
-.stag::before{content:'';display:block;width:22px;height:2px;background:var(--dg);border-radius:2px;}
-.stitle{font-family:'Amiri',serif;font-size:clamp(28px,4vw,44px);line-height:1.1;margin-bottom:12px;color:var(--text);}
-html[lang="de"] .stitle{font-family:'Cormorant Garamond',serif;}
-.ssub{font-size:16px;color:var(--text2);line-height:1.8;max-width:560px;}
-
-/* PREVIEW GRID (5 photos) */
-#preview{background:#fff;}
-.preview-grid{
-  display:grid;
-  grid-template-columns:1.5fr 1fr 1fr;
-  grid-template-rows:240px 200px;
-  gap:14px;
-  margin-top:40px;
-}
-.prev-item{
-  border-radius:16px;overflow:hidden;
-  background:var(--bg);border:1.5px solid var(--border);
-  position:relative;cursor:pointer;
-  transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
-  box-shadow:var(--shadow);
-}
-.prev-item:first-child{grid-row:span 2;}
-.prev-item:hover{transform:scale(1.025);box-shadow:0 14px 48px rgba(0,0,0,0.12),0 0 0 2px var(--dg);}
-.prev-item img{width:100%;height:100%;object-fit:cover;display:block;}
-.prev-placeholder{
-  width:100%;height:100%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;
-  background:linear-gradient(135deg,#f0faf5,#eef2fb);
-}
-.ph-icon{font-size:36px;opacity:0.5;}
-.ph-text{font-size:12px;color:var(--text4);}
-.prev-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,20,50,0.7),transparent 55%);
-  opacity:0;transition:opacity 0.3s;
-  display:flex;align-items:flex-end;padding:16px;
-}
-.prev-item:hover .prev-overlay{opacity:1;}
-.prev-caption{font-size:13px;font-weight:600;color:#fff;}
-
-/* ADMIN BADGE on preview items */
-.admin-edit-btn{
-  position:absolute;top:10px;right:10px;
-  background:rgba(0,61,165,0.85);color:#fff;
-  border:none;border-radius:8px;padding:5px 12px;
-  font-size:12px;font-weight:600;font-family:inherit;
-  cursor:pointer;opacity:0;transition:opacity 0.2s;
-  display:flex;align-items:center;gap:5px;
-}
-html[lang="ar"] .admin-edit-btn{right:auto;left:10px;}
-.prev-item:hover .admin-edit-btn{opacity:1;}
-
-/* ONEDRIVE CTA SECTION */
-#od-section{background:var(--bg);}
-.od-card{
-  background:linear-gradient(135deg,#eef2fb,#f0faf5);
-  border:1.5px solid rgba(0,61,165,0.12);
-  border-radius:24px;padding:64px;
-  display:flex;gap:64px;align-items:center;
-  box-shadow:var(--shadow);
-  margin-top:40px;
-}
-.od-left{flex:1;}
-.od-card-title{font-family:'Amiri',serif;font-size:34px;color:var(--db-d);margin-bottom:10px;}
-html[lang="de"] .od-card-title{font-family:'Cormorant Garamond',serif;}
-.od-card-sub{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:28px;}
-.od-features{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
-.od-feat{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text2);}
-.feat-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;background:linear-gradient(135deg,var(--dg-d),var(--dg));flex-shrink:0;}
-.od-right{flex-shrink:0;text-align:center;}
-.od-big-btn{
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-  background:linear-gradient(135deg,var(--db-d),var(--db));
-  color:#fff;text-decoration:none;
-  padding:32px 48px;border-radius:20px;
-  transition:all 0.3s;
-  box-shadow:0 6px 28px rgba(0,61,165,0.35);
-  min-width:200px;
-}
-.od-big-btn:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,61,165,0.45);}
-.od-big-ico{font-size:48px;line-height:1;}
-.od-big-label{font-size:16px;font-weight:700;}
-.od-big-sub{font-size:12px;opacity:0.85;}
-.od-count{font-size:13px;color:var(--text3);margin-top:14px;}
-
-/* ADMIN PANEL */
-#admin-panel{
+/* CENTER CARD */
+.center-card{
+  position:relative;z-index:1;
   background:#fff;
-  border-top:2px solid var(--db);
-  padding:56px 48px;
-  display:none;
+  border:1.5px solid var(--border);
+  border-radius:32px;
+  padding:64px 72px;
+  text-align:center;
+  max-width:600px;width:100%;
+  box-shadow:var(--shadow-lg);
+  animation:cardIn 0.7s cubic-bezier(0.16,1,0.3,1) both;
 }
-.admin-header{display:flex;align-items:center;gap:14px;margin-bottom:36px;}
-.admin-badge{background:linear-gradient(135deg,var(--db-d),var(--db));color:#fff;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:700;}
-.admin-title{font-family:'Amiri',serif;font-size:28px;color:var(--db-d);}
-html[lang="de"] .admin-title{font-family:'Cormorant Garamond',serif;}
+@keyframes cardIn{from{opacity:0;transform:translateY(28px) scale(0.97)}to{opacity:1;transform:none}}
 
-.admin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px;}
+/* Top flag stripe on card */
+.card-flag{height:5px;border-radius:3px;margin-bottom:36px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
 
-.preview-slot{
+.card-icon{font-size:64px;line-height:1;margin-bottom:16px;}
+
+.card-title{
+  font-family:'Amiri',serif;
+  font-size:clamp(36px,6vw,54px);
+  line-height:1; margin-bottom:12px;
+  background:linear-gradient(135deg,var(--dg-d),var(--db));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+html[lang="de"] .card-title{font-family:'Cormorant Garamond',serif;}
+
+.card-sub{font-size:16px;color:var(--text2);line-height:1.8;margin-bottom:40px;max-width:420px;margin-left:auto;margin-right:auto;}
+
+/* THE BIG BUTTON */
+.od-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:16px;
+  background:linear-gradient(135deg,var(--dg-d),var(--dg) 40%,var(--db));
+  color:#fff;text-decoration:none;
+  padding:22px 52px;border-radius:18px;
+  font-family:inherit;
+  transition:all 0.3s;
+  box-shadow:0 6px 28px rgba(0,61,165,0.3);
+  width:100%;
+  position:relative;overflow:hidden;
+}
+.od-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.od-btn:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(0,61,165,0.42);}
+.od-btn:hover::before{opacity:1;}
+.od-btn:active{transform:translateY(-1px);}
+
+.btn-ico{font-size:32px;line-height:1;flex-shrink:0;}
+.btn-text{display:flex;flex-direction:column;align-items:flex-start;}
+html[lang="de"] .btn-text{align-items:flex-start;}
+html[lang="ar"] .btn-text{align-items:flex-end;}
+.btn-main{font-size:18px;font-weight:700;letter-spacing:0.01em;}
+.btn-small{font-size:12px;opacity:0.85;margin-top:2px;font-weight:400;}
+
+/* INFO PILLS */
+.info-pills{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap;}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
   background:var(--bg);border:1.5px solid var(--border);
-  border-radius:16px;padding:20px;
-  position:relative;
+  border-radius:20px;padding:6px 16px;
+  font-size:13px;color:var(--text3);
 }
-.slot-label{font-size:12px;font-weight:700;color:var(--db-d);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;}
-.slot-preview{
-  width:100%;height:130px;border-radius:10px;overflow:hidden;
-  background:linear-gradient(135deg,#eef2fb,#f0faf5);
-  margin-bottom:12px;display:flex;align-items:center;justify-content:center;
-  font-size:28px;opacity:0.4;
-  position:relative;
-}
-.slot-preview img{width:100%;height:100%;object-fit:cover;display:none;}
-.slot-preview img.loaded{display:block;}
-.slot-preview .no-img{position:absolute;}
-.slot-url{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:9px;padding:9px 12px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:all 0.2s;margin-bottom:8px;}
-.slot-url:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);}
-.slot-url::placeholder{color:var(--text4);}
-.slot-title{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:9px;padding:8px 12px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:all 0.2s;}
-.slot-title:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);}
-.slot-title::placeholder{color:var(--text4);}
+.pill-ico{font-size:14px;}
 
-.slot-5{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-
-.btn-save-all{
-  width:100%;padding:15px;border-radius:14px;border:none;
-  background:linear-gradient(135deg,var(--dg-d),var(--dg) 50%,var(--db));
-  color:#fff;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;
-  transition:all 0.25s;box-shadow:0 4px 18px rgba(0,146,96,0.3);
-}
-.btn-save-all:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,146,96,0.4);}
-
-.save-confirm{
-  display:none;text-align:center;padding:20px;
-  background:rgba(0,146,96,0.06);border:1.5px solid rgba(0,146,96,0.18);
-  border-radius:14px;margin-top:16px;font-size:15px;color:var(--dg-d);font-weight:600;
+/* DIVIDER */
+.divider{
+  height:1px;background:rgba(0,61,165,0.08);
+  margin:32px 0;
 }
 
-.admin-hint{
-  background:rgba(0,61,165,0.06);border:1.5px solid rgba(0,61,165,0.15);
-  border-radius:14px;padding:20px 24px;margin-top:24px;
-  font-size:14px;color:var(--db-d);line-height:1.8;
+/* HINT BOX */
+.hint-box{
+  background:rgba(0,146,96,0.05);
+  border:1.5px solid rgba(0,146,96,0.15);
+  border-radius:14px;padding:16px 20px;
+  font-size:13px;color:var(--dg-d);
+  line-height:1.7;text-align:right;
 }
-.admin-hint strong{font-weight:700;}
+html[lang="de"] .hint-box{text-align:left;}
 
 /* FOOTER */
-footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
-.fin{max-width:1120px;margin:0 auto;}
-.fflag{height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);border-radius:2px;margin-bottom:36px;}
-.fbot{text-align:center;font-size:12px;color:#6b7280;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);}
+footer{background:var(--text);color:#e5e7eb;padding:32px 48px;text-align:center;}
+.fflag{height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);border-radius:2px;margin-bottom:20px;}
+.fbot{font-size:12px;color:#6b7280;}
 .fbot a{color:var(--dg-l);text-decoration:none;}
 
-.rev{opacity:0;transform:translateY(22px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
-.rev.v{opacity:1;transform:translateY(0);}
-
-@media(max-width:900px){
-  header,footer,.section,#admin-panel,#od-section{padding-left:20px;padding-right:20px;}
-  .hero{padding-left:20px;padding-right:20px;}
-  .preview-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
-  .prev-item:first-child{grid-row:span 1;}
-  .od-card{flex-direction:column;padding:32px 20px;gap:28px;}
-  .admin-grid{grid-template-columns:1fr;}
-  .slot-5{grid-column:1;grid-template-columns:1fr;}
-  .stats-row{flex-wrap:wrap;}
+/* RESPONSIVE */
+@media(max-width:700px){
+  header{padding:0 16px;}
+  .main{padding:90px 16px 40px;}
+  .center-card{padding:40px 24px;border-radius:22px;}
+  .od-btn{padding:18px 28px;}
+  .btn-main{font-size:16px;}
+  footer{padding:28px 20px;}
 }
 </style>
 </head>
@@ -248,7 +155,9 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
 <div class="flagbar"></div>
 
 <header>
-  <a href="index.html" class="back-btn">← <span class="ar-text">الرئيسية</span><span class="de-text" style="display:none">Startseite</span></a>
+  <a href="index.html" class="back-btn">
+    ← <span class="ar-text">الرئيسية</span><span class="de-text" style="display:none">Startseite</span>
+  </a>
   <div class="hlogo ar-text">📷 معرض الصور</div>
   <div class="hlogo de-text" style="display:none">📷 Fotogalerie</div>
   <div class="ltog">
@@ -257,223 +166,74 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hblob hb1"></div><div class="hblob hb2"></div>
-  <div class="hcont">
-    <div class="heye">📷 <span class="ar-text">معرض صور مجتمع داغستان</span><span class="de-text" style="display:none">Fotogalerie der Dagestan Community</span></div>
-    <h1 class="htitle">
-      <span class="ar-text">معرض الصور</span>
-      <span class="de-text" style="display:none">Fotogalerie</span>
-    </h1>
-    <p class="hsub ar-text">ذكريات جميلة وصور من حياتنا الداغستانية — اضغط الزر لمشاهدة أكثر من ٢٠٠٠ صورة</p>
-    <p class="hsub de-text" style="display:none">Schöne Erinnerungen und Bilder aus unserem dagestanischen Leben — klicke den Button um über 2000 Fotos zu sehen</p>
+<main class="main">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
 
-    <!-- BIG ONEDRIVE BUTTON -->
-    <a href="https://1drv.ms/f/c/2024a523ecb4a1aa/IgCvO-HS5nabR7PqYYGxT4abAeJc6-SfzROkjRK45Q1dz34?e=MWaiXq" target="_blank" class="od-btn">
-      <div class="od-icon">☁️</div>
-      <div class="od-text">
-        <div class="od-main ar-text">فتح معرض الصور الكامل</div>
-        <div class="od-main de-text" style="display:none">Vollständige Galerie öffnen</div>
-        <div class="od-sub ar-text">أكثر من ٢٠٠٠ صورة على OneDrive ←</div>
-        <div class="od-sub de-text" style="display:none">Über 2000 Fotos auf OneDrive →</div>
+  <div class="center-card">
+    <div class="card-flag"></div>
+
+    <div class="card-icon">📸</div>
+
+    <h1 class="card-title ar-text">معرض الصور</h1>
+    <h1 class="card-title de-text" style="display:none">Fotogalerie</h1>
+
+    <p class="card-sub ar-text">
+      كل صور مجتمعنا الداغستاني في مكان واحد — ذكريات جميلة وأوقات لا تُنسى
+    </p>
+    <p class="card-sub de-text" style="display:none">
+      Alle Fotos unserer dagestanischen Community an einem Ort — schöne Erinnerungen und unvergessliche Momente
+    </p>
+
+    <!-- THE BUTTON -->
+    <a href="https://1drv.ms/f/c/2024a523ecb4a1aa/IgCvO-HS5nabR7PqYYGxT4abAeJc6-SfzROkjRK45Q1dz34?e=MWaiXq"
+       target="_blank"
+       class="od-btn">
+      <div class="btn-ico">☁️</div>
+      <div class="btn-text">
+        <div class="btn-main ar-text">فتح معرض الصور على OneDrive</div>
+        <div class="btn-main de-text" style="display:none">Fotogalerie auf OneDrive öffnen</div>
+        <div class="btn-small ar-text">اضغط هنا لمشاهدة جميع الصور ←</div>
+        <div class="btn-small de-text" style="display:none">Klicke hier um alle Fotos zu sehen →</div>
       </div>
     </a>
-    <div class="od-hint ar-text">📱 يفتح في OneDrive — يمكنك التصفح والتنزيل</div>
-    <div class="od-hint de-text" style="display:none">📱 Öffnet in OneDrive — du kannst browsen und herunterladen</div>
 
-    <div class="stats-row">
-      <div class="si"><div class="sn">2000+</div><div class="sl ar-text">صورة</div><div class="sl de-text" style="display:none">Fotos</div></div>
-      <div class="si"><div class="sn">📷</div><div class="sl ar-text">ذكريات</div><div class="sl de-text" style="display:none">Erinnerungen</div></div>
-      <div class="si"><div class="sn">🆓</div><div class="sl ar-text">مجاني</div><div class="sl de-text" style="display:none">Kostenlos</div></div>
+    <!-- INFO PILLS -->
+    <div class="info-pills">
+      <div class="pill"><span class="pill-ico">🖼️</span><span class="ar-text">أكثر من ٢٠٠٠ صورة</span><span class="de-text" style="display:none">Über 2000 Fotos</span></div>
+      <div class="pill"><span class="pill-ico">📱</span><span class="ar-text">يعمل على الجوال</span><span class="de-text" style="display:none">Funktioniert auf Handy</span></div>
+      <div class="pill"><span class="pill-ico">⬇️</span><span class="ar-text">قابل للتنزيل</span><span class="de-text" style="display:none">Zum Herunterladen</span></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="hint-box">
+      <span class="ar-text">💡 سيتم فتح OneDrive في نافذة جديدة — يمكنك تصفح الصور وتنزيلها مجاناً</span>
+      <span class="de-text" style="display:none">💡 OneDrive öffnet sich in einem neuen Fenster — du kannst Fotos kostenlos durchsuchen und herunterladen</span>
     </div>
   </div>
-</section>
+</main>
 
-<!-- PREVIEW: LAST 5 PHOTOS -->
-<section class="section" id="preview">
-  <div class="sin">
-    <div class="stag ar-text">أحدث الصور</div><div class="stag de-text" style="display:none">NEUESTE FOTOS</div>
-    <h2 class="stitle ar-text">آخر ٥ صور</h2><h2 class="stitle de-text" style="display:none">Die letzten 5 Fotos</h2>
-    <p class="ssub ar-text">معاينة سريعة — اضغط على "فتح المعرض" لرؤية الكل</p>
-    <p class="ssub de-text" style="display:none">Schnelle Vorschau — klicke "Galerie öffnen" um alle zu sehen</p>
-
-    <div class="preview-grid rev" id="preview-grid">
-      <!-- Slot 1 (large) -->
-      <div class="prev-item" id="slot-0" onclick="openOD()">
-        <div class="prev-placeholder" id="ph-0"><div class="ph-icon">🏔️</div><div class="ph-text ar-text">صورة ١</div><div class="ph-text de-text" style="display:none">Foto 1</div></div>
-        <img id="img-0" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
-        <div class="prev-overlay"><span class="prev-caption" id="cap-0"></span></div>
-        <button class="admin-edit-btn" id="admin-btn-0" onclick="event.stopPropagation();scrollToAdmin()" style="display:none">✏️ <span class="ar-text">تعديل</span><span class="de-text" style="display:none">Bearbeiten</span></button>
-      </div>
-      <!-- Slot 2 -->
-      <div class="prev-item" id="slot-1" onclick="openOD()">
-        <div class="prev-placeholder" id="ph-1"><div class="ph-icon">🕌</div><div class="ph-text ar-text">صورة ٢</div><div class="ph-text de-text" style="display:none">Foto 2</div></div>
-        <img id="img-1" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
-        <div class="prev-overlay"><span class="prev-caption" id="cap-1"></span></div>
-        <button class="admin-edit-btn" id="admin-btn-1" onclick="event.stopPropagation();scrollToAdmin()" style="display:none">✏️ <span class="ar-text">تعديل</span><span class="de-text" style="display:none">Bearbeiten</span></button>
-      </div>
-      <!-- Slot 3 -->
-      <div class="prev-item" id="slot-2" onclick="openOD()">
-        <div class="prev-placeholder" id="ph-2"><div class="ph-icon">🌊</div><div class="ph-text ar-text">صورة ٣</div><div class="ph-text de-text" style="display:none">Foto 3</div></div>
-        <img id="img-2" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
-        <div class="prev-overlay"><span class="prev-caption" id="cap-2"></span></div>
-        <button class="admin-edit-btn" id="admin-btn-2" onclick="event.stopPropagation();scrollToAdmin()" style="display:none">✏️ <span class="ar-text">تعديل</span><span class="de-text" style="display:none">Bearbeiten</span></button>
-      </div>
-      <!-- Slot 4 -->
-      <div class="prev-item" id="slot-3" onclick="openOD()">
-        <div class="prev-placeholder" id="ph-3"><div class="ph-icon">💃</div><div class="ph-text ar-text">صورة ٤</div><div class="ph-text de-text" style="display:none">Foto 4</div></div>
-        <img id="img-3" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
-        <div class="prev-overlay"><span class="prev-caption" id="cap-3"></span></div>
-        <button class="admin-edit-btn" id="admin-btn-3" onclick="event.stopPropagation();scrollToAdmin()" style="display:none">✏️ <span class="ar-text">تعديل</span><span class="de-text" style="display:none">Bearbeiten</span></button>
-      </div>
-      <!-- Slot 5 -->
-      <div class="prev-item" id="slot-4" onclick="openOD()">
-        <div class="prev-placeholder" id="ph-4"><div class="ph-icon">🏘️</div><div class="ph-text ar-text">صورة ٥</div><div class="ph-text de-text" style="display:none">Foto 5</div></div>
-        <img id="img-4" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
-        <div class="prev-overlay"><span class="prev-caption" id="cap-4"></span></div>
-        <button class="admin-edit-btn" id="admin-btn-4" onclick="event.stopPropagation();scrollToAdmin()" style="display:none">✏️ <span class="ar-text">تعديل</span><span class="de-text" style="display:none">Bearbeiten</span></button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ONEDRIVE CTA CARD -->
-<section class="section" id="od-section">
-  <div class="sin">
-    <div class="stag ar-text">المعرض الكامل</div><div class="stag de-text" style="display:none">VOLLSTÄNDIGE GALERIE</div>
-    <h2 class="stitle ar-text">أكثر من ٢٠٠٠ صورة بانتظارك</h2><h2 class="stitle de-text" style="display:none">Über 2000 Fotos warten auf dich</h2>
-    <div class="od-card rev">
-      <div class="od-left">
-        <div class="od-card-title ar-text">📁 معرض OneDrive الكامل</div>
-        <div class="od-card-title de-text" style="display:none">📁 Vollständige OneDrive-Galerie</div>
-        <p class="od-card-sub ar-text">كل صور مجتمعنا الداغستاني في مكان واحد — تصفح، شارك، وقم بتنزيل ما تريد بسهولة ويسر</p>
-        <p class="od-card-sub de-text" style="display:none">Alle Fotos unserer dagestanischen Community an einem Ort — browsen, teilen und herunterladen ganz einfach</p>
-        <div class="od-features">
-          <div class="od-feat"><div class="feat-ico">🖼️</div><span class="ar-text">أكثر من ٢٠٠٠ صورة منظمة</span><span class="de-text" style="display:none">Über 2000 organisierte Fotos</span></div>
-          <div class="od-feat"><div class="feat-ico">📱</div><span class="ar-text">يعمل على الجوال والكمبيوتر</span><span class="de-text" style="display:none">Funktioniert auf Handy und PC</span></div>
-          <div class="od-feat"><div class="feat-ico">⬇️</div><span class="ar-text">تنزيل الصور مجاناً</span><span class="de-text" style="display:none">Fotos kostenlos herunterladen</span></div>
-          <div class="od-feat"><div class="feat-ico">🔒</div><span class="ar-text">مشاركة آمنة فقط للأعضاء</span><span class="de-text" style="display:none">Sichere Freigabe nur für Mitglieder</span></div>
-        </div>
-      </div>
-      <div class="od-right">
-        <a href="https://1drv.ms/f/c/2024a523ecb4a1aa/IgCvO-HS5nabR7PqYYGxT4abAeJc6-SfzROkjRK45Q1dz34?e=MWaiXq" target="_blank" class="od-big-btn">
-          <div class="od-big-ico">☁️</div>
-          <div class="od-big-label ar-text">فتح المعرض</div>
-          <div class="od-big-label de-text" style="display:none">Galerie öffnen</div>
-          <div class="od-big-sub ar-text">OneDrive ←</div>
-          <div class="od-big-sub de-text" style="display:none">OneDrive →</div>
-        </a>
-        <div class="od-count ar-text">2000+ صورة</div>
-        <div class="od-count de-text" style="display:none">2000+ Fotos</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ADMIN PANEL (only visible when logged in as admin) -->
-<section id="admin-panel">
-  <div class="sin">
-    <div class="admin-header">
-      <div class="admin-badge">🔐 ADMIN</div>
-      <div class="admin-title ar-text">إدارة صور المعاينة</div>
-      <div class="admin-title de-text" style="display:none">Vorschaubilder verwalten</div>
-    </div>
-
-    <p style="font-size:15px;color:var(--text2);margin-bottom:28px;" class="ar-text">
-      أدخل روابط الصور الخمس التي ستظهر كمعاينة. يجب أن تكون روابط مباشرة للصورة (تنتهي بـ .jpg أو .png أو نحوه).
-    </p>
-    <p style="font-size:15px;color:var(--text2);margin-bottom:28px;" class="de-text" style="display:none">
-      Gib die Links für die 5 Vorschaubilder ein. Es müssen direkte Bild-Links sein (ending mit .jpg, .png o.ä.).
-    </p>
-
-    <div class="admin-grid" id="admin-slots">
-      <!-- Slots 1-3 -->
-      <div class="preview-slot">
-        <div class="slot-label ar-text">الصورة الأولى (كبيرة)</div>
-        <div class="slot-label de-text" style="display:none">Foto 1 (groß)</div>
-        <div class="slot-preview" id="ap-0"><span class="no-img">🏔️</span><img id="ap-img-0" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
-        <input type="url" class="slot-url" id="url-0" placeholder="https://... رابط الصورة المباشر" oninput="previewSlot(0)">
-        <input type="text" class="slot-title" id="title-0" placeholder="عنوان الصورة | Bildtitel">
-      </div>
-      <div class="preview-slot">
-        <div class="slot-label ar-text">الصورة الثانية</div>
-        <div class="slot-label de-text" style="display:none">Foto 2</div>
-        <div class="slot-preview" id="ap-1"><span class="no-img">🕌</span><img id="ap-img-1" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
-        <input type="url" class="slot-url" id="url-1" placeholder="https://..." oninput="previewSlot(1)">
-        <input type="text" class="slot-title" id="title-1" placeholder="عنوان | Titel">
-      </div>
-      <div class="preview-slot">
-        <div class="slot-label ar-text">الصورة الثالثة</div>
-        <div class="slot-label de-text" style="display:none">Foto 3</div>
-        <div class="slot-preview" id="ap-2"><span class="no-img">🌊</span><img id="ap-img-2" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
-        <input type="url" class="slot-url" id="url-2" placeholder="https://..." oninput="previewSlot(2)">
-        <input type="text" class="slot-title" id="title-2" placeholder="عنوان | Titel">
-      </div>
-      <!-- Slots 4-5 side by side -->
-      <div class="slot-5">
-        <div class="preview-slot">
-          <div class="slot-label ar-text">الصورة الرابعة</div>
-          <div class="slot-label de-text" style="display:none">Foto 4</div>
-          <div class="slot-preview" id="ap-3"><span class="no-img">💃</span><img id="ap-img-3" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
-          <input type="url" class="slot-url" id="url-3" placeholder="https://..." oninput="previewSlot(3)">
-          <input type="text" class="slot-title" id="title-3" placeholder="عنوان | Titel">
-        </div>
-        <div class="preview-slot">
-          <div class="slot-label ar-text">الصورة الخامسة</div>
-          <div class="slot-label de-text" style="display:none">Foto 5</div>
-          <div class="slot-preview" id="ap-4"><span class="no-img">🏘️</span><img id="ap-img-4" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
-          <input type="url" class="slot-url" id="url-4" placeholder="https://..." oninput="previewSlot(4)">
-          <input type="text" class="slot-title" id="title-4" placeholder="عنوان | Titel">
-        </div>
-      </div>
-    </div>
-
-    <button class="btn-save-all" onclick="saveAll()">
-      <span class="ar-text">💾 حفظ الصور الخمس</span>
-      <span class="de-text" style="display:none">💾 Alle 5 Fotos speichern</span>
-    </button>
-    <div class="save-confirm" id="save-confirm">
-      ✅ <span class="ar-text">تم الحفظ بنجاح! الصور تظهر الآن في قسم المعاينة</span>
-      <span class="de-text" style="display:none">Erfolgreich gespeichert! Fotos erscheinen jetzt in der Vorschau</span>
-    </div>
-
-    <div class="admin-hint">
-      <strong class="ar-text">💡 كيف تحصل على رابط مباشر للصورة من OneDrive؟</strong>
-      <strong class="de-text" style="display:none">💡 Wie bekomme ich einen direkten Bildlink von OneDrive?</strong><br>
-      <span class="ar-text">
-        ١. افتح OneDrive → انقر على الصورة<br>
-        ٢. انقر على "..." ثم "تضمين"<br>
-        ٣. انسخ الرابط الذي يظهر<br>
-        أو استخدم خدمة <strong>ImgBB.com</strong> لرفع الصور والحصول على روابط مباشرة مجاناً
-      </span>
-      <span class="de-text" style="display:none">
-        1. OneDrive öffnen → Bild anklicken<br>
-        2. Auf "..." klicken → "Einbetten"<br>
-        3. Den angezeigten Link kopieren<br>
-        Oder nutze <strong>ImgBB.com</strong> für direkte Bild-Links kostenlos
-      </span>
-    </div>
-  </div>
-</section>
-
-<footer><div class="fin">
+<footer>
   <div class="fflag"></div>
   <div class="fbot">
-    <p style="font-size:20px;font-family:'Amiri',serif;color:#fff;margin-bottom:6px;" class="ar-text">📷 معرض صور داغستان</p>
-    <p style="font-size:20px;font-family:'Cormorant Garamond',serif;color:#fff;margin-bottom:6px;" class="de-text" style="display:none">📷 Dagestan Fotogalerie</p>
-    <p style="margin-top:10px;"><a href="index.html">← <span class="ar-text">الرئيسية</span><span class="de-text" style="display:none">Startseite</span></a></p>
+    <a href="index.html" class="ar-text">← العودة للرئيسية</a>
+    <a href="index.html" class="de-text" style="display:none">← Zurück zur Startseite</a>
+    <span style="margin:0 12px;opacity:0.3;">|</span>
+    <span>© 2025 Dagestan Community</span>
   </div>
-</div></footer>
+</footer>
 
 <script>
-const OD_URL = "https://1drv.ms/f/c/2024a523ecb4a1aa/IgCvO-HS5nabR7PqYYGxT4abAeJc6-SfzROkjRK45Q1dz34?e=MWaiXq";
-const ADMIN_PWD = "Admin2025";
-const USER_PWD  = "dagestan2025";
+// Auth check
+if(!sessionStorage.getItem('dag_role')){
+  window.location.href='index.html';
+}
 
-// ── Language ──
 function setLang(l){
-  const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
+  const h=document.documentElement;
+  h.lang=l; h.dir=l==='ar'?'rtl':'ltr';
   document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
   document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');
   document.getElementById('btn-ar').classList.toggle('active',l==='ar');
@@ -481,87 +241,6 @@ function setLang(l){
   localStorage.setItem('dag_lang',l);
 }
 setLang(localStorage.getItem('dag_lang')||'ar');
-
-// ── Auth check (from index.html login) ──
-const role = sessionStorage.getItem('dag_role');
-if(!role){
-  window.location.href='index.html';
-}
-const isAdmin = role === 'admin';
-
-if(isAdmin){
-  document.getElementById('admin-panel').style.display='block';
-  // show edit buttons on preview items
-  for(let i=0;i<5;i++){
-    const btn=document.getElementById('admin-btn-'+i);
-    if(btn) btn.style.display='flex';
-  }
-}
-
-function openOD(){ window.open(OD_URL,'_blank'); }
-function scrollToAdmin(){ document.getElementById('admin-panel').scrollIntoView({behavior:'smooth'}); }
-
-// ── Load saved preview images ──
-function loadPreviews(){
-  const saved = JSON.parse(localStorage.getItem('dag_previews')||'[]');
-  for(let i=0;i<5;i++){
-    const d = saved[i]||{url:'',title:''};
-    if(d.url){
-      showInSlot(i, d.url, d.title);
-    }
-    // fill admin inputs
-    const ui=document.getElementById('url-'+i);
-    const ti=document.getElementById('title-'+i);
-    if(ui) ui.value=d.url||'';
-    if(ti) ti.value=d.title||'';
-    if(d.url) previewSlot(i);
-  }
-}
-
-function showInSlot(i, url, title){
-  const ph=document.getElementById('ph-'+i);
-  const img=document.getElementById('img-'+i);
-  const cap=document.getElementById('cap-'+i);
-  if(ph) ph.style.display='none';
-  if(img){ img.src=url; img.style.display='block'; }
-  if(cap) cap.textContent=title||'';
-}
-
-function previewSlot(i){
-  const url=document.getElementById('url-'+i).value.trim();
-  const apImg=document.getElementById('ap-img-'+i);
-  const noImg=document.getElementById('ap-'+i).querySelector('.no-img');
-  if(url && apImg){
-    apImg.src=url;
-    apImg.style.display='block';
-    if(noImg) noImg.style.display='none';
-  } else if(apImg){
-    apImg.style.display='none';
-    if(noImg) noImg.style.display='';
-  }
-}
-
-function saveAll(){
-  const data=[];
-  for(let i=0;i<5;i++){
-    data.push({
-      url:(document.getElementById('url-'+i)||{}).value?.trim()||'',
-      title:(document.getElementById('title-'+i)||{}).value?.trim()||''
-    });
-  }
-  localStorage.setItem('dag_previews',JSON.stringify(data));
-  loadPreviews();
-  const conf=document.getElementById('save-confirm');
-  conf.style.display='block';
-  conf.scrollIntoView({behavior:'smooth',block:'nearest'});
-  setTimeout(()=>conf.style.display='none',4000);
-}
-
-loadPreviews();
-
-// ── Reveal on scroll ──
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}});},{threshold:0.08});
-document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
