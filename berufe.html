@@ -102,7 +102,7 @@ html[lang="de"] .fmain{font-family:'Cormorant Garamond',serif;}
 .finput,.fselect,.ftextarea{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px 16px;color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:all 0.2s;width:100%;}
 .finput::placeholder,.ftextarea::placeholder{color:var(--text4);}
 .finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);}
-.fselect{cursor:pointer;appearance:none;background-image:("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;}
+.fselect{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;}
 html[lang="de"] .fselect{background-position:right 14px center;}
 .ftextarea{resize:vertical;min-height:90px;line-height:1.7;}
 /* Quick category suggestions */
@@ -143,7 +143,7 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
 <header>
   <a href="index.html" class="back-btn">← <span class="ar-text">الرئيسية</span><span class="de-text" style="display:none">Startseite</span></a>
   <div class="hlogo ar-text">🧑‍💼 دليل المهن</div><div class="hlogo de-text" style="display:none">🧑‍💼 Berufsverzeichnis</div>
-  <div class="ltog"><button class="lbtnx active" id="btn-ar" onclick="setLang('ar')">عربي</button><button class="lbtnx" id="btn-de" onclick="setLang('de')">DE</button></div>
+  <div class="ltog"><button class="lbtnx active" id="btn-ar" onclick="setLang('ar',true)">عربي</button><button class="lbtnx" id="btn-de" onclick="setLang('de',true)">DE</button></div>
 </header>
 
 <section class="hero">
@@ -198,8 +198,8 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
     </div>
     <div class="notice" id="setup-notice">
       ⚠️ <strong>Admin:</strong>
-      <span class="ar-text">يجب إضافة رابط Google Apps Script في متغير SCRIPT_ داخل الكود لتفعيل الحفظ.</span>
-      <span class="de-text" style="display:none">Bitte die Google Apps Script  in der Variable SCRIPT_ im Code eintragen.</span>
+      <span class="ar-text">يجب إضافة رابط Google Apps Script في متغير SCRIPT_URL داخل الكود لتفعيل الحفظ.</span>
+      <span class="de-text" style="display:none">Bitte die Google Apps Script URL in der Variable SCRIPT_URL im Code eintragen.</span>
     </div>
     <div class="fcard rev">
       <form id="entry-form" onsubmit="submitEntry(event)">
@@ -286,7 +286,7 @@ footer{background:var(--text);color:#e5e7eb;padding:48px 48px 28px;}
 // 🔑 SCHRITT 4: DEINE GOOGLE APPS SCRIPT URL HIER EINFÜGEN
 // Beispiel: https://script.google.com/macros/s/ABC123.../exec
 // ══════════════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxJkuAauVvcNoXAaEu_YCrF01zJWCGzBUUt7_aQ1HB6LgGCDi2NatPWS5jpydH7y0Qq/exec';
+const SCRIPT_URL = 'DEINE_SCRIPT_URL_HIER';
 
 const CONFIGURED = SCRIPT_URL !== 'DEINE_SCRIPT_URL_HIER';
 
@@ -298,16 +298,16 @@ const FIXED = {id:'f1',name:'Mohammed Babat',job:'IT-Systemintegration',
 let allEntries = [];
 let curSearch  = '';
 
-function setLang(l){
+function setLang(l, rerender){
   const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
   document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
   document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');
   document.getElementById('btn-ar').classList.toggle('active',l==='ar');
   document.getElementById('btn-de').classList.toggle('active',l==='de');
   localStorage.setItem('dag_lang',l);
-  renderCards();
+  if(rerender) renderCards();
 }
-setLang(localStorage.getItem('dag_lang')||'ar');
+setLang(localStorage.getItem('dag_lang')||'ar', false);
 
 function setCat(v){
   document.getElementById('f-cat').value=v;
@@ -361,20 +361,23 @@ function renderCards(){
 function searchCards(q){curSearch=q;renderCards();}
 
 async function loadEntries(){
+  // Always show fixed entry immediately
   allEntries=[FIXED];
+  renderCards();
+
   if(!CONFIGURED){
     document.getElementById('setup-notice').style.display='block';
-    renderCards();
     return;
   }
+  // Then try to load from Google Sheets
   try{
     const r=await fetch(SCRIPT_URL+'?t='+Date.now());
     const d=await r.json();
-    if(d.status==='ok'&&d.entries){
+    if(d.status==='ok'&&d.entries&&d.entries.length){
       allEntries=[FIXED,...d.entries];
+      renderCards();
     }
   }catch(err){console.warn('Sheets load error:',err);}
-  renderCards();
 }
 
 async function submitEntry(ev){
