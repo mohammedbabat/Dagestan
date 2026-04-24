@@ -243,8 +243,10 @@ html[lang="de"] .revl{transform:translateX(24px);}
     <a href="#about" class="ar-text">عن داغستان</a><a href="#about" class="de-text" style="display:none">Über uns</a>
     <a href="#gallery" class="ar-text">معرض</a><a href="#gallery" class="de-text" style="display:none">Galerie</a>
     <a href="#ev" class="ar-text">الفعاليات</a><a href="#ev" class="de-text" style="display:none">Events</a>
+    <a href="galerie.html" class="ar-text">📷 معرض الصور</a><a href="galerie.html" class="de-text" style="display:none">📷 Galerie</a>
     <a href="berufe.html" class="nh ar-text">🧑‍💼 دليل المهن</a><a href="berufe.html" class="nh de-text" style="display:none">🧑‍💼 Berufe</a>
     <a href="event.html" class="nr ar-text">🗓️ تجمع 2026</a><a href="event.html" class="nr de-text" style="display:none">🗓️ Sammlung 2026</a>
+    <span id="admin-nav-badge" style="display:none;background:linear-gradient(135deg,#002d7a,#003DA5);color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;">🔐 ADMIN</span>
   </nav>
   <div class="ltog">
     <button class="lbtnx active" id="btn-ar" onclick="setLang('ar')">عربي</button>
@@ -387,13 +389,41 @@ html[lang="de"] .revl{transform:translateX(24px);}
 </div>
 
 <script>
-const PWD="dagestan2025";
+const PWD_USER  = "dagestan2025";
+const PWD_ADMIN = "Admin2025";
+
 function doLogin(){
   const i=document.getElementById('pw'),e=document.getElementById('lerr');
-  if(i.value===PWD){sessionStorage.setItem('dag_auth','1');document.getElementById('login-screen').style.display='none';document.getElementById('main-site').style.display='block';initSite();}
-  else{i.classList.add('error');e.textContent='❌ Falsches Passwort | كلمة المرور خاطئة';setTimeout(()=>i.classList.remove('error'),500);i.value='';}
+  if(i.value===PWD_ADMIN){
+    sessionStorage.setItem('dag_role','admin');
+    showSite();
+  } else if(i.value===PWD_USER){
+    sessionStorage.setItem('dag_role','user');
+    showSite();
+  } else {
+    i.classList.add('error');
+    e.textContent='❌ Falsches Passwort | كلمة المرور خاطئة';
+    setTimeout(()=>i.classList.remove('error'),500);
+    i.value='';
+  }
 }
-if(sessionStorage.getItem('dag_auth')==='1'){document.getElementById('login-screen').style.display='none';document.getElementById('main-site').style.display='block';setTimeout(initSite,50);}
+
+function showSite(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('main-site').style.display='block';
+  initSite();
+  // Show admin badge if admin
+  if(sessionStorage.getItem('dag_role')==='admin'){
+    const badge=document.getElementById('admin-nav-badge');
+    if(badge) badge.style.display='inline-flex';
+  }
+}
+
+if(sessionStorage.getItem('dag_role')){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('main-site').style.display='block';
+  setTimeout(initSite,50);
+}
 function setLang(l){
   const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
   document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
