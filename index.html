@@ -576,7 +576,7 @@ html[lang="de"] .revl{transform:translateX(24px);}
       </div>
       <div class="hstats">
         <div class="si"><div class="sn">50+</div><div class="sl ar-text">شعباً</div><div class="sl de-text" style="display:none">Völker</div></div>
-        <div class="si"><div class="sn">300+</div><div class="sl ar-text">عضو</div><div class="sl de-text" style="display:none">Mitglieder</div></div>
+        <div class="si"><div class="sn member-count-display">...</div><div class="sl ar-text">عضو مسجّل</div><div class="sl de-text" style="display:none">Registrierte Mitglieder</div></div>
         <div class="si"><div class="sn">3000م</div><div class="sl ar-text">ارتفاع الجبال</div><div class="sl de-text" style="display:none">Berghöhe</div></div>
         <div class="si"><div class="sn">2026</div><div class="sl ar-text">تجمعنا القادم</div><div class="sl de-text" style="display:none">Nächstes Event</div></div>
       </div>
@@ -681,6 +681,8 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
          sendPasswordResetEmail, onAuthStateChanged, signOut, updateProfile,
          GoogleAuthProvider, signInWithPopup }
   from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+import { getDatabase, ref, set, get, increment, update }
+  from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
 // ── Firebase Config ──
 const firebaseConfig = {
@@ -695,6 +697,8 @@ const firebaseConfig = {
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db   = getDatabase(app);
+const DB_URL = "https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app";
 
 // ── Auth state listener ──
 onAuthStateChanged(auth, user => {
@@ -713,6 +717,10 @@ onAuthStateChanged(auth, user => {
     sessionStorage.setItem('dag_user', name);
     sessionStorage.setItem('dag_email', user.email);
 
+    // Save member to database & load count
+    saveMember(user);
+    loadMemberCount();
+
     initSite();
   } else {
     // Not logged in → show auth screen
@@ -722,6 +730,46 @@ onAuthStateChanged(auth, user => {
     sessionStorage.removeItem('dag_role');
   }
 });
+
+// ── Save member to Realtime Database ──
+async function saveMember(user) {
+  try {
+    const memberRef = ref(db, 'members/' + user.uid);
+    const snap = await get(memberRef);
+    if (!snap.exists()) {
+      // New member — save and increment count
+      await set(memberRef, {
+        name:  user.displayName || user.email.split('@')[0],
+        email: user.email,
+        joinedAt: new Date().toISOString()
+      });
+      // Increment total count
+      const countRef = ref(db, 'memberCount');
+      const countSnap = await get(countRef);
+      const current = countSnap.exists() ? (countSnap.val() || 0) : 0;
+      await set(countRef, current + 1);
+    }
+  } catch(err) {
+    console.warn('DB save error:', err);
+  }
+}
+
+// ── Load member count from Realtime Database ──
+async function loadMemberCount() {
+  try {
+    const countRef = ref(db, 'memberCount');
+    const snap = await get(countRef);
+    if (snap.exists()) {
+      const count = snap.val() || 0;
+      // Update ALL member count displays
+      document.querySelectorAll('.member-count-display').forEach(el => {
+        el.textContent = count + '+';
+      });
+    }
+  } catch(err) {
+    console.warn('DB read error:', err);
+  }
+}
 
 // ── Login ──
 window.doLogin = async function() {
