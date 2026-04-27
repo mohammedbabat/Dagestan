@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>داغستان | Dagestan</title>
+<title>داغستان | Dagestan Community</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600&family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -11,126 +11,302 @@
   --dg:#009260; --dg-d:#006e48; --dg-l:#00b87a;
   --db:#003DA5; --db-d:#002d7a; --db-l:#1a5cc4;
   --dr:#D4001A; --dr-d:#a0001a; --dr-l:#f01a30;
-  --gold2:#b8850a;
-  --bg:#f7f8fc; --bg2:#eef0f7; --card:#ffffff;
+  --bg:#f7f8fc; --card:#ffffff;
   --text:#111827; --text2:#374151; --text3:#6b7280; --text4:#9ca3af;
   --border:rgba(0,61,165,0.12); --border2:rgba(0,146,96,0.15);
-  --shadow:0 2px 16px rgba(0,0,0,0.06); --shadow-lg:0 8px 40px rgba(0,0,0,0.10);
+  --shadow:0 2px 16px rgba(0,0,0,0.06); --shadow-lg:0 20px 60px rgba(0,0,0,0.12);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+body{
+  font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;
+  background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 50%,#fef0f2 100%);
+  color:var(--text);min-height:100vh;display:flex;flex-direction:column;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(0,61,165,0.08) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);
+}
+/* BLOBS */
+.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
+.b1{width:600px;height:600px;background:rgba(0,146,96,0.1);filter:blur(100px);top:-200px;right:-100px;}
+.b2{width:500px;height:500px;background:rgba(0,61,165,0.08);filter:blur(100px);bottom:-150px;left:-100px;}
+.b3{width:300px;height:300px;background:rgba(212,0,26,0.06);filter:blur(80px);top:40%;left:55%;}
 
-/* LOGIN */
-#login-screen{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#e8f5f0 0%,#e8edf8 50%,#fde8eb 100%);overflow:hidden;}
-.ldeco{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;}
-.ld1{width:400px;height:400px;background:rgba(0,146,96,0.2);top:-80px;right:-80px;}
-.ld2{width:350px;height:350px;background:rgba(0,61,165,0.15);bottom:-60px;left:-60px;}
-.ld3{width:200px;height:200px;background:rgba(212,0,26,0.12);top:50%;left:50%;}
-.lcard{position:relative;z-index:1;background:#fff;border:1px solid rgba(0,61,165,0.1);border-radius:28px;padding:56px 48px;width:100%;max-width:440px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.12);animation:lIn 0.7s cubic-bezier(0.16,1,0.3,1) both;}
-@keyframes lIn{from{opacity:0;transform:translateY(30px) scale(0.97)}to{opacity:1;transform:none}}
-.lflag{height:6px;border-radius:4px;margin-bottom:28px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
-.lmtn{font-size:56px;margin-bottom:8px;line-height:1;}
-.ltitle{font-family:'Amiri',serif;font-size:42px;line-height:1;background:linear-gradient(135deg,var(--dg-d),var(--db),var(--dr));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.lsub{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--text3);letter-spacing:0.2em;margin:4px 0 28px;}
-.linp{width:100%;background:#f8faff;border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;color:var(--text);font-size:16px;font-family:inherit;text-align:center;letter-spacing:0.15em;outline:none;transition:all 0.25s;margin-bottom:12px;}
-.linp::placeholder{color:var(--text4);font-size:13px;letter-spacing:0.05em;}
-.linp:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);background:#fff;}
-.linp.error{border-color:var(--dr);animation:shake 0.4s ease;}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
-.lbtn{width:100%;background:linear-gradient(135deg,var(--dg-d),var(--dg) 50%,var(--db));border:none;border-radius:12px;padding:14px;color:#fff;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 16px rgba(0,146,96,0.3);}
-.lbtn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,146,96,0.4);}
-.lerr{color:var(--dr);font-size:13px;margin-top:10px;min-height:18px;}
-.lhint{font-size:11px;color:var(--text4);margin-top:18px;}
+/* LANG TOGGLE TOP RIGHT */
+.lang-top{
+  position:fixed;top:16px;left:16px;z-index:100;
+  background:rgba(255,255,255,0.9);border:1.5px solid var(--border);
+  border-radius:24px;display:flex;overflow:hidden;backdrop-filter:blur(8px);
+}
+html[lang="de"] .lang-top{left:auto;right:16px;}
+.lbtnx{padding:6px 16px;font-size:12px;font-weight:600;font-family:inherit;
+  border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
+.lbtnx.active{background:linear-gradient(135deg,var(--dg-d),var(--db));color:#fff;border-radius:22px;}
 
-/* MAIN */
+/* CENTER WRAPPER */
+.center{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:60px 20px;position:relative;z-index:1;
+}
+
+/* AUTH CARD */
+.auth-card{
+  background:#fff;
+  border:1.5px solid var(--border);
+  border-radius:28px;
+  width:100%;max-width:460px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  animation:cardIn 0.7s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(28px) scale(0.97)}to{opacity:1;transform:none}}
+
+/* Flag stripe */
+.flag-stripe{height:5px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
+
+.card-inner{padding:44px 44px 40px;}
+
+/* LOGO */
+.logo-area{text-align:center;margin-bottom:32px;}
+.logo-icon{font-size:52px;line-height:1;margin-bottom:8px;}
+.logo-title{font-family:'Amiri',serif;font-size:36px;
+  background:linear-gradient(135deg,var(--dg-d),var(--db));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;}
+.logo-sub{font-size:13px;color:var(--text3);letter-spacing:0.15em;margin-top:4px;}
+
+/* TABS */
+.tabs{display:flex;background:var(--bg);border-radius:14px;padding:4px;margin-bottom:28px;gap:4px;}
+.tab{flex:1;padding:10px;border:none;background:none;border-radius:10px;
+  font-size:14px;font-weight:600;font-family:inherit;color:var(--text3);
+  cursor:pointer;transition:all 0.25s;}
+.tab.active{background:#fff;color:var(--db-d);box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+
+/* FORMS */
+.form-panel{display:none;}
+.form-panel.active{display:block;animation:fadeIn 0.3s ease both;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.fwrap{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.flabel{font-size:12px;font-weight:600;letter-spacing:0.08em;color:var(--dg-d);text-transform:uppercase;}
+.finput{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:12px;
+  padding:13px 16px;color:var(--text);font-size:15px;font-family:inherit;
+  outline:none;transition:all 0.2s;width:100%;
+}
+.finput::placeholder{color:var(--text4);}
+.finput:focus{border-color:var(--dg);box-shadow:0 0 0 3px rgba(0,146,96,0.1);background:#fff;}
+.finput.error{border-color:var(--dr);box-shadow:0 0 0 3px rgba(212,0,26,0.08);}
+
+/* Password toggle */
+.pw-wrap{position:relative;}
+.pw-toggle{
+  position:absolute;top:50%;transform:translateY(-50%);
+  left:14px;background:none;border:none;cursor:pointer;
+  font-size:18px;color:var(--text3);padding:4px;
+  transition:color 0.2s;
+}
+html[lang="de"] .pw-toggle{left:auto;right:14px;}
+.pw-toggle:hover{color:var(--dg-d);}
+.pw-wrap .finput{padding-left:44px;}
+html[lang="de"] .pw-wrap .finput{padding-left:16px;padding-right:44px;}
+
+/* Submit button */
+.btn-submit{
+  width:100%;padding:14px;border-radius:14px;border:none;
+  background:linear-gradient(135deg,var(--dg-d),var(--dg) 50%,var(--db));
+  color:#fff;font-size:16px;font-weight:700;font-family:inherit;
+  cursor:pointer;transition:all 0.25s;
+  box-shadow:0 4px 18px rgba(0,146,96,0.3);
+  margin-top:8px;position:relative;overflow:hidden;
+}
+.btn-submit::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
+  opacity:0;transition:opacity 0.3s;}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,146,96,0.4);}
+.btn-submit:hover::after{opacity:1;}
+.btn-submit:disabled{opacity:0.6;transform:none;cursor:not-allowed;}
+
+/* Spinner inside button */
+.btn-spinner{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,0.4);
+  border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;
+  margin:0 auto;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Error / success messages */
+.msg{display:none;padding:12px 16px;border-radius:10px;font-size:13px;
+  line-height:1.6;margin-bottom:16px;text-align:center;}
+.msg-err{background:rgba(212,0,26,0.06);border:1.5px solid rgba(212,0,26,0.15);color:var(--dr-d);}
+.msg-ok{background:rgba(0,146,96,0.06);border:1.5px solid rgba(0,146,96,0.18);color:var(--dg-d);}
+
+/* Forgot password link */
+.forgot-link{
+  display:block;text-align:center;margin-top:14px;
+  font-size:13px;color:var(--text3);cursor:pointer;
+  text-decoration:underline;text-decoration-color:transparent;
+  transition:all 0.2s;
+}
+.forgot-link:hover{color:var(--db);text-decoration-color:var(--db);}
+
+/* Divider */
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text4);font-size:13px;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* Admin note */
+.admin-note{
+  text-align:center;margin-top:20px;padding:12px 16px;
+  background:rgba(0,61,165,0.05);border:1px solid rgba(0,61,165,0.1);
+  border-radius:10px;font-size:12px;color:var(--text3);line-height:1.6;
+}
+.admin-note strong{color:var(--db-d);}
+
+/* MAIN SITE (hidden until logged in) */
 #main-site{display:none;}
-.flagbar{position:fixed;top:0;left:0;right:0;z-index:201;height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
 
-/* HEADER */
-header{position:fixed;top:4px;left:0;right:0;z-index:200;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,61,165,0.08);box-shadow:0 1px 12px rgba(0,0,0,0.05);transition:height 0.3s;}
-header.sc{height:54px;}
-.hlogo{font-family:'Amiri',serif;font-size:22px;text-decoration:none;background:linear-gradient(90deg,var(--dg-d),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+/* ── HEADER ── */
+.flagbar{position:fixed;top:0;left:0;right:0;z-index:201;height:4px;
+  background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
+header{position:fixed;top:4px;left:0;right:0;z-index:200;height:66px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 48px;
+  background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,61,165,0.08);box-shadow:0 1px 12px rgba(0,0,0,0.05);}
+.hlogo{font-family:'Amiri',serif;font-size:22px;text-decoration:none;
+  background:linear-gradient(90deg,var(--dg-d),var(--db));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 nav{display:flex;gap:28px;align-items:center;}
 nav a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
 nav a:hover{color:var(--dg);}
 .nh{color:var(--dg-d)!important;font-weight:600;}
 .nr{color:var(--dr)!important;font-weight:600;}
-.ltog{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;display:flex;overflow:hidden;}
-.lbtnx{padding:7px 18px;font-size:13px;font-weight:600;font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
-.lbtnx.active{background:linear-gradient(135deg,var(--dg-d),var(--db));color:#fff;border-radius:22px;}
+.h-right{display:flex;align-items:center;gap:12px;}
+.user-badge{
+  display:flex;align-items:center;gap:8px;
+  background:var(--bg);border:1.5px solid var(--border);
+  border-radius:20px;padding:6px 14px;font-size:13px;color:var(--text2);
+}
+.user-dot{width:8px;height:8px;border-radius:50%;background:var(--dg);flex-shrink:0;}
+.admin-badge-nav{
+  background:linear-gradient(135deg,var(--db-d),var(--db));
+  color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;
+}
+.logout-btn{
+  background:none;border:1.5px solid var(--border);border-radius:10px;
+  padding:7px 14px;font-size:13px;color:var(--text3);cursor:pointer;
+  font-family:inherit;transition:all 0.2s;
+}
+.logout-btn:hover{border-color:var(--dr);color:var(--dr-d);}
+.ltog-header{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;display:flex;overflow:hidden;}
+.lbtnx2{padding:7px 16px;font-size:13px;font-weight:600;font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
+.lbtnx2.active{background:linear-gradient(135deg,var(--dg-d),var(--db));color:#fff;border-radius:22px;}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 48px 80px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 45%,#fef0f2 100%);}
-.hblob{position:absolute;border-radius:50%;pointer-events:none;}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:120px 48px 80px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#f0faf5 0%,#eef2fb 45%,#fef0f2 100%);}
+.hero::before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(0,61,165,0.08) 1px,transparent 1px);
+  background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
+.h-b{position:absolute;border-radius:50%;pointer-events:none;}
 .hb1{width:600px;height:600px;background:rgba(0,146,96,0.1);filter:blur(100px);top:-200px;right:-100px;}
 .hb2{width:500px;height:500px;background:rgba(0,61,165,0.08);filter:blur(100px);bottom:-150px;left:-100px;}
-.hb3{width:300px;height:300px;background:rgba(212,0,26,0.07);filter:blur(80px);top:40%;left:60%;}
-.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,61,165,0.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
+.hb3{width:300px;height:300px;background:rgba(212,0,26,0.06);filter:blur(80px);top:40%;left:55%;}
 .hcont{position:relative;z-index:1;text-align:center;max-width:860px;}
-.heye{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,96,0.08);border:1px solid rgba(0,146,96,0.2);border-radius:30px;padding:8px 22px;font-size:13px;letter-spacing:0.08em;color:var(--dg-d);margin-bottom:28px;animation:fD 0.6s 0.2s both;}
-@keyframes fD{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fU{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.htitle{font-family:'Amiri',serif;font-size:clamp(64px,11vw,118px);line-height:0.95;margin-bottom:20px;animation:fU 0.8s 0.3s both;}
+.heye{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,96,0.08);
+  border:1px solid rgba(0,146,96,0.2);border-radius:30px;padding:8px 22px;
+  font-size:13px;color:var(--dg-d);margin-bottom:28px;}
+.htitle{font-family:'Amiri',serif;font-size:clamp(64px,11vw,118px);line-height:0.95;margin-bottom:20px;}
 html[lang="de"] .htitle{font-family:'Cormorant Garamond',serif;}
-.htitle .t1{display:block;background:linear-gradient(135deg,var(--dg-d) 0%,var(--db) 50%,var(--dr) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.htitle .t2{display:block;font-size:0.38em;color:var(--text3);-webkit-text-fill-color:var(--text3);letter-spacing:0.12em;margin-top:8px;font-weight:400;}
-.hsub{font-size:clamp(15px,2vw,18px);color:var(--text2);line-height:1.9;max-width:620px;margin:0 auto 44px;animation:fU 0.8s 0.45s both;}
-.hbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fU 0.8s 0.6s both;}
-.bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--dg-d),var(--dg));color:#fff;text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,146,96,0.3);}
+.htitle .t1{display:block;background:linear-gradient(135deg,var(--dg-d),var(--db),var(--dr));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.htitle .t2{display:block;font-size:0.4em;color:var(--text3);-webkit-text-fill-color:var(--text3);letter-spacing:0.12em;margin-top:8px;}
+.hsub{font-size:clamp(15px,2vw,18px);color:var(--text2);line-height:1.9;max-width:620px;margin:0 auto 44px;}
+.hbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--dg-d),var(--dg));color:#fff;
+  text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;
+  font-family:inherit;border:none;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,146,96,0.3);}
 .bp:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,146,96,0.4);}
-.bs{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--db-d),var(--db));color:#fff;text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,61,165,0.28);}
+.bs{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--db-d),var(--db));color:#fff;
+  text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;
+  font-family:inherit;border:none;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,61,165,0.28);}
 .bs:hover{transform:translateY(-3px);}
-.bg2{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);color:var(--text2);text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;transition:all 0.25s;box-shadow:var(--shadow);}
+.bg2{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);
+  color:var(--text2);text-decoration:none;padding:14px 32px;border-radius:12px;font-size:15px;
+  transition:all 0.25s;box-shadow:var(--shadow);}
 .bg2:hover{border-color:var(--dg);color:var(--dg-d);transform:translateY(-3px);}
-.hstats{display:flex;justify-content:center;gap:0;margin-top:52px;background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:28px 0;animation:fU 0.8s 0.8s both;}
+.hstats{display:flex;justify-content:center;gap:0;margin-top:56px;background:#fff;
+  border-radius:18px;box-shadow:var(--shadow);padding:24px 0;}
 .si{flex:1;max-width:180px;text-align:center;padding:0 20px;border-right:1px solid rgba(0,61,165,0.1);}
 html[lang="ar"] .si{border-right:none;border-left:1px solid rgba(0,61,165,0.1);}
 .si:last-child,.si:first-child{border:none;}
-.sn{font-family:'Amiri',serif;font-size:38px;line-height:1;background:linear-gradient(135deg,var(--dg),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sn{font-family:'Amiri',serif;font-size:38px;line-height:1;
+  background:linear-gradient(135deg,var(--dg),var(--db));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .sl{font-size:12px;color:var(--text3);margin-top:4px;}
 
-/* SECTIONS */
+/* ABOUT */
 .sec{padding:90px 48px;}
 .sin{max-width:1120px;margin:0 auto;}
-.stag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.18em;color:var(--dg-d);text-transform:uppercase;margin-bottom:14px;}
+.stag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.18em;
+  color:var(--dg-d);text-transform:uppercase;margin-bottom:14px;}
 .stag::before{content:'';display:block;width:22px;height:2px;background:var(--dg);border-radius:2px;}
 .stitle{font-family:'Amiri',serif;font-size:clamp(32px,5vw,50px);line-height:1.1;margin-bottom:12px;color:var(--text);}
 html[lang="de"] .stitle{font-family:'Cormorant Garamond',serif;}
 .ssub{font-size:16px;color:var(--text2);line-height:1.8;max-width:560px;}
-
-/* ABOUT */
 #about{background:#fff;}
 .abgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:72px;align-items:center;margin-top:60px;}
 .abt p{font-size:15px;color:var(--text2);line-height:2;margin-bottom:18px;}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
-.chip{background:rgba(0,61,165,0.07);border:1px solid rgba(0,61,165,0.15);color:var(--db-d);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:500;}
+.chip{background:rgba(0,61,165,0.07);border:1px solid rgba(0,61,165,0.15);color:var(--db-d);border-radius:20px;padding:5px 14px;font-size:13px;}
 .fcs{display:flex;flex-direction:column;gap:14px;}
-.fc{background:var(--bg);border:1px solid rgba(0,61,165,0.1);border-radius:18px;padding:22px 24px;display:flex;gap:18px;align-items:flex-start;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:var(--shadow);}
-.fc:hover{transform:translateX(-6px);border-color:var(--dg);background:#fff;box-shadow:0 6px 24px rgba(0,146,96,0.12);}
+.fc{background:var(--bg);border:1px solid rgba(0,61,165,0.1);border-radius:18px;padding:22px 24px;
+  display:flex;gap:18px;align-items:flex-start;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:var(--shadow);}
+.fc:hover{transform:translateX(-6px);border-color:var(--dg);background:#fff;}
 html[lang="de"] .fc:hover{transform:translateX(6px);}
-.fci{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:linear-gradient(135deg,var(--dg-d),var(--dg));box-shadow:0 3px 12px rgba(0,146,96,0.2);}
+.fci{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;background:linear-gradient(135deg,var(--dg-d),var(--dg));}
 .fct{font-size:15px;font-weight:600;margin-bottom:3px;color:var(--text);}
 .fcd{font-size:13px;color:var(--text3);line-height:1.6;}
 
-/* GALLERY */
-#gallery{background:var(--bg);}
-.gg{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:230px 230px;gap:14px;margin-top:48px;}
-.gi{border-radius:16px;overflow:hidden;background:#fff;border:1px solid rgba(0,61,165,0.08);position:relative;cursor:pointer;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:var(--shadow);}
-.gi:hover{transform:scale(1.025);box-shadow:0 16px 48px rgba(0,0,0,0.12),0 0 0 2px var(--dg);}
-.gi:first-child{grid-row:span 2;}
-.gph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:200px;background:linear-gradient(135deg,#f0faf5,#eef2fb);}
-.gic{font-size:40px;}
-.glb{font-size:13px;color:var(--text3);font-weight:500;}
-.gov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,30,60,0.75),transparent 55%);opacity:0;transition:opacity 0.3s;display:flex;align-items:flex-end;padding:18px;}
-.gi:hover .gov{opacity:1;}
-.gcp{font-size:14px;font-weight:600;color:#fff;}
+/* EVENT/BERUFE TEASER */
+#ev{background:var(--bg);}
+.evc{background:#fff;border:1.5px solid rgba(0,61,165,0.12);border-radius:24px;
+  margin-top:48px;padding:52px;display:flex;gap:52px;align-items:center;box-shadow:0 4px 32px rgba(0,61,165,0.07);}
+.ering{width:136px;height:136px;border-radius:50%;flex-shrink:0;
+  border:4px solid transparent;
+  background:linear-gradient(white,white) padding-box,linear-gradient(135deg,var(--db),var(--dr)) border-box;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(0,61,165,0.15);}
+.enum{font-family:'Amiri',serif;font-size:40px;color:var(--db);line-height:1;}
+.elbl{font-size:11px;color:var(--text3);letter-spacing:0.1em;margin-top:2px;}
+.edate{font-size:12px;color:var(--text3);margin-top:14px;text-align:center;}
+.einfo{flex:1;}
+.ebadge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,61,165,0.07);
+  border:1px solid rgba(0,61,165,0.18);color:var(--db);border-radius:20px;padding:5px 14px;font-size:12px;margin-bottom:14px;}
+.bdot{width:6px;height:6px;border-radius:50%;background:var(--db);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.4)}}
+.etitle{font-family:'Amiri',serif;font-size:34px;color:var(--db);line-height:1.2;margin-bottom:10px;}
+html[lang="de"] .etitle{font-family:'Cormorant Garamond',serif;font-size:30px;}
+.esub{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:24px;}
+.emetas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.em2{display:flex;align-items:center;gap:7px;font-size:14px;color:var(--text3);
+  background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:7px 14px;}
+.em2 strong{color:var(--text2);font-weight:600;}
+.bev{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--db-d),var(--db) 60%,var(--dr));
+  color:#fff;text-decoration:none;padding:13px 30px;border-radius:12px;
+  font-size:15px;font-weight:600;font-family:inherit;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,61,165,0.28);}
+.bev:hover{transform:translateY(-2px);}
 
-/* BERUFE TEASER */
 #bt{background:#fff;}
-.btcard{background:linear-gradient(135deg,#f0faf5,#eef2fb);border:1.5px solid rgba(0,146,96,0.15);border-radius:24px;margin-top:48px;padding:52px;display:flex;gap:52px;align-items:center;box-shadow:0 4px 32px rgba(0,146,96,0.08);}
+.btcard{background:linear-gradient(135deg,#f0faf5,#eef2fb);border:1.5px solid rgba(0,146,96,0.15);
+  border-radius:24px;margin-top:48px;padding:52px;display:flex;gap:52px;align-items:center;
+  box-shadow:0 4px 32px rgba(0,146,96,0.08);}
 .bicons{flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.bi2{width:66px;height:66px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;transition:transform 0.2s;box-shadow:0 3px 12px rgba(0,0,0,0.1);}
+.bi2{width:66px;height:66px;border-radius:16px;display:flex;align-items:center;
+  justify-content:center;font-size:28px;transition:transform 0.2s;box-shadow:0 3px 12px rgba(0,0,0,0.1);}
 .bi2:hover{transform:scale(1.08);}
 .bi2-it{background:linear-gradient(135deg,var(--db-d),var(--db-l));}
 .bi2-bau{background:linear-gradient(135deg,var(--dr-d),var(--dr-l));}
@@ -146,45 +322,9 @@ html[lang="de"] .btitle{font-family:'Cormorant Garamond',serif;}
 .bit{background:rgba(0,61,165,0.07);color:var(--db-d);border-color:rgba(0,61,165,0.18);}
 .bbau{background:rgba(212,0,26,0.06);color:var(--dr-d);border-color:rgba(212,0,26,0.15);}
 .bk{background:rgba(0,146,96,0.07);color:var(--dg-d);border-color:rgba(0,146,96,0.18);}
-.bh{background:rgba(180,133,10,0.07);color:var(--gold2);border-color:rgba(180,133,10,0.18);}
-.btr{background:rgba(91,33,182,0.07);color:#5b21b6;border-color:rgba(91,33,182,0.18);}
-
-/* EVENT */
-#ev{background:var(--bg);}
-.evc{background:#fff;border:1.5px solid rgba(0,61,165,0.12);border-radius:24px;margin-top:48px;padding:52px;display:flex;gap:52px;align-items:center;box-shadow:0 4px 32px rgba(0,61,165,0.07);}
-.ering{width:136px;height:136px;border-radius:50%;flex-shrink:0;border:4px solid transparent;background:linear-gradient(white,white) padding-box,linear-gradient(135deg,var(--db),var(--dr)) border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,61,165,0.15);}
-.enum{font-family:'Amiri',serif;font-size:40px;color:var(--db);line-height:1;}
-.elbl{font-size:11px;color:var(--text3);letter-spacing:0.1em;margin-top:2px;}
-.edate{font-size:12px;color:var(--text3);margin-top:14px;text-align:center;}
-.einfo{flex:1;}
-.ebadge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,61,165,0.07);border:1px solid rgba(0,61,165,0.18);color:var(--db);border-radius:20px;padding:5px 14px;font-size:12px;margin-bottom:14px;}
-.bdot{width:6px;height:6px;border-radius:50%;background:var(--db);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.4)}}
-.etitle{font-family:'Amiri',serif;font-size:34px;color:var(--db);line-height:1.2;margin-bottom:10px;}
-html[lang="de"] .etitle{font-family:'Cormorant Garamond',serif;font-size:30px;}
-.esub{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:24px;}
-.emetas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
-.em2{display:flex;align-items:center;gap:7px;font-size:14px;color:var(--text3);background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:7px 14px;}
-.em2 strong{color:var(--text2);font-weight:600;}
-.bev{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--db-d),var(--db) 60%,var(--dr));color:#fff;text-decoration:none;padding:13px 30px;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;transition:all 0.25s;box-shadow:0 4px 18px rgba(0,61,165,0.28);}
-.bev:hover{transform:translateY(-2px);}
-
-/* MEMBERS */
-#mem{background:#fff;}
-.mbanner{background:linear-gradient(135deg,#f0faf5,#eef2fb,#fef0f2);border:1.5px solid rgba(0,61,165,0.1);border-radius:24px;padding:56px;text-align:center;margin-top:48px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
-.mbanner::before{content:'🏔️';position:absolute;font-size:260px;opacity:0.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
-.mtitle{font-family:'Amiri',serif;font-size:34px;margin-bottom:10px;color:var(--text);}
-html[lang="de"] .mtitle{font-family:'Cormorant Garamond',serif;}
-.msub{font-size:16px;color:var(--text2);line-height:1.8;max-width:500px;margin:0 auto 32px;}
-.mrow{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
-.mchip{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:14px 20px;transition:all 0.25s;box-shadow:var(--shadow);}
-.mchip:hover{border-color:var(--dg);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,146,96,0.12);}
-.mav{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;background:linear-gradient(135deg,var(--dg),var(--db));color:#fff;flex-shrink:0;}
-.mn2{font-size:14px;font-weight:600;color:var(--text);}
-.mr2{font-size:12px;color:var(--text3);}
 
 /* FOOTER */
-footer{background:var(--text);color:#e5e7eb;padding:56px 48px 32px;}
+footer{background:var(--text);color:#e5e7eb;padding:56px 48px 36px;}
 .fin{max-width:1120px;margin:0 auto;}
 .fflag{height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);border-radius:2px;margin-bottom:40px;}
 .ftop{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;margin-bottom:36px;}
@@ -195,7 +335,6 @@ footer{background:var(--text);color:#e5e7eb;padding:56px 48px 32px;}
 .flinks a:hover{color:var(--dg-l);}
 .fbot{border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;text-align:center;font-size:12px;color:#6b7280;}
 
-/* REVEAL */
 .rev{opacity:0;transform:translateY(24px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
 .rev.v{opacity:1;transform:translateY(0);}
 .revl{opacity:0;transform:translateX(-24px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
@@ -204,242 +343,535 @@ html[lang="de"] .revl{transform:translateX(24px);}
 
 @media(max-width:900px){
   header,footer{padding-left:20px;padding-right:20px;}
-  .hero,.sec{padding-left:20px;padding-right:20px;}
   nav{display:none;}
+  .hero,.sec{padding-left:20px;padding-right:20px;}
   .abgrid{grid-template-columns:1fr;gap:36px;}
-  .gg{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
-  .gi:first-child{grid-row:span 1;}
-  .btcard,.evc{flex-direction:column;padding:28px 20px;gap:24px;}
+  .evc,.btcard{flex-direction:column;padding:28px 20px;gap:24px;}
   .ftop{flex-direction:column;}
   .hstats{flex-wrap:wrap;}
+  .card-inner{padding:28px 24px;}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login-screen">
-  <div class="ldeco ld1"></div><div class="ldeco ld2"></div><div class="ldeco ld3"></div>
-  <div class="lcard">
-    <div class="lflag"></div>
-    <div class="lmtn">🏔️</div>
-    <div class="ltitle">داغستان</div>
-    <div class="lsub">DAGESTAN COMMUNITY</div>
-    <input type="password" id="pw" class="linp" placeholder="Passwort | كلمة المرور" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="lbtn" onclick="doLogin()">
-      <span class="ar-text">دخول ←</span><span class="de-text" style="display:none">Einloggen →</span>
-    </button>
-    <div class="lerr" id="lerr"></div>
-    <div class="lhint">🔒 Nur für Mitglieder | للأعضاء فقط</div>
+<!-- LANGUAGE TOGGLE (login screen) -->
+<div class="lang-top" id="lang-top-login">
+  <button class="lbtnx active" id="btn-ar-login" onclick="setLang('ar')">عربي</button>
+  <button class="lbtnx" id="btn-de-login" onclick="setLang('de')">DE</button>
+</div>
+
+<!-- Blobs for login bg -->
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
+
+<!-- ══════════════ LOGIN / REGISTER SCREEN ══════════════ -->
+<div id="auth-screen">
+  <div class="center">
+    <div class="auth-card">
+      <div class="flag-stripe"></div>
+      <div class="card-inner">
+
+        <!-- Logo -->
+        <div class="logo-area">
+          <div class="logo-icon">🏔️</div>
+          <div class="logo-title ar-text">داغستان</div>
+          <div class="logo-title de-text" style="display:none">Dagestan</div>
+          <div class="logo-sub">COMMUNITY</div>
+        </div>
+
+        <!-- Error / Success messages -->
+        <div class="msg msg-err" id="auth-err"></div>
+        <div class="msg msg-ok"  id="auth-ok"></div>
+
+        <!-- TABS: Login | Registrierung -->
+        <div class="tabs" id="auth-tabs">
+          <button class="tab active" id="tab-login" onclick="showTab('login')">
+            <span class="ar-text">تسجيل الدخول</span>
+            <span class="de-text" style="display:none">Anmelden</span>
+          </button>
+          <button class="tab" id="tab-register" onclick="showTab('register')">
+            <span class="ar-text">حساب جديد</span>
+            <span class="de-text" style="display:none">Registrieren</span>
+          </button>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="form-panel active" id="panel-login">
+          <div class="fwrap">
+            <div class="flabel ar-text">البريد الإلكتروني</div>
+            <div class="flabel de-text" style="display:none">E-MAIL</div>
+            <input type="email" class="finput" id="login-email"
+              placeholder="name@email.com" autocomplete="email">
+          </div>
+          <div class="fwrap">
+            <div class="flabel ar-text">كلمة المرور</div>
+            <div class="flabel de-text" style="display:none">PASSWORT</div>
+            <div class="pw-wrap">
+              <button type="button" class="pw-toggle" onclick="togglePw('login-pw')">👁️</button>
+              <input type="password" class="finput" id="login-pw"
+                placeholder="••••••••" autocomplete="current-password">
+            </div>
+          </div>
+          <button class="btn-submit" id="btn-login" onclick="doLogin()">
+            <span id="login-txt">
+              <span class="ar-text">دخول ←</span>
+              <span class="de-text" style="display:none">Anmelden →</span>
+            </span>
+            <div class="btn-spinner" id="login-spin"></div>
+          </button>
+          <span class="forgot-link" onclick="showTab('forgot')">
+            <span class="ar-text">نسيت كلمة المرور؟</span>
+            <span class="de-text" style="display:none">Passwort vergessen?</span>
+          </span>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div class="form-panel" id="panel-register">
+          <div class="fwrap">
+            <div class="flabel ar-text">الاسم الكامل</div>
+            <div class="flabel de-text" style="display:none">VOLLSTÄNDIGER NAME</div>
+            <input type="text" class="finput" id="reg-name"
+              placeholder="Mohammed Babat">
+          </div>
+          <div class="fwrap">
+            <div class="flabel ar-text">البريد الإلكتروني</div>
+            <div class="flabel de-text" style="display:none">E-MAIL</div>
+            <input type="email" class="finput" id="reg-email"
+              placeholder="name@email.com" autocomplete="email">
+          </div>
+          <div class="fwrap">
+            <div class="flabel ar-text">كلمة المرور (6 أحرف على الأقل)</div>
+            <div class="flabel de-text" style="display:none">PASSWORT (mind. 6 Zeichen)</div>
+            <div class="pw-wrap">
+              <button type="button" class="pw-toggle" onclick="togglePw('reg-pw')">👁️</button>
+              <input type="password" class="finput" id="reg-pw"
+                placeholder="••••••••" autocomplete="new-password">
+            </div>
+          </div>
+          <div class="fwrap">
+            <div class="flabel ar-text">تأكيد كلمة المرور</div>
+            <div class="flabel de-text" style="display:none">PASSWORT BESTÄTIGEN</div>
+            <div class="pw-wrap">
+              <button type="button" class="pw-toggle" onclick="togglePw('reg-pw2')">👁️</button>
+              <input type="password" class="finput" id="reg-pw2"
+                placeholder="••••••••" autocomplete="new-password">
+            </div>
+          </div>
+          <button class="btn-submit" id="btn-register" onclick="doRegister()">
+            <span id="reg-txt">
+              <span class="ar-text">إنشاء حساب ←</span>
+              <span class="de-text" style="display:none">Konto erstellen →</span>
+            </span>
+            <div class="btn-spinner" id="reg-spin"></div>
+          </button>
+        </div>
+
+        <!-- FORGOT PASSWORD -->
+        <div class="form-panel" id="panel-forgot">
+          <p style="font-size:14px;color:var(--text2);margin-bottom:20px;line-height:1.7;" class="ar-text">
+            أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور
+          </p>
+          <p style="font-size:14px;color:var(--text2);margin-bottom:20px;line-height:1.7;" class="de-text" style="display:none">
+            Gib deine E-Mail ein und wir senden dir einen Reset-Link
+          </p>
+          <div class="fwrap">
+            <div class="flabel ar-text">البريد الإلكتروني</div>
+            <div class="flabel de-text" style="display:none">E-MAIL</div>
+            <input type="email" class="finput" id="forgot-email" placeholder="name@email.com">
+          </div>
+          <button class="btn-submit" onclick="doForgot()">
+            <span class="ar-text">إرسال رابط الاسترداد</span>
+            <span class="de-text" style="display:none">Reset-Link senden</span>
+          </button>
+          <span class="forgot-link" onclick="showTab('login')">
+            <span class="ar-text">← العودة لتسجيل الدخول</span>
+            <span class="de-text" style="display:none">← Zurück zum Login</span>
+          </span>
+        </div>
+
+        <!-- Admin note -->
+        <div class="admin-note">
+          <strong class="ar-text">🔐 للمسؤول:</strong>
+          <strong class="de-text" style="display:none">🔐 Admin:</strong>
+          <span class="ar-text"> سجّل دخولك بحسابك — يمكنك إدارة الموقع من خلال حسابك</span>
+          <span class="de-text" style="display:none"> Melde dich mit deinem Konto an — du verwaltest die Seite über dein Konto</span>
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- ══════════════ MAIN SITE ══════════════ -->
 <div id="main-site">
-<div class="flagbar"></div>
-<header id="hdr">
-  <a href="#" class="hlogo">🏔️ <span class="ar-text">داغستان</span><span class="de-text" style="display:none">Dagestan</span></a>
-  <nav>
-    <a href="#about" class="ar-text">عن داغستان</a><a href="#about" class="de-text" style="display:none">Über uns</a>
-    <a href="#gallery" class="ar-text">معرض</a><a href="#gallery" class="de-text" style="display:none">Galerie</a>
-    <a href="#ev" class="ar-text">الفعاليات</a><a href="#ev" class="de-text" style="display:none">Events</a>
-    <a href="galerie.html" class="ar-text">📷 معرض الصور</a><a href="galerie.html" class="de-text" style="display:none">📷 Galerie</a>
-    <a href="berufe.html" class="nh ar-text">🧑‍💼 دليل المهن</a><a href="berufe.html" class="nh de-text" style="display:none">🧑‍💼 Berufe</a>
-    <a href="event.html" class="nr ar-text">🗓️ تجمع 2026</a><a href="event.html" class="nr de-text" style="display:none">🗓️ Sammlung 2026</a>
-    <span id="admin-nav-badge" style="display:none;background:linear-gradient(135deg,#002d7a,#003DA5);color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;">🔐 ADMIN</span>
-  </nav>
-  <div class="ltog">
-    <button class="lbtnx active" id="btn-ar" onclick="setLang('ar')">عربي</button>
-    <button class="lbtnx" id="btn-de" onclick="setLang('de')">DE</button>
-  </div>
-</header>
-
-<section class="hero" id="home">
-  <div class="hblob hb1"></div><div class="hblob hb2"></div><div class="hblob hb3"></div>
-  <div class="hcont">
-    <div class="heye">🌿 <span class="ar-text">أرض الجبال والتراث العريق</span><span class="de-text" style="display:none">Land der Berge und Kultur</span></div>
-    <h1 class="htitle">
-      <span class="t1 ar-text">داغستان</span><span class="t1 de-text" style="display:none">Dagestan</span>
-      <span class="t2 ar-text">DAGESTAN — الجمهورية القوقازية</span><span class="t2 de-text" style="display:none">DIE KAUKASISCHE REPUBLIK</span>
-    </h1>
-    <p class="hsub ar-text">موطن أكثر من ثلاثين شعباً وأكثر من مئة لغة — أرض الجبال الشامخة والتنوع الثقافي الفريد على ضفاف بحر قزوين</p>
-    <p class="hsub de-text" style="display:none">Heimat von über dreißig Völkern und hundert Sprachen — Land der Berge und kultureller Vielfalt am Kaspischen Meer</p>
-    <div class="hbtns">
-      <a href="berufe.html" class="bp"><span class="ar-text">🧑‍💼 دليل المهن</span><span class="de-text" style="display:none">🧑‍💼 Berufsverzeichnis</span></a>
-      <a href="event.html" class="bs"><span class="ar-text">🗓️ تجمع 2026</span><span class="de-text" style="display:none">🗓️ Sammlung 2026</span></a>
-      <a href="#about" class="bg2"><span class="ar-text">اكتشف المزيد</span><span class="de-text" style="display:none">Mehr entdecken</span></a>
-    </div>
-    <div class="hstats">
-      <div class="si"><div class="sn">50+</div><div class="sl ar-text">شعباً وقوميةً</div><div class="sl de-text" style="display:none">Völker</div></div>
-      <div class="si"><div class="sn">300+</div><div class="sl ar-text">عضو نشيط</div><div class="sl de-text" style="display:none">Mitglieder</div></div>
-      <div class="si"><div class="sn">3000م</div><div class="sl ar-text">ارتفاع القمم</div><div class="sl de-text" style="display:none">Berghöhe</div></div>
-      <div class="si"><div class="sn">2026</div><div class="sl ar-text">تجمعنا القادم</div><div class="sl de-text" style="display:none">Nächstes Event</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="about"><div class="sin">
-  <div class="stag ar-text">التعريف</div><div class="stag de-text" style="display:none">ÜBER DAGESTAN</div>
-  <h2 class="stitle ar-text">أرض الجبال والتنوع</h2><h2 class="stitle de-text" style="display:none">Land der Berge & Vielfalt</h2>
-  <p class="ssub ar-text">جمهورية روسية فريدة في قلب القوقاز على ضفاف بحر قزوين</p>
-  <p class="ssub de-text" style="display:none">Eine einzigartige russische Republik im Herzen des Kaukasus</p>
-  <div class="abgrid">
-    <div class="abt revl">
-      <p class="ar-text">داغستان جمهورية فيدرالية روسية تقع في الطرف الشمالي الشرقي من القوقاز. تُعدّ من أكثر مناطق العالم تنوعاً إثنياً ولغوياً.</p>
-      <p class="de-text" style="display:none">Dagestan ist eine föderale Republik Russlands im nordöstlichen Kaukasus — eine der vielfältigsten Regionen der Welt mit über 50 Völkern.</p>
-      <p class="ar-text">يُعرف بـ"أرض الجبال" — تضاريسه تصل ذروتها إلى أكثر من ثلاثة آلاف متر، وسواحله الجميلة على بحر قزوين لا تُنسى.</p>
-      <p class="de-text" style="display:none">Bekannt als "Land der Berge" — mit Gipfeln über 3000 Meter und wunderschönen Küsten am Kaspischen Meer.</p>
-      <div class="chips">
-        <span class="chip ar-text">🏔️ جبال القوقاز</span><span class="chip ar-text">🌊 بحر قزوين</span><span class="chip ar-text">🕌 تراث إسلامي</span><span class="chip ar-text">🤼 مصارعة عالمية</span>
-        <span class="chip de-text" style="display:none">🏔️ Kaukasus</span><span class="chip de-text" style="display:none">🌊 Kasp. Meer</span><span class="chip de-text" style="display:none">🕌 Islamisches Erbe</span><span class="chip de-text" style="display:none">🤼 Weltklasse-Sport</span>
+  <div class="flagbar"></div>
+  <header id="hdr">
+    <a href="#" class="hlogo">🏔️ <span class="ar-text">داغستان</span><span class="de-text" style="display:none">Dagestan</span></a>
+    <nav>
+      <a href="#about" class="ar-text">عن داغستان</a><a href="#about" class="de-text" style="display:none">Über uns</a>
+      <a href="galerie.html" class="ar-text">📷 معرض</a><a href="galerie.html" class="de-text" style="display:none">📷 Galerie</a>
+      <a href="#ev" class="ar-text">الفعاليات</a><a href="#ev" class="de-text" style="display:none">Events</a>
+      <a href="berufe.html" class="nh ar-text">🧑‍💼 دليل المهن</a><a href="berufe.html" class="nh de-text" style="display:none">🧑‍💼 Berufe</a>
+      <a href="event.html" class="nr ar-text">🗓️ تجمع 2026</a><a href="event.html" class="nr de-text" style="display:none">🗓️ Sammlung 2026</a>
+    </nav>
+    <div class="h-right">
+      <div class="user-badge">
+        <div class="user-dot"></div>
+        <span id="user-name-display">...</span>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">
+        <span class="ar-text">خروج</span>
+        <span class="de-text" style="display:none">Abmelden</span>
+      </button>
+      <div class="ltog-header">
+        <button class="lbtnx2 active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+        <button class="lbtnx2" id="btn-de" onclick="setLang('de')">DE</button>
       </div>
     </div>
-    <div class="fcs">
-      <div class="fc rev"><div class="fci">🏔️</div><div><div class="fct ar-text">الطبيعة والجغرافيا</div><div class="fct de-text" style="display:none">Natur & Geografie</div><div class="fcd ar-text">جبال القوقاز الكبرى، وديان خلابة، شواطئ بحر قزوين</div><div class="fcd de-text" style="display:none">Großer Kaukasus, Täler, Strände am Kaspischen Meer</div></div></div>
-      <div class="fc rev"><div class="fci">🕌</div><div><div class="fct ar-text">الثقافة والتاريخ</div><div class="fct de-text" style="display:none">Kultur & Geschichte</div><div class="fcd ar-text">حضارة عريقة، فنون تقليدية، عمارة إسلامية في دربند</div><div class="fcd de-text" style="display:none">Uralte Zivilisation, Volkskunst, islamische Architektur</div></div></div>
-      <div class="fc rev"><div class="fci">🤼</div><div><div class="fct ar-text">الرياضة والمصارعة</div><div class="fct de-text" style="display:none">Sport & Kampfsport</div><div class="fcd ar-text">وطن أبطال المصارعة الحرة والفنون القتالية المختلطة عالمياً</div><div class="fcd de-text" style="display:none">Heimat von Weltklasse-Ringern und MMA-Kämpfern</div></div></div>
-      <div class="fc rev"><div class="fci">🍖</div><div><div class="fct ar-text">المطبخ الداغستاني</div><div class="fct de-text" style="display:none">Dagestanische Küche</div><div class="fcd ar-text">خينكال، كورزي، شاشليك — أطباق تقليدية لا تُنسى</div><div class="fcd de-text" style="display:none">Khinkali, Kurze, Schaschlik — unvergessliche Speisen</div></div></div>
-    </div>
-  </div>
-</div></section>
+  </header>
 
-<section class="sec" id="gallery"><div class="sin">
-  <div class="stag ar-text">معرض الصور</div><div class="stag de-text" style="display:none">GALERIE</div>
-  <h2 class="stitle ar-text">لقطات من داغستان</h2><h2 class="stitle de-text" style="display:none">Bilder aus Dagestan</h2>
-  <div class="gg rev">
-    <div class="gi" style="grid-row:span 2"><div class="gph" style="height:100%;min-height:474px;"><div class="gic">🏔️</div><div class="glb ar-text">جبال داغستان</div><div class="glb de-text" style="display:none">Berge</div></div><div class="gov"><span class="gcp ar-text">جبال داغستان الشامخة</span><span class="gcp de-text" style="display:none">Majestätische Berge</span></div></div>
-    <div class="gi"><div class="gph"><div class="gic">🕌</div><div class="glb ar-text">جامع دربند</div><div class="glb de-text" style="display:none">Moschee</div></div><div class="gov"><span class="gcp ar-text">جامع دربند التاريخي</span><span class="gcp de-text" style="display:none">Historische Moschee</span></div></div>
-    <div class="gi"><div class="gph"><div class="gic">🌊</div><div class="glb ar-text">بحر قزوين</div><div class="glb de-text" style="display:none">Kasp. Meer</div></div><div class="gov"><span class="gcp ar-text">ساحل بحر قزوين</span><span class="gcp de-text" style="display:none">Kaspische Küste</span></div></div>
-    <div class="gi"><div class="gph"><div class="gic">💃</div><div class="glb ar-text">الرقص التقليدي</div><div class="glb de-text" style="display:none">Tanz</div></div><div class="gov"><span class="gcp ar-text">فولكلور داغستاني</span><span class="gcp de-text" style="display:none">Folklor</span></div></div>
-    <div class="gi"><div class="gph"><div class="gic">🏘️</div><div class="glb ar-text">قرى الجبال</div><div class="glb de-text" style="display:none">Bergdörfer</div></div><div class="gov"><span class="gcp ar-text">قرية جبلية قديمة</span><span class="gcp de-text" style="display:none">Altes Bergdorf</span></div></div>
-  </div>
-</div></section>
-
-<section class="sec" id="bt"><div class="sin">
-  <div class="stag ar-text">الخدمات</div><div class="stag de-text" style="display:none">BERUFE</div>
-  <h2 class="stitle ar-text">دليل المهن الداغستاني</h2><h2 class="stitle de-text" style="display:none">Dagestanisches Berufsverzeichnis</h2>
-  <div class="btcard rev">
-    <div class="bicons">
-      <div class="bi2 bi2-it">💻</div><div class="bi2 bi2-bau">🏗️</div>
-      <div class="bi2 bi2-k">🍳</div><div class="bi2 bi2-h">🛍️</div>
-      <div class="bi2 bi2-t">🚛</div>
-    </div>
-    <div class="binfo">
-      <div class="btitle ar-text">ابحث عن الخبير الذي تحتاجه</div><div class="btitle de-text" style="display:none">Finde den Experten, den du brauchst</div>
-      <p class="bsub ar-text">دليل شامل لمهنيين من مجتمعنا الداغستاني في ألمانيا — IT، بناء، مطبخ، تجارة، نقل</p>
-      <p class="bsub de-text" style="display:none">Fachleute aus unserer dagestanischen Community in Deutschland — IT, Bau, Küche, Handel, Transport</p>
-      <div class="bcats">
-        <span class="bcat bit">💻 IT</span>
-        <span class="bcat bbau ar-text">🏗️ بناء</span><span class="bcat bbau de-text" style="display:none">🏗️ Bau</span>
-        <span class="bcat bk ar-text">🍳 مطبخ</span><span class="bcat bk de-text" style="display:none">🍳 Küche</span>
-        <span class="bcat bh ar-text">🛍️ تجارة</span><span class="bcat bh de-text" style="display:none">🛍️ Handel</span>
-        <span class="bcat btr">🚛 Transport</span>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="h-b hb1"></div><div class="h-b hb2"></div><div class="h-b hb3"></div>
+    <div class="hcont">
+      <div class="heye">🌿 <span class="ar-text">أرض الجبال والتراث العريق</span><span class="de-text" style="display:none">Land der Berge und Kultur</span></div>
+      <h1 class="htitle">
+        <span class="t1 ar-text">داغستان</span><span class="t1 de-text" style="display:none">Dagestan</span>
+        <span class="t2 ar-text">DAGESTAN — الجمهورية القوقازية</span><span class="t2 de-text" style="display:none">DIE KAUKASISCHE REPUBLIK</span>
+      </h1>
+      <p class="hsub ar-text">موطن أكثر من ثلاثين شعباً وأكثر من مئة لغة — أرض الجبال الشامخة والتنوع الثقافي الفريد</p>
+      <p class="hsub de-text" style="display:none">Heimat von über dreißig Völkern und hundert Sprachen — Land der Berge und kultureller Vielfalt</p>
+      <div class="hbtns">
+        <a href="berufe.html" class="bp"><span class="ar-text">🧑‍💼 دليل المهن</span><span class="de-text" style="display:none">🧑‍💼 Berufsverzeichnis</span></a>
+        <a href="event.html" class="bs"><span class="ar-text">🗓️ تجمع 2026</span><span class="de-text" style="display:none">🗓️ Sammlung 2026</span></a>
+        <a href="galerie.html" class="bg2"><span class="ar-text">📷 معرض الصور</span><span class="de-text" style="display:none">📷 Fotogalerie</span></a>
       </div>
-      <a href="berufe.html" class="bp"><span class="ar-text">اكتشف الدليل ←</span><span class="de-text" style="display:none">Zum Verzeichnis →</span></a>
-    </div>
-  </div>
-</div></section>
-
-<section class="sec" id="ev"><div class="sin">
-  <div class="stag ar-text">الحدث القادم</div><div class="stag de-text" style="display:none">NÄCHSTES EVENT</div>
-  <h2 class="stitle ar-text">تجمع داغستان 2026</h2><h2 class="stitle de-text" style="display:none">Dagestan Sammlung 2026</h2>
-  <div class="evc rev">
-    <div>
-      <div class="ering"><div class="enum" id="days-left">—</div><div class="elbl ar-text">يوم</div><div class="elbl de-text" style="display:none">Tage</div></div>
-      <div class="edate ar-text">30 يوليو — 1 أغسطس 2026</div><div class="edate de-text" style="display:none">30. Juli — 1. Aug. 2026</div>
-    </div>
-    <div class="einfo">
-      <div class="ebadge"><div class="bdot"></div><span class="ar-text">قادم قريباً</span><span class="de-text" style="display:none">Bald</span></div>
-      <div class="etitle ar-text">تجمع داغستان 2026</div><div class="etitle de-text" style="display:none">Dagestan Sammlung 2026</div>
-      <p class="esub ar-text">ثلاثة أيام من اللقاء والفرح في قلب ألمانيا — طعام، موسيقى، رياضة وذكريات لا تُنسى</p>
-      <p class="esub de-text" style="display:none">Drei Tage Begegnung und Freude — Essen, Musik, Sport und unvergessliche Erinnerungen</p>
-      <div class="emetas">
-        <div class="em2">📅 <strong>30.07 – 01.08.2026</strong></div>
-        <div class="em2">📍 <strong>Bestwig, NRW</strong></div>
+      <div class="hstats">
+        <div class="si"><div class="sn">50+</div><div class="sl ar-text">شعباً</div><div class="sl de-text" style="display:none">Völker</div></div>
+        <div class="si"><div class="sn">300+</div><div class="sl ar-text">عضو</div><div class="sl de-text" style="display:none">Mitglieder</div></div>
+        <div class="si"><div class="sn">3000م</div><div class="sl ar-text">ارتفاع الجبال</div><div class="sl de-text" style="display:none">Berghöhe</div></div>
+        <div class="si"><div class="sn">2026</div><div class="sl ar-text">تجمعنا القادم</div><div class="sl de-text" style="display:none">Nächstes Event</div></div>
       </div>
-      <a href="event.html" class="bev"><span class="ar-text">عرض التفاصيل ←</span><span class="de-text" style="display:none">Details →</span></a>
     </div>
-  </div>
-</div></section>
+  </section>
 
-<section class="sec" id="mem"><div class="sin">
-  <div class="stag ar-text">مجتمعنا</div><div class="stag de-text" style="display:none">COMMUNITY</div>
-  <h2 class="stitle ar-text">منطقة الأعضاء</h2><h2 class="stitle de-text" style="display:none">Mitgliederbereich</h2>
-  <div class="mbanner rev">
-    <div class="mtitle ar-text">🏔️ مجتمعنا الداغستاني</div><div class="mtitle de-text" style="display:none">🏔️ Unsere Gemeinschaft</div>
-    <p class="msub ar-text">أكثر من 300 عضو نشيط يربطهم الانتماء لداغستان الجميلة</p>
-    <p class="msub de-text" style="display:none">Über 300 aktive Mitglieder vereint durch die Liebe zu Dagestan</p>
-    <div class="mrow">
-      <div class="mchip"><div class="mav">س</div><div><div class="mn2">Saad Abo Aldar</div><div class="mr2 ar-text">المنسق</div><div class="mr2 de-text" style="display:none">Koordinator</div></div></div>
-      <div class="mchip"><div class="mav">م</div><div><div class="mn2">Mohammed Babat</div><div class="mr2 ar-text">IT — كولن</div><div class="mr2 de-text" style="display:none">IT — Köln</div></div></div>
-      <div class="mchip"><div class="mav">+</div><div><div class="mn2">300+</div><div class="mr2 ar-text">عضو</div><div class="mr2 de-text" style="display:none">Mitglieder</div></div></div>
+  <!-- ABOUT -->
+  <section class="sec" id="about"><div class="sin">
+    <div class="stag ar-text">التعريف</div><div class="stag de-text" style="display:none">ÜBER DAGESTAN</div>
+    <h2 class="stitle ar-text">أرض الجبال والتنوع</h2><h2 class="stitle de-text" style="display:none">Land der Berge & Vielfalt</h2>
+    <p class="ssub ar-text">جمهورية روسية فريدة في قلب القوقاز على ضفاف بحر قزوين</p>
+    <p class="ssub de-text" style="display:none">Eine einzigartige russische Republik im Herzen des Kaukasus</p>
+    <div class="abgrid">
+      <div class="abt revl">
+        <p class="ar-text">داغستان جمهورية فيدرالية روسية تقع في الطرف الشمالي الشرقي من القوقاز. تُعدّ من أكثر مناطق العالم تنوعاً إثنياً ولغوياً على الإطلاق.</p>
+        <p class="de-text" style="display:none">Dagestan ist eine föderale Republik Russlands im nordöstlichen Kaukasus — eine der vielfältigsten Regionen der Welt.</p>
+        <p class="ar-text">يُعرف بـ"أرض الجبال" — تضاريسه تصل ذروتها إلى أكثر من ثلاثة آلاف متر وسواحله الجميلة على بحر قزوين.</p>
+        <p class="de-text" style="display:none">Bekannt als "Land der Berge" — mit Gipfeln über 3000 Meter und schönen Küsten am Kaspischen Meer.</p>
+        <div class="chips">
+          <span class="chip ar-text">🏔️ جبال القوقاز</span><span class="chip ar-text">🌊 بحر قزوين</span><span class="chip ar-text">🕌 تراث إسلامي</span><span class="chip ar-text">🤼 مصارعة عالمية</span>
+          <span class="chip de-text" style="display:none">🏔️ Kaukasus</span><span class="chip de-text" style="display:none">🌊 Kasp. Meer</span><span class="chip de-text" style="display:none">🕌 Islamisches Erbe</span><span class="chip de-text" style="display:none">🤼 Weltklasse-Sport</span>
+        </div>
+      </div>
+      <div class="fcs">
+        <div class="fc rev"><div class="fci">🏔️</div><div><div class="fct ar-text">الطبيعة والجغرافيا</div><div class="fct de-text" style="display:none">Natur & Geografie</div><div class="fcd ar-text">جبال القوقاز الكبرى، وديان خلابة، شواطئ بحر قزوين</div><div class="fcd de-text" style="display:none">Großer Kaukasus, Täler, Strände am Kaspischen Meer</div></div></div>
+        <div class="fc rev"><div class="fci">🕌</div><div><div class="fct ar-text">الثقافة والتاريخ</div><div class="fct de-text" style="display:none">Kultur & Geschichte</div><div class="fcd ar-text">حضارة عريقة، فنون تقليدية، عمارة إسلامية في دربند</div><div class="fcd de-text" style="display:none">Uralte Zivilisation, Volkskunst, islamische Architektur</div></div></div>
+        <div class="fc rev"><div class="fci">🤼</div><div><div class="fct ar-text">الرياضة والمصارعة</div><div class="fct de-text" style="display:none">Sport & Kampfsport</div><div class="fcd ar-text">وطن أبطال المصارعة الحرة والفنون القتالية عالمياً</div><div class="fcd de-text" style="display:none">Heimat von Weltklasse-Ringern und MMA-Kämpfern</div></div></div>
+        <div class="fc rev"><div class="fci">🍖</div><div><div class="fct ar-text">المطبخ الداغستاني</div><div class="fct de-text" style="display:none">Dagestanische Küche</div><div class="fcd ar-text">خينكال، كورزي، شاشليك — أطباق تقليدية لا تُنسى</div><div class="fcd de-text" style="display:none">Khinkali, Kurze, Schaschlik — unvergessliche Speisen</div></div></div>
+      </div>
     </div>
-  </div>
-</div></section>
+  </div></section>
 
-<footer><div class="fin">
-  <div class="fflag"></div>
-  <div class="ftop">
-    <div class="fbrand"><span class="flogo">🏔️ <span class="ar-text">داغستان</span><span class="de-text" style="display:none">Dagestan</span></span><p class="ar-text">مجتمع داغستاني في ألمانيا</p><p class="de-text" style="display:none">Dagestanische Gemeinschaft in Deutschland</p></div>
-    <div class="flinks"><h4 class="ar-text">روابط</h4><h4 class="de-text" style="display:none">Links</h4><a href="berufe.html" class="ar-text">🧑‍💼 دليل المهن</a><a href="berufe.html" class="de-text" style="display:none">🧑‍💼 Berufsverzeichnis</a><a href="event.html" class="ar-text">🗓️ تجمع 2026</a><a href="event.html" class="de-text" style="display:none">🗓️ Sammlung 2026</a></div>
-    <div class="flinks"><h4 class="ar-text">تواصل</h4><h4 class="de-text" style="display:none">Kontakt</h4><a href="https://wa.me/491715003741">📱 +49 171 500 3741</a><a href="#">Saad Abo Aldar</a></div>
-  </div>
-  <div class="fbot">© 2025 Dagestan Community — Hosted on GitHub Pages</div>
-</div></footer>
+  <!-- EVENT TEASER -->
+  <section class="sec" id="ev"><div class="sin">
+    <div class="stag ar-text">الحدث القادم</div><div class="stag de-text" style="display:none">NÄCHSTES EVENT</div>
+    <h2 class="stitle ar-text">تجمع داغستان 2026</h2><h2 class="stitle de-text" style="display:none">Dagestan Sammlung 2026</h2>
+    <div class="evc rev">
+      <div>
+        <div class="ering"><div class="enum" id="days-left">—</div><div class="elbl ar-text">يوم</div><div class="elbl de-text" style="display:none">Tage</div></div>
+        <div class="edate ar-text">30 يوليو — 1 أغسطس 2026</div><div class="edate de-text" style="display:none">30. Juli — 1. Aug. 2026</div>
+      </div>
+      <div class="einfo">
+        <div class="ebadge"><div class="bdot"></div><span class="ar-text">قادم قريباً</span><span class="de-text" style="display:none">Bald</span></div>
+        <div class="etitle ar-text">تجمع داغستان 2026</div><div class="etitle de-text" style="display:none">Dagestan Sammlung 2026</div>
+        <p class="esub ar-text">ثلاثة أيام من اللقاء والفرح في قلب ألمانيا</p>
+        <p class="esub de-text" style="display:none">Drei Tage Begegnung und Freude im Herzen Deutschlands</p>
+        <div class="emetas">
+          <div class="em2">📅 <strong>30.07–01.08.2026</strong></div>
+          <div class="em2">📍 <strong>Bestwig, NRW</strong></div>
+        </div>
+        <a href="event.html" class="bev"><span class="ar-text">عرض التفاصيل ←</span><span class="de-text" style="display:none">Details →</span></a>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- BERUFE TEASER -->
+  <section class="sec" id="bt"><div class="sin">
+    <div class="stag ar-text">الخدمات</div><div class="stag de-text" style="display:none">BERUFE</div>
+    <h2 class="stitle ar-text">دليل المهن الداغستاني</h2><h2 class="stitle de-text" style="display:none">Dagestanisches Berufsverzeichnis</h2>
+    <div class="btcard rev">
+      <div class="bicons">
+        <div class="bi2 bi2-it">💻</div><div class="bi2 bi2-bau">🏗️</div>
+        <div class="bi2 bi2-k">🍳</div><div class="bi2 bi2-h">🛍️</div>
+        <div class="bi2 bi2-t">🚛</div>
+      </div>
+      <div class="binfo">
+        <div class="btitle ar-text">ابحث عن الخبير الذي تحتاجه</div><div class="btitle de-text" style="display:none">Finde den Experten</div>
+        <p class="bsub ar-text">دليل شامل لمهنيين من مجتمعنا — IT، بناء، مطبخ، تجارة، نقل</p>
+        <p class="bsub de-text" style="display:none">Fachleute aus unserer Community — IT, Bau, Küche, Handel, Transport</p>
+        <div class="bcats">
+          <span class="bcat bit">💻 IT</span>
+          <span class="bcat bbau ar-text">🏗️ بناء</span><span class="bcat bbau de-text" style="display:none">🏗️ Bau</span>
+          <span class="bcat bk ar-text">🍳 مطبخ</span><span class="bcat bk de-text" style="display:none">🍳 Küche</span>
+        </div>
+        <a href="berufe.html" class="bp"><span class="ar-text">اكتشف الدليل ←</span><span class="de-text" style="display:none">Zum Verzeichnis →</span></a>
+      </div>
+    </div>
+  </div></section>
+
+  <footer><div class="fin">
+    <div class="fflag"></div>
+    <div class="ftop">
+      <div class="fbrand"><span class="flogo">🏔️ <span class="ar-text">داغستان</span><span class="de-text" style="display:none">Dagestan</span></span><p class="ar-text">مجتمع داغستاني في ألمانيا</p><p class="de-text" style="display:none">Dagestanische Gemeinschaft in Deutschland</p></div>
+      <div class="flinks"><h4 class="ar-text">روابط</h4><h4 class="de-text" style="display:none">Links</h4>
+        <a href="berufe.html" class="ar-text">🧑‍💼 دليل المهن</a><a href="berufe.html" class="de-text" style="display:none">🧑‍💼 Berufsverzeichnis</a>
+        <a href="event.html" class="ar-text">🗓️ تجمع 2026</a><a href="event.html" class="de-text" style="display:none">🗓️ Sammlung 2026</a>
+        <a href="galerie.html" class="ar-text">📷 معرض الصور</a><a href="galerie.html" class="de-text" style="display:none">📷 Fotogalerie</a>
+      </div>
+      <div class="flinks"><h4 class="ar-text">تواصل</h4><h4 class="de-text" style="display:none">Kontakt</h4>
+        <a href="https://wa.me/491715003741">📱 +49 171 500 3741</a>
+        <a href="#">Saad Abo Aldar</a>
+      </div>
+    </div>
+    <div class="fbot">© 2025 Dagestan Community — Hosted on GitHub Pages</div>
+  </div></footer>
 </div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+         sendPasswordResetEmail, onAuthStateChanged, signOut, updateProfile }
+  from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+// ── Firebase Config ──
+const firebaseConfig = {
+  apiKey: "AIzaSyB-SVPj8XaIY7rQ2fat8oMgHA0vixzfMe0",
+  authDomain: "dagestan-community.firebaseapp.com",
+  projectId: "dagestan-community",
+  storageBucket: "dagestan-community.firebasestorage.app",
+  messagingSenderId: "1049971723597",
+  appId: "1:1049971723597:web:7565ae08c547d7cb28fb04",
+  measurementId: "G-TF90VQBKL9"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// ── Auth state listener ──
+onAuthStateChanged(auth, user => {
+  if (user) {
+    // Logged in → show main site
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('main-site').style.display   = 'block';
+    document.getElementById('lang-top-login').style.display = 'none';
+
+    // Show user name in header
+    const name = user.displayName || user.email.split('@')[0];
+    document.getElementById('user-name-display').textContent = name;
+
+    // Store role in sessionStorage for other pages
+    sessionStorage.setItem('dag_role', 'user');
+    sessionStorage.setItem('dag_user', name);
+    sessionStorage.setItem('dag_email', user.email);
+
+    initSite();
+  } else {
+    // Not logged in → show auth screen
+    document.getElementById('auth-screen').style.display = 'flex';
+    document.getElementById('main-site').style.display   = 'none';
+    document.getElementById('lang-top-login').style.display = 'flex';
+    sessionStorage.removeItem('dag_role');
+  }
+});
+
+// ── Login ──
+window.doLogin = async function() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw    = document.getElementById('login-pw').value;
+  if (!email || !pw) { showErr('ar-text' === getLang() ? 'أدخل البريد وكلمة المرور' : 'E-Mail und Passwort eingeben'); return; }
+  setLoading('login', true);
+  try {
+    await signInWithEmailAndPassword(auth, email, pw);
+    // onAuthStateChanged handles the rest
+  } catch(err) {
+    showErr(friendlyError(err.code));
+    setLoading('login', false);
+  }
+};
+
+// ── Register ──
+window.doRegister = async function() {
+  const name  = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pw    = document.getElementById('reg-pw').value;
+  const pw2   = document.getElementById('reg-pw2').value;
+
+  if (!name)            { showErr(document.documentElement.lang==='ar' ? 'أدخل اسمك' : 'Name eingeben'); return; }
+  if (!email)           { showErr(document.documentElement.lang==='ar' ? 'أدخل البريد الإلكتروني' : 'E-Mail eingeben'); return; }
+  if (pw.length < 6)   { showErr(document.documentElement.lang==='ar' ? 'كلمة المرور قصيرة (6 أحرف على الأقل)' : 'Passwort zu kurz (mind. 6 Zeichen)'); return; }
+  if (pw !== pw2)       { showErr(document.documentElement.lang==='ar' ? 'كلمتا المرور غير متطابقتين' : 'Passwörter stimmen nicht überein'); return; }
+
+  setLoading('register', true);
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pw);
+    await updateProfile(cred.user, { displayName: name });
+    // onAuthStateChanged handles the rest
+  } catch(err) {
+    showErr(friendlyError(err.code));
+    setLoading('register', false);
+  }
+};
+
+// ── Forgot password ──
+window.doForgot = async function() {
+  const email = document.getElementById('forgot-email').value.trim();
+  if (!email) { showErr(document.documentElement.lang==='ar' ? 'أدخل بريدك الإلكتروني' : 'E-Mail eingeben'); return; }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showOk(document.documentElement.lang==='ar'
+      ? '✅ تم الإرسال — تحقق من بريدك الإلكتروني'
+      : '✅ Gesendet — prüfe deine E-Mail');
+  } catch(err) {
+    showErr(friendlyError(err.code));
+  }
+};
+
+// ── Logout ──
+window.doLogout = async function() {
+  await signOut(auth);
+  sessionStorage.removeItem('dag_role');
+  sessionStorage.removeItem('dag_user');
+};
+
+// ── Helpers ──
+function setLoading(form, on) {
+  const btn  = document.getElementById('btn-' + form);
+  const txt  = document.getElementById(form === 'login' ? 'login-txt' : 'reg-txt');
+  const spin = document.getElementById(form === 'login' ? 'login-spin' : 'reg-spin');
+  if (btn)  btn.disabled    = on;
+  if (txt)  txt.style.display = on ? 'none' : 'inline';
+  if (spin) spin.style.display = on ? 'block' : 'none';
+}
+
+function showErr(msg) {
+  const el = document.getElementById('auth-err');
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+function showOk(msg) {
+  const el = document.getElementById('auth-ok');
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+
+function friendlyError(code) {
+  const lang = document.documentElement.lang;
+  const ar = {
+    'auth/email-already-in-use':    'هذا البريد مسجّل مسبقاً',
+    'auth/invalid-email':           'البريد الإلكتروني غير صحيح',
+    'auth/wrong-password':          'كلمة المرور خاطئة',
+    'auth/user-not-found':          'لا يوجد حساب بهذا البريد',
+    'auth/invalid-credential':      'البريد أو كلمة المرور خاطئة',
+    'auth/too-many-requests':       'محاولات كثيرة — انتظر قليلاً',
+    'auth/weak-password':           'كلمة المرور ضعيفة (6 أحرف على الأقل)',
+    'auth/network-request-failed':  'خطأ في الاتصال — تحقق من الإنترنت',
+  };
+  const de = {
+    'auth/email-already-in-use':    'Diese E-Mail ist bereits registriert',
+    'auth/invalid-email':           'Ungültige E-Mail-Adresse',
+    'auth/wrong-password':          'Falsches Passwort',
+    'auth/user-not-found':          'Kein Konto mit dieser E-Mail',
+    'auth/invalid-credential':      'E-Mail oder Passwort falsch',
+    'auth/too-many-requests':       'Zu viele Versuche — bitte warten',
+    'auth/weak-password':           'Passwort zu schwach (mind. 6 Zeichen)',
+    'auth/network-request-failed':  'Verbindungsfehler — Internet prüfen',
+  };
+  const map = lang === 'ar' ? ar : de;
+  return map[code] || (lang === 'ar' ? 'حدث خطأ — حاول مرة أخرى' : 'Fehler — bitte erneut versuchen');
+}
+
+// Make functions global
+window.doLogin    = window.doLogin;
+window.doRegister = window.doRegister;
+window.doForgot   = window.doForgot;
+window.doLogout   = window.doLogout;
+</script>
 
 <script>
-const PWD_USER  = "dagestan2025";
-const PWD_ADMIN = "Admin2025";
+// ── Non-Firebase JS ──
+function setLang(l) {
+  const h = document.documentElement;
+  h.lang = l; h.dir = l === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.ar-text').forEach(e => e.style.display = l === 'ar' ? '' : 'none');
+  document.querySelectorAll('.de-text').forEach(e => e.style.display = l === 'de' ? '' : 'none');
+  ['btn-ar','btn-ar-login'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('active', l === 'ar');
+  });
+  ['btn-de','btn-de-login'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('active', l === 'de');
+  });
+  localStorage.setItem('dag_lang', l);
+}
+setLang(localStorage.getItem('dag_lang') || 'ar');
 
-function doLogin(){
-  const i=document.getElementById('pw'),e=document.getElementById('lerr');
-  if(i.value===PWD_ADMIN){
-    sessionStorage.setItem('dag_role','admin');
-    showSite();
-  } else if(i.value===PWD_USER){
-    sessionStorage.setItem('dag_role','user');
-    showSite();
-  } else {
-    i.classList.add('error');
-    e.textContent='❌ Falsches Passwort | كلمة المرور خاطئة';
-    setTimeout(()=>i.classList.remove('error'),500);
-    i.value='';
+function showTab(tab) {
+  ['login','register','forgot'].forEach(t => {
+    document.getElementById('panel-'+t).classList.toggle('active', t === tab);
+    const tabBtn = document.getElementById('tab-'+t);
+    if (tabBtn) tabBtn.classList.toggle('active', t === tab);
+  });
+  // Clear messages
+  document.getElementById('auth-err').style.display = 'none';
+  document.getElementById('auth-ok').style.display  = 'none';
+}
+
+function togglePw(id) {
+  const inp = document.getElementById(id);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+// Enter key support
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const activePanel = document.querySelector('.form-panel.active');
+  if (!activePanel) return;
+  if (activePanel.id === 'panel-login')    window.doLogin?.();
+  if (activePanel.id === 'panel-register') window.doRegister?.();
+  if (activePanel.id === 'panel-forgot')   window.doForgot?.();
+});
+
+function initSite() {
+  // Reveal animations
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.rev,.revl').forEach(el => obs.observe(el));
+
+  // Header scroll
+  window.addEventListener('scroll', () =>
+    document.getElementById('hdr')?.classList.toggle('sc', scrollY > 60));
+
+  // Countdown
+  const t = new Date('2026-07-30T00:00:00');
+  function upd() {
+    const d = t - Date.now();
+    if (d > 0) document.getElementById('days-left').textContent = Math.ceil(d / 86400000);
   }
-}
-
-function showSite(){
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('main-site').style.display='block';
-  initSite();
-  // Show admin badge if admin
-  if(sessionStorage.getItem('dag_role')==='admin'){
-    const badge=document.getElementById('admin-nav-badge');
-    if(badge) badge.style.display='inline-flex';
-  }
-}
-
-if(sessionStorage.getItem('dag_role')){
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('main-site').style.display='block';
-  setTimeout(initSite,50);
-}
-function setLang(l){
-  const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
-  document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
-  document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');
-  document.getElementById('btn-ar').classList.toggle('active',l==='ar');
-  document.getElementById('btn-de').classList.toggle('active',l==='de');
-  localStorage.setItem('dag_lang',l);
-}
-setLang(localStorage.getItem('dag_lang')||'ar');
-function initSite(){
-  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}});},{threshold:0.1});
-  document.querySelectorAll('.rev,.revl').forEach(el=>obs.observe(el));
-  window.addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('sc',scrollY>60));
-  const t=new Date('2026-07-30T00:00:00');
-  function upd(){const d=t-Date.now();if(d>0)document.getElementById('days-left').textContent=Math.ceil(d/86400000);}
-  upd();setInterval(upd,60000);
+  upd(); setInterval(upd, 60000);
 }
 </script>
 </body>
