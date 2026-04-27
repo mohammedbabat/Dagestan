@@ -734,41 +734,63 @@ onAuthStateChanged(auth, user => {
 // ── Save member to Realtime Database ──
 async function saveMember(user) {
   try {
-    const memberRef = ref(db, 'members/' + user.uid);
-    const snap = await get(memberRef);
-    if (!snap.exists()) {
-      // New member — save and increment count
-      await set(memberRef, {
-        name:  user.displayName || user.email.split('@')[0],
-        email: user.email,
+    const token = await user.getIdToken();
+    const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
+
+    // Save member info
+    await fetch(`${RTDB}/members/${user.uid}.json?auth=${token}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        name:     user.displayName || user.email.split('@')[0],
+        email:    user.email,
         joinedAt: new Date().toISOString()
-      });
-      // Increment total count
-      const countRef = ref(db, 'memberCount');
-      const countSnap = await get(countRef);
-      const current = countSnap.exists() ? (countSnap.val() || 0) : 0;
-      await set(countRef, current + 1);
-    }
+      })
+    });
+
+    // Count all members and save
+    const res   = await fetch(`${RTDB}/members.json?auth=${token}&shallow=true`);
+    const data  = await res.json();
+    const count = data ? Object.keys(data).length : 1;
+
+    await fetch(`${RTDB}/memberCount.json?auth=${token}`, {
+      method: 'PUT',
+      body: JSON.stringify(count)
+    });
+
+    // Update display
+    showMemberCount(count);
   } catch(err) {
     console.warn('DB save error:', err);
   }
 }
 
-// ── Load member count from Realtime Database ──
+// ── Load member count ──
 async function loadMemberCount() {
   try {
-    const countRef = ref(db, 'memberCount');
-    const snap = await get(countRef);
-    if (snap.exists()) {
-      const count = snap.val() || 0;
-      // Update ALL member count displays
-      document.querySelectorAll('.member-count-display').forEach(el => {
-        el.textContent = count + '+';
-      });
+    const user  = auth.currentUser;
+    if (!user) return;
+    const token = await user.getIdToken();
+    const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
+
+    const res  = await fetch(`${RTDB}/memberCount.json?auth=${token}`);
+    const data = await res.json();
+    if (data && data > 0) {
+      showMemberCount(data);
+    } else {
+      // Count directly from members
+      const res2  = await fetch(`${RTDB}/members.json?auth=${token}&shallow=true`);
+      const data2 = await res2.json();
+      if (data2) showMemberCount(Object.keys(data2).length);
     }
   } catch(err) {
     console.warn('DB read error:', err);
   }
+}
+
+function showMemberCount(count) {
+  document.querySelectorAll('.member-count-display').forEach(el => {
+    el.textContent = count + '+';
+  });
 }
 
 // ── Login ──
