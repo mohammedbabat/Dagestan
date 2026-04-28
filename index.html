@@ -726,6 +726,8 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getDatabase(app);
 const DB_URL = "https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app";
+// 🔔 Notification Script URL — fill in after Step 3
+const NOTIFY_URL = 'DEINE_NOTIFICATION_URL_HIER';
 
 // ── Admin emails ──
 const ADMIN_EMAILS = [
@@ -959,6 +961,16 @@ function showMemberCount(count) {
   });
 }
 
+// ── Send registration notification to admin ──
+function sendRegistrationNotification(name, email) {
+  if (!NOTIFY_URL || NOTIFY_URL === 'DEINE_NOTIFICATION_URL_HIER') return;
+  fetch(NOTIFY_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify({ type: 'new_registration', name, email })
+  }).catch(err => console.warn('Notification failed:', err));
+}
+
 // ── Login ──
 window.doLogin = async function() {
   const email = document.getElementById('login-email').value.trim();
@@ -1008,7 +1020,10 @@ window.doRegister = async function() {
       })
     });
 
-    // 3. Immediately sign out — must wait for approval
+    // 3. Send email notification to admin
+    sendRegistrationNotification(name, email);
+
+    // 4. Immediately sign out — must wait for approval
     await signOut(auth);
 
     // 4. Show waiting message
@@ -1078,6 +1093,11 @@ window.doGoogle = async function() {
           createdAt: new Date().toISOString()
         })
       });
+      // Notify admin
+      sendRegistrationNotification(
+        cred.user.displayName || cred.user.email.split('@')[0],
+        cred.user.email
+      );
     }
     // onAuthStateChanged will check approval and sign out if pending
 
