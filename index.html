@@ -364,6 +364,29 @@ html[lang="de"] .revl{transform:translateX(24px);}
 <body>
 
 <!-- LANGUAGE TOGGLE (login screen) -->
+<!-- LOADING SCREEN — shown while checking auth -->
+<div id="loading-screen" style="
+  position:fixed;inset:0;z-index:9000;
+  background:#f7f8fc;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:16px;
+">
+  <div style="font-size:52px;line-height:1;">🏔️</div>
+  <div style="
+    width:44px;height:44px;
+    border:4px solid rgba(0,61,165,0.15);
+    border-top-color:#009260;
+    border-radius:50%;
+    animation:spin 0.8s linear infinite;
+  "></div>
+  <div style="font-size:14px;color:#6b7280;" class="ar-text">جاري التحقق...</div>
+  <div style="font-size:14px;color:#6b7280;display:none;" class="de-text">Wird überprüft...</div>
+</div>
+<style>
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+
 <div class="lang-top" id="lang-top-login">
   <button class="lbtnx active" id="btn-ar-login" onclick="setLang('ar')">عربي</button>
   <button class="lbtnx" id="btn-de-login" onclick="setLang('de')">DE</button>
@@ -713,23 +736,29 @@ const ADMIN_EMAILS = [
 
 // ── Auth state listener ──
 onAuthStateChanged(auth, async user => {
+  // Hide EVERYTHING until we know who this is
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('main-site').style.display   = 'none';
+  document.getElementById('lang-top-login').style.display = 'none';
+  document.getElementById('loading-screen').style.display = 'flex';
+
   if (user) {
     const lang    = document.documentElement.lang;
     const isAdmin = ADMIN_EMAILS.includes(user.email);
 
-    // ── Admins always get in immediately ──
     if (isAdmin) {
+      document.getElementById('loading-screen').style.display = 'none';
       showMainSite(user, 'admin');
       return;
     }
 
-    // ── Regular users: check approval first ──
+    // Check approval — WAIT for result before showing anything
     const approved = await checkApproval(user);
+    document.getElementById('loading-screen').style.display = 'none';
+
     if (!approved) {
-      // Not approved — sign out and show waiting message
       await signOut(auth);
       document.getElementById('auth-screen').style.display = 'flex';
-      document.getElementById('main-site').style.display   = 'none';
       document.getElementById('lang-top-login').style.display = 'flex';
       showErr(lang === 'ar'
         ? '⏳ حسابك قيد المراجعة — انتظر موافقة المسؤول'
@@ -737,13 +766,11 @@ onAuthStateChanged(auth, async user => {
       return;
     }
 
-    // Approved user — show site
     showMainSite(user, 'user');
 
   } else {
-    // Not logged in → show auth screen
+    document.getElementById('loading-screen').style.display = 'none';
     document.getElementById('auth-screen').style.display = 'flex';
-    document.getElementById('main-site').style.display   = 'none';
     document.getElementById('lang-top-login').style.display = 'flex';
     sessionStorage.removeItem('dag_role');
     sessionStorage.removeItem('dag_user');
