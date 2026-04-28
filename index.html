@@ -712,46 +712,70 @@ const ADMIN_EMAILS = [
 ];
 
 // ── Auth state listener ──
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(auth, async user => {
   if (user) {
-    // Logged in → show main site
-    document.getElementById('auth-screen').style.display = 'none';
-    document.getElementById('main-site').style.display   = 'block';
-    document.getElementById('lang-top-login').style.display = 'none';
-
-    // Show user name in header
-    const name = user.displayName || user.email.split('@')[0];
-    document.getElementById('user-name-display').textContent = name;
-
-    // Check if admin
+    const lang    = document.documentElement.lang;
     const isAdmin = ADMIN_EMAILS.includes(user.email);
-    const role = isAdmin ? 'admin' : 'user';
 
-    // Store role in sessionStorage for other pages
-    sessionStorage.setItem('dag_role', role);
-    sessionStorage.setItem('dag_user', name);
-    sessionStorage.setItem('dag_email', user.email);
+    // ── Admins always get in immediately ──
+    if (isAdmin) {
+      showMainSite(user, 'admin');
+      return;
+    }
 
-    // Show admin button if admin
-    const adminBtn = document.getElementById('admin-nav-btn');
-    if (adminBtn) adminBtn.style.display = isAdmin ? 'flex' : 'none';
+    // ── Regular users: check approval first ──
+    const approved = await checkApproval(user);
+    if (!approved) {
+      // Not approved — sign out and show waiting message
+      await signOut(auth);
+      document.getElementById('auth-screen').style.display = 'flex';
+      document.getElementById('main-site').style.display   = 'none';
+      document.getElementById('lang-top-login').style.display = 'flex';
+      showErr(lang === 'ar'
+        ? '⏳ حسابك قيد المراجعة — انتظر موافقة المسؤول'
+        : '⏳ Dein Konto wird noch geprüft — warte auf Admin-Genehmigung');
+      return;
+    }
 
-    // Save member to database & load count
-    saveMember(user);
-    loadMemberCount();
+    // Approved user — show site
+    showMainSite(user, 'user');
 
-    // Check for notifications (approval/rejection messages)
-    checkNotification(user);
-
-    initSite();
   } else {
     // Not logged in → show auth screen
     document.getElementById('auth-screen').style.display = 'flex';
     document.getElementById('main-site').style.display   = 'none';
     document.getElementById('lang-top-login').style.display = 'flex';
     sessionStorage.removeItem('dag_role');
+    sessionStorage.removeItem('dag_user');
+    sessionStorage.removeItem('dag_email');
   }
 });
+
+function showMainSite(user, role) {
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('main-site').style.display   = 'block';
+  document.getElementById('lang-top-login').style.display = 'none';
+
+  const name    = user.displayName || user.email.split('@')[0];
+  const isAdmin = role === 'admin';
+
+  document.getElementById('user-name-display').textContent = name;
+
+  // Store in session
+  sessionStorage.setItem('dag_role',  role);
+  sessionStorage.setItem('dag_user',  name);
+  sessionStorage.setItem('dag_email', user.email);
+
+  // Show admin button
+  const adminBtn = document.getElementById('admin-nav-btn');
+  if (adminBtn) adminBtn.style.display = isAdmin ? 'flex' : 'none';
+
+  // DB + notifications
+  saveMember(user);
+  loadMemberCount();
+  checkNotification(user);
+  initSite();
+}
 
 // ── Check notifications for user ──
 async function checkNotification(user) {
@@ -908,17 +932,8 @@ window.doLogin = async function() {
   if (!email || !pw) { showErr(lang==='ar' ? 'أدخل البريد وكلمة المرور' : 'E-Mail und Passwort eingeben'); return; }
   setLoading('login', true);
   try {
-    const cred = await signInWithEmailAndPassword(auth, email, pw);
-    // Check approval status
-    const approved = await checkApproval(cred.user);
-    if (!approved) {
-      await signOut(auth);
-      showErr(lang==='ar'
-        ? '⏳ حسابك قيد المراجعة — انتظر موافقة المسؤول'
-        : '⏳ Dein Konto wird noch geprüft — warte auf Admin-Genehmigung');
-      setLoading('login', false);
-    }
-    // If approved, onAuthStateChanged handles showing the site
+    await signInWithEmailAndPassword(auth, email, pw);
+    // onAuthStateChanged handles approval check + showing site
   } catch(err) {
     showErr(friendlyError(err.code));
     setLoading('login', false);
@@ -1001,48 +1016,35 @@ window.doGoogle = async function() {
     const provider = new GoogleAuthProvider();
     const cred = await signInWithPopup(auth, provider);
 
-    // Check if new Google user — add to waitlist
+    // Skip waitlist for admins
+    if (ADMIN_EMAILS.includes(cred.user.email)) return; // onAuthStateChanged handles it
+
+    // Check if brand new Google user — add to waitlist
     const token = await cred.user.getIdToken();
     const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
 
-    // Check if already in members (approved)
-    const memRes = await fetch(`${RTDB}/members/${cred.user.uid}.json?auth=${token}`);
+    const memRes  = await fetch(`${RTDB}/members/${cred.user.uid}.json?auth=${token}`);
     const memData = await memRes.json();
+    if (memData) return; // existing approved member — onAuthStateChanged handles it
 
-    if (!memData) {
-      // Check waitlist
-      const waitRes  = await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`);
-      const waitData = await waitRes.json();
+    const waitRes  = await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`);
+    const waitData = await waitRes.json();
 
-      if (!waitData) {
-        // Brand new Google user — add to waitlist
-        await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            name:      cred.user.displayName || cred.user.email.split('@')[0],
-            email:     cred.user.email,
-            uid:       cred.user.uid,
-            status:    'pending',
-            provider:  'google',
-            createdAt: new Date().toISOString()
-          })
-        });
-        await signOut(auth);
-        showOk(lang==='ar'
-          ? '✅ تم التسجيل بـ Google! طلبك قيد المراجعة'
-          : '✅ Mit Google registriert! Dein Antrag wird geprüft');
-        return;
-      }
-
-      if (waitData.status === 'pending') {
-        await signOut(auth);
-        showErr(lang==='ar'
-          ? '⏳ حسابك قيد المراجعة — انتظر موافقة المسؤول'
-          : '⏳ Dein Konto wird noch geprüft — warte auf Admin-Genehmigung');
-        return;
-      }
+    if (!waitData) {
+      // New Google user → add to waitlist
+      await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          name:      cred.user.displayName || cred.user.email.split('@')[0],
+          email:     cred.user.email,
+          uid:       cred.user.uid,
+          status:    'pending',
+          provider:  'google',
+          createdAt: new Date().toISOString()
+        })
+      });
     }
-    // onAuthStateChanged handles approved users
+    // onAuthStateChanged will check approval and sign out if pending
 
   } catch(err) {
     if(err.code !== 'auth/popup-closed-by-user') {
