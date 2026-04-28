@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة الإدارة | Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dg:#009260;--dg-d:#006e48;--dg-l:#00b87a;
+  --db:#003DA5;--db-d:#002d7a;--db-l:#1a5cc4;
+  --dr:#D4001A;--dr-d:#a0001a;
+  --bg:#f7f8fc;--card:#fff;
+  --text:#111827;--text2:#374151;--text3:#6b7280;--text4:#9ca3af;
+  --border:rgba(0,61,165,0.12);
+  --shadow:0 2px 16px rgba(0,0,0,0.06);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans Arabic','DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+.flagbar{height:4px;background:linear-gradient(90deg,var(--dg) 33.3%,var(--db) 33.3% 66.6%,var(--dr) 66.6%);}
+
+header{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:0 48px;height:66px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow);
+}
+.hlogo{font-family:'Amiri',serif;font-size:22px;
+  background:linear-gradient(90deg,var(--dg-d),var(--db));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.admin-badge{background:linear-gradient(135deg,var(--db-d),var(--db));color:#fff;
+  padding:6px 16px;border-radius:20px;font-size:13px;font-weight:700;}
+.hright{display:flex;align-items:center;gap:12px;}
+.back-btn{color:var(--text2);text-decoration:none;font-size:14px;
+  padding:8px 16px;border-radius:10px;border:1.5px solid var(--border);transition:all 0.2s;}
+.back-btn:hover{border-color:var(--dg);color:var(--dg-d);}
+.logout-btn{background:none;border:1.5px solid var(--border);border-radius:10px;
+  padding:7px 14px;font-size:13px;color:var(--text3);cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.logout-btn:hover{border-color:var(--dr);color:var(--dr-d);}
+
+.ltog{background:var(--bg);border:1.5px solid var(--border);border-radius:24px;display:flex;overflow:hidden;}
+.lbtnx{padding:6px 16px;font-size:12px;font-weight:600;font-family:inherit;border:none;background:none;color:var(--text3);cursor:pointer;transition:all 0.2s;}
+.lbtnx.active{background:linear-gradient(135deg,var(--dg-d),var(--db));color:#fff;border-radius:22px;}
+
+/* NOT ADMIN */
+#not-admin{display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:80px;text-align:center;}
+#not-admin .icon{font-size:64px;}
+#not-admin h2{font-family:'Amiri',serif;font-size:32px;color:var(--dr-d);}
+#not-admin p{font-size:16px;color:var(--text2);}
+
+/* NOT LOGGED IN */
+#not-logged{display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:80px;text-align:center;}
+
+/* MAIN CONTENT */
+#admin-content{display:none;}
+.main{max-width:1100px;margin:0 auto;padding:40px 48px 80px;}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px;}
+.stat-card{background:#fff;border:1.5px solid var(--border);border-radius:18px;
+  padding:24px;text-align:center;box-shadow:var(--shadow);}
+.stat-num{font-family:'Amiri',serif;font-size:40px;line-height:1;}
+.stat-num.pending{color:#d97706;}
+.stat-num.approved{color:var(--dg-d);}
+.stat-num.rejected{color:var(--dr-d);}
+.stat-num.total{background:linear-gradient(135deg,var(--dg),var(--db));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:13px;color:var(--text3);margin-top:4px;}
+
+/* SECTION TITLE */
+.sec-title{font-family:'Amiri',serif;font-size:28px;color:var(--text);margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;}
+.count-badge{font-family:'DM Sans',sans-serif;font-size:14px;background:var(--bg);
+  border:1.5px solid var(--border);color:var(--text3);border-radius:20px;padding:3px 12px;}
+
+/* USER CARDS */
+.users-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:48px;}
+
+.user-card{
+  background:#fff;border:1.5px solid var(--border);border-radius:18px;
+  padding:20px 24px;display:flex;align-items:center;gap:20px;
+  box-shadow:var(--shadow);transition:all 0.25s;
+}
+.user-card:hover{box-shadow:0 6px 24px rgba(0,0,0,0.08);}
+.user-card.pending-card{border-right:4px solid #d97706;}
+html[lang="de"] .user-card.pending-card{border-right:none;border-left:4px solid #d97706;}
+.user-card.approved-card{border-right:4px solid var(--dg);}
+html[lang="de"] .user-card.approved-card{border-right:none;border-left:4px solid var(--dg);}
+.user-card.rejected-card{border-right:4px solid var(--dr);opacity:0.7;}
+html[lang="de"] .user-card.rejected-card{border-right:none;border-left:4px solid var(--dr);}
+
+.user-av{
+  width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,var(--dg),var(--db));
+}
+.user-info{flex:1;min-width:0;}
+.user-name{font-size:16px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.user-email{font-size:13px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.user-meta{font-size:12px;color:var(--text4);margin-top:3px;}
+
+.status-badge{
+  padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;
+  letter-spacing:0.05em;flex-shrink:0;
+}
+.badge-pending{background:#fef3c7;color:#92400e;border:1px solid #fde68a;}
+.badge-approved{background:rgba(0,146,96,0.08);color:var(--dg-d);border:1px solid rgba(0,146,96,0.2);}
+.badge-rejected{background:rgba(212,0,26,0.06);color:var(--dr-d);border:1px solid rgba(212,0,26,0.15);}
+
+.actions{display:flex;gap:8px;flex-shrink:0;}
+.btn-approve{
+  padding:9px 20px;border-radius:10px;border:none;
+  background:linear-gradient(135deg,var(--dg-d),var(--dg));
+  color:#fff;font-size:13px;font-weight:600;font-family:inherit;
+  cursor:pointer;transition:all 0.2s;box-shadow:0 3px 10px rgba(0,146,96,0.25);
+}
+.btn-approve:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,146,96,0.35);}
+.btn-reject{
+  padding:9px 20px;border-radius:10px;border:1.5px solid rgba(212,0,26,0.2);
+  background:#fff;color:var(--dr-d);font-size:13px;font-weight:600;font-family:inherit;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-reject:hover{background:rgba(212,0,26,0.05);border-color:var(--dr);}
+.btn-revoke{
+  padding:9px 20px;border-radius:10px;border:1.5px solid var(--border);
+  background:#fff;color:var(--text3);font-size:13px;font-weight:600;font-family:inherit;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-revoke:hover{border-color:var(--dr);color:var(--dr-d);}
+
+.empty-state{text-align:center;padding:48px;color:var(--text4);}
+.empty-icon{font-size:48px;margin-bottom:12px;opacity:0.4;}
+.empty-txt{font-size:15px;}
+
+/* Loading */
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--dg);
+  border-radius:50%;animation:spin 0.8s linear infinite;margin:40px auto;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--text);color:#fff;padding:12px 24px;border-radius:12px;
+  font-size:14px;font-weight:500;
+  box-shadow:0 8px 24px rgba(0,0,0,0.2);
+  opacity:0;transition:opacity 0.3s;z-index:999;white-space:nowrap;
+}
+.toast.show{opacity:1;}
+
+@media(max-width:900px){
+  header{padding:0 20px;}
+  .main{padding:24px 20px 60px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .user-card{flex-wrap:wrap;}
+  .actions{width:100%;}
+  .btn-approve,.btn-reject,.btn-revoke{flex:1;}
+}
+</style>
+</head>
+<body>
+<div class="flagbar"></div>
+
+<header>
+  <div class="hlogo ar-text">🏔️ داغستان — الإدارة</div>
+  <div class="hlogo de-text" style="display:none">🏔️ Dagestan — Admin</div>
+  <div class="hright">
+    <div class="admin-badge">🔐 ADMIN</div>
+    <a href="index.html" class="back-btn ar-text">← الرئيسية</a>
+    <a href="index.html" class="back-btn de-text" style="display:none">← Startseite</a>
+    <button class="logout-btn" onclick="doLogout()">
+      <span class="ar-text">خروج</span><span class="de-text" style="display:none">Abmelden</span>
+    </button>
+    <div class="ltog">
+      <button class="lbtnx active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+      <button class="lbtnx" id="btn-de" onclick="setLang('de')">DE</button>
+    </div>
+  </div>
+</header>
+
+<!-- Not logged in -->
+<div id="not-logged" style="display:flex;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:80px;text-align:center;">
+  <div style="font-size:56px;">🔒</div>
+  <div style="font-family:'Amiri',serif;font-size:28px;color:var(--dr-d);" class="ar-text">يجب تسجيل الدخول أولاً</div>
+  <div style="font-family:'DM Sans',serif;font-size:24px;color:var(--dr-d);" class="de-text" style="display:none">Bitte zuerst anmelden</div>
+  <a href="index.html" style="background:linear-gradient(135deg,var(--dg-d),var(--dg));color:#fff;text-decoration:none;padding:12px 28px;border-radius:12px;font-size:15px;font-weight:600;">
+    <span class="ar-text">← تسجيل الدخول</span><span class="de-text" style="display:none">← Anmelden</span>
+  </a>
+</div>
+
+<!-- Not admin -->
+<div id="not-admin" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:80px;text-align:center;">
+  <div style="font-size:56px;">🚫</div>
+  <div style="font-family:'Amiri',serif;font-size:28px;color:var(--dr-d);" class="ar-text">ليس لديك صلاحية الوصول</div>
+  <div style="font-family:'DM Sans',serif;font-size:24px;color:var(--dr-d);" class="de-text" style="display:none">Kein Zugriff</div>
+  <a href="index.html" style="background:linear-gradient(135deg,var(--dg-d),var(--dg));color:#fff;text-decoration:none;padding:12px 28px;border-radius:12px;font-size:15px;font-weight:600;">
+    <span class="ar-text">← الرئيسية</span><span class="de-text" style="display:none">← Startseite</span>
+  </a>
+</div>
+
+<!-- Admin content -->
+<div id="admin-content">
+  <div class="main">
+
+    <!-- Stats -->
+    <div class="stats-row" id="stats-row">
+      <div class="stat-card"><div class="stat-num pending" id="stat-pending">...</div><div class="stat-label ar-text">في الانتظار</div><div class="stat-label de-text" style="display:none">Ausstehend</div></div>
+      <div class="stat-card"><div class="stat-num approved" id="stat-approved">...</div><div class="stat-label ar-text">مقبولون</div><div class="stat-label de-text" style="display:none">Genehmigt</div></div>
+      <div class="stat-card"><div class="stat-num rejected" id="stat-rejected">...</div><div class="stat-label ar-text">مرفوضون</div><div class="stat-label de-text" style="display:none">Abgelehnt</div></div>
+      <div class="stat-card"><div class="stat-num total" id="stat-total">...</div><div class="stat-label ar-text">إجمالي الأعضاء</div><div class="stat-label de-text" style="display:none">Gesamt Mitglieder</div></div>
+    </div>
+
+    <!-- PENDING -->
+    <div class="sec-title">
+      <span>⏳</span>
+      <span class="ar-text">طلبات في الانتظار</span>
+      <span class="de-text" style="display:none">Ausstehende Anfragen</span>
+      <span class="count-badge" id="pending-count">0</span>
+    </div>
+    <div class="users-grid" id="pending-list">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- APPROVED -->
+    <div class="sec-title">
+      <span>✅</span>
+      <span class="ar-text">الأعضاء المقبولون</span>
+      <span class="de-text" style="display:none">Genehmigte Mitglieder</span>
+      <span class="count-badge" id="approved-count">0</span>
+    </div>
+    <div class="users-grid" id="approved-list">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- REJECTED -->
+    <div class="sec-title">
+      <span>❌</span>
+      <span class="ar-text">الطلبات المرفوضة</span>
+      <span class="de-text" style="display:none">Abgelehnte Anfragen</span>
+      <span class="count-badge" id="rejected-count">0</span>
+    </div>
+    <div class="users-grid" id="rejected-list">
+      <div class="spinner"></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut }
+  from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB-SVPj8XaIY7rQ2fat8oMgHA0vixzfMe0",
+  authDomain: "dagestan-community.firebaseapp.com",
+  projectId: "dagestan-community",
+  storageBucket: "dagestan-community.firebasestorage.app",
+  messagingSenderId: "1049971723597",
+  appId: "1:1049971723597:web:7565ae08c547d7cb28fb04"
+};
+
+// ── ADMIN EMAILS — add your email here ──
+const ADMIN_EMAILS = [
+  'msa90.dag.lolo@gmail.com',
+  'mohammed-babat@hotmail.com'  // add more admin emails here
+];
+
+const RTDB = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+let currentToken = null;
+
+onAuthStateChanged(auth, async user => {
+  document.getElementById('not-logged').style.display = 'none';
+  document.getElementById('not-admin').style.display  = 'none';
+  document.getElementById('admin-content').style.display = 'none';
+
+  if (!user) {
+    document.getElementById('not-logged').style.display = 'flex';
+    return;
+  }
+
+  // Check if admin
+  const isAdmin = ADMIN_EMAILS.includes(user.email);
+  if (!isAdmin) {
+    document.getElementById('not-admin').style.display = 'flex';
+    return;
+  }
+
+  currentToken = await user.getIdToken();
+  document.getElementById('admin-content').style.display = 'block';
+  loadAll();
+});
+
+async function loadAll() {
+  await Promise.all([loadWaitlist(), loadMembers()]);
+}
+
+async function loadWaitlist() {
+  try {
+    const res  = await fetch(`${RTDB}/waitlist.json?auth=${currentToken}`);
+    const data = await res.json();
+
+    const pending  = [];
+    const approved = [];
+    const rejected = [];
+
+    if (data) {
+      Object.entries(data).forEach(([uid, u]) => {
+        const entry = { ...u, uid };
+        if (u.status === 'pending')  pending.push(entry);
+        if (u.status === 'approved') approved.push(entry);
+        if (u.status === 'rejected') rejected.push(entry);
+      });
+    }
+
+    // Sort by date (newest first)
+    const byDate = (a,b) => new Date(b.createdAt||0) - new Date(a.createdAt||0);
+    pending.sort(byDate); approved.sort(byDate); rejected.sort(byDate);
+
+    // Stats
+    document.getElementById('stat-pending').textContent  = pending.length;
+    document.getElementById('stat-approved').textContent = approved.length;
+    document.getElementById('stat-rejected').textContent = rejected.length;
+    document.getElementById('pending-count').textContent  = pending.length;
+    document.getElementById('approved-count').textContent = approved.length;
+    document.getElementById('rejected-count').textContent = rejected.length;
+
+    renderList('pending-list',  pending,  'pending');
+    renderList('approved-list', approved, 'approved');
+    renderList('rejected-list', rejected, 'rejected');
+  } catch(err) {
+    console.error('Load error:', err);
+  }
+}
+
+async function loadMembers() {
+  try {
+    const res  = await fetch(`${RTDB}/members.json?auth=${currentToken}&shallow=true`);
+    const data = await res.json();
+    const count = data ? Object.keys(data).length : 0;
+    document.getElementById('stat-total').textContent = count;
+  } catch(err) {}
+}
+
+function renderList(containerId, users, status) {
+  const lang = document.documentElement.lang;
+  const container = document.getElementById(containerId);
+
+  if (!users.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">${status==='pending'?'📭':status==='approved'?'✅':'🗂️'}</div>
+        <div class="empty-txt ar-text">${status==='pending'?'لا توجد طلبات جديدة':status==='approved'?'لا يوجد أعضاء مقبولون بعد':'لا توجد طلبات مرفوضة'}</div>
+        <div class="empty-txt de-text" style="display:${lang==='de'?'block':'none'}">${status==='pending'?'Keine ausstehenden Anfragen':status==='approved'?'Noch keine genehmigten Mitglieder':'Keine abgelehnten Anfragen'}</div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = users.map(u => {
+    const initial = (u.name||'?')[0].toUpperCase();
+    const date    = u.createdAt ? new Date(u.createdAt).toLocaleDateString('de-DE') : '—';
+    const provider = u.provider === 'google' ? ' 🇬' : ' 📧';
+
+    let actions = '';
+    if (status === 'pending') {
+      actions = `
+        <div class="actions">
+          <button class="btn-approve" onclick="approveUser('${u.uid}', '${esc(u.name)}', '${esc(u.email)}')">
+            ✅ <span class="ar-text">قبول</span><span class="de-text" style="display:${lang==='de'?'inline':'none'}">Genehmigen</span>
+          </button>
+          <button class="btn-reject" onclick="rejectUser('${u.uid}')">
+            ❌ <span class="ar-text">رفض</span><span class="de-text" style="display:${lang==='de'?'inline':'none'}">Ablehnen</span>
+          </button>
+        </div>`;
+    } else if (status === 'approved') {
+      actions = `
+        <div class="actions">
+          <button class="btn-revoke" onclick="revokeUser('${u.uid}')">
+            🔄 <span class="ar-text">سحب الموافقة</span><span class="de-text" style="display:${lang==='de'?'inline':'none'}">Widerrufen</span>
+          </button>
+        </div>`;
+    } else {
+      actions = `
+        <div class="actions">
+          <button class="btn-approve" onclick="approveUser('${u.uid}', '${esc(u.name)}', '${esc(u.email)}')">
+            ✅ <span class="ar-text">قبول الآن</span><span class="de-text" style="display:${lang==='de'?'inline':'none'}">Doch genehmigen</span>
+          </button>
+        </div>`;
+    }
+
+    return `
+      <div class="user-card ${status}-card">
+        <div class="user-av">${initial}</div>
+        <div class="user-info">
+          <div class="user-name">${esc(u.name||'—')}${provider}</div>
+          <div class="user-email">${esc(u.email||'—')}</div>
+          <div class="user-meta">${date}</div>
+        </div>
+        <div class="status-badge badge-${status}">
+          ${status==='pending'?(lang==='ar'?'انتظار':'Ausstehend'):status==='approved'?(lang==='ar'?'مقبول':'Genehmigt'):(lang==='ar'?'مرفوض':'Abgelehnt')}
+        </div>
+        ${actions}
+      </div>`;
+  }).join('');
+}
+
+// ── Approve user ──
+window.approveUser = async function(uid, name, email) {
+  const lang = document.documentElement.lang;
+  try {
+    // Update waitlist status
+    await fetch(`${RTDB}/waitlist/${uid}/status.json?auth=${currentToken}`, {
+      method: 'PUT', body: JSON.stringify('approved')
+    });
+    // Add to members
+    await fetch(`${RTDB}/members/${uid}.json?auth=${currentToken}`, {
+      method: 'PUT',
+      body: JSON.stringify({ name, email, approvedAt: new Date().toISOString() })
+    });
+    showToast(lang==='ar' ? `✅ تم قبول ${name}` : `✅ ${name} genehmigt`);
+    loadAll();
+  } catch(err) {
+    showToast(lang==='ar' ? '❌ حدث خطأ' : '❌ Fehler');
+  }
+};
+
+// ── Reject user ──
+window.rejectUser = async function(uid) {
+  const lang = document.documentElement.lang;
+  try {
+    await fetch(`${RTDB}/waitlist/${uid}/status.json?auth=${currentToken}`, {
+      method: 'PUT', body: JSON.stringify('rejected')
+    });
+    // Remove from members if exists
+    await fetch(`${RTDB}/members/${uid}.json?auth=${currentToken}`, { method: 'DELETE' });
+    showToast(lang==='ar' ? '❌ تم رفض الطلب' : '❌ Anfrage abgelehnt');
+    loadAll();
+  } catch(err) {
+    showToast(lang==='ar' ? '❌ حدث خطأ' : '❌ Fehler');
+  }
+};
+
+// ── Revoke approved user ──
+window.revokeUser = async function(uid) {
+  const lang = document.documentElement.lang;
+  try {
+    await fetch(`${RTDB}/waitlist/${uid}/status.json?auth=${currentToken}`, {
+      method: 'PUT', body: JSON.stringify('pending')
+    });
+    await fetch(`${RTDB}/members/${uid}.json?auth=${currentToken}`, { method: 'DELETE' });
+    showToast(lang==='ar' ? '🔄 تم سحب الموافقة' : '🔄 Genehmigung widerrufen');
+    loadAll();
+  } catch(err) {
+    showToast('❌ Fehler');
+  }
+};
+
+window.doLogout = async () => { await signOut(auth); window.location.href='index.html'; };
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+
+<script>
+function setLang(l){
+  const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';
+  document.querySelectorAll('.ar-text').forEach(e=>e.style.display=l==='ar'?'':'none');
+  document.querySelectorAll('.de-text').forEach(e=>e.style.display=l==='de'?'':'none');
+  document.getElementById('btn-ar').classList.toggle('active',l==='ar');
+  document.getElementById('btn-de').classList.toggle('active',l==='de');
+  localStorage.setItem('dag_lang',l);
+}
+setLang(localStorage.getItem('dag_lang')||'ar');
+</script>
+</body>
+</html>
