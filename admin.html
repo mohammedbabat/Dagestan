@@ -267,8 +267,9 @@ const firebaseConfig = {
 
 // ── ADMIN EMAILS — add your email here ──
 const ADMIN_EMAILS = [
-  
-  'mohammed-babat@hotmail.com'  // add more admin emails here
+  'mohammed-babat@hotmail.com',
+  'habiba.masoud@outlook.de',
+  'msa90.dag.lolo@gmail.com'
 ];
 
 const RTDB = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
@@ -412,6 +413,20 @@ function renderList(containerId, users, status) {
   }).join('');
 }
 
+// ── Send email notification via Google Apps Script ──
+// Replace with your notification script URL if you have one
+const NOTIFY_URL = ''; // optional
+
+async function sendApprovalEmail(email, name) {
+  if (!NOTIFY_URL) return;
+  try {
+    await fetch(NOTIFY_URL, {
+      method: 'POST',
+      body: JSON.stringify({ type: 'approved', email, name })
+    });
+  } catch(err) { console.warn('Email notification failed:', err); }
+}
+
 // ── Approve user ──
 window.approveUser = async function(uid, name, email) {
   const lang = document.documentElement.lang;
@@ -425,6 +440,17 @@ window.approveUser = async function(uid, name, email) {
       method: 'PUT',
       body: JSON.stringify({ name, email, approvedAt: new Date().toISOString() })
     });
+    // Store approval notification for user to see on next login
+    await fetch(`${RTDB}/notifications/${uid}.json?auth=${currentToken}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        type: 'approved',
+        message_ar: `🎉 مرحباً ${name}! تم قبول طلبك. يمكنك الآن تسجيل الدخول.`,
+        message_de: `🎉 Hallo ${name}! Dein Antrag wurde genehmigt. Du kannst dich jetzt anmelden.`,
+        createdAt: new Date().toISOString(),
+        seen: false
+      })
+    });
     showToast(lang==='ar' ? `✅ تم قبول ${name}` : `✅ ${name} genehmigt`);
     loadAll();
   } catch(err) {
@@ -435,12 +461,23 @@ window.approveUser = async function(uid, name, email) {
 // ── Reject user ──
 window.rejectUser = async function(uid) {
   const lang = document.documentElement.lang;
+  if (!confirm(lang==='ar' ? 'هل أنت متأكد من رفض هذا الطلب؟' : 'Sicher ablehnen?')) return;
   try {
     await fetch(`${RTDB}/waitlist/${uid}/status.json?auth=${currentToken}`, {
       method: 'PUT', body: JSON.stringify('rejected')
     });
-    // Remove from members if exists
     await fetch(`${RTDB}/members/${uid}.json?auth=${currentToken}`, { method: 'DELETE' });
+    // Notification for rejected user
+    await fetch(`${RTDB}/notifications/${uid}.json?auth=${currentToken}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        type: 'rejected',
+        message_ar: '❌ عذراً، تم رفض طلبك. تواصل مع المسؤول لمزيد من المعلومات.',
+        message_de: '❌ Dein Antrag wurde leider abgelehnt. Kontaktiere den Admin für mehr Informationen.',
+        createdAt: new Date().toISOString(),
+        seen: false
+      })
+    });
     showToast(lang==='ar' ? '❌ تم رفض الطلب' : '❌ Anfrage abgelehnt');
     loadAll();
   } catch(err) {

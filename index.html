@@ -547,6 +547,10 @@ html[lang="de"] .revl{transform:translateX(24px);}
         <div class="user-dot"></div>
         <span id="user-name-display">...</span>
       </div>
+      <a href="admin.html" id="admin-nav-btn"
+        style="display:none;align-items:center;gap:6px;background:linear-gradient(135deg,#002d7a,#003DA5);color:#fff;text-decoration:none;padding:7px 16px;border-radius:20px;font-size:13px;font-weight:700;">
+        🔐 <span class="ar-text">الإدارة</span><span class="de-text" style="display:none">Admin</span>
+      </a>
       <button class="logout-btn" onclick="doLogout()">
         <span class="ar-text">خروج</span>
         <span class="de-text" style="display:none">Abmelden</span>
@@ -700,6 +704,13 @@ const auth = getAuth(app);
 const db   = getDatabase(app);
 const DB_URL = "https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app";
 
+// ── Admin emails ──
+const ADMIN_EMAILS = [
+  'mohammed-babat@hotmail.com',
+  'habiba.masoud@outlook.de',
+  'msa90.dag.lolo@gmail.com'
+];
+
 // ── Auth state listener ──
 onAuthStateChanged(auth, user => {
   if (user) {
@@ -712,14 +723,25 @@ onAuthStateChanged(auth, user => {
     const name = user.displayName || user.email.split('@')[0];
     document.getElementById('user-name-display').textContent = name;
 
+    // Check if admin
+    const isAdmin = ADMIN_EMAILS.includes(user.email);
+    const role = isAdmin ? 'admin' : 'user';
+
     // Store role in sessionStorage for other pages
-    sessionStorage.setItem('dag_role', 'user');
+    sessionStorage.setItem('dag_role', role);
     sessionStorage.setItem('dag_user', name);
     sessionStorage.setItem('dag_email', user.email);
+
+    // Show admin button if admin
+    const adminBtn = document.getElementById('admin-nav-btn');
+    if (adminBtn) adminBtn.style.display = isAdmin ? 'flex' : 'none';
 
     // Save member to database & load count
     saveMember(user);
     loadMemberCount();
+
+    // Check for notifications (approval/rejection messages)
+    checkNotification(user);
 
     initSite();
   } else {
@@ -731,9 +753,64 @@ onAuthStateChanged(auth, user => {
   }
 });
 
+// ── Check notifications for user ──
+async function checkNotification(user) {
+  try {
+    const token = await user.getIdToken();
+    const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
+    const res   = await fetch(`${RTDB}/notifications/${user.uid}.json?auth=${token}`);
+    const notif = await res.json();
+    if (!notif || notif.seen) return;
+
+    const lang = document.documentElement.lang;
+    const msg  = lang === 'ar' ? notif.message_ar : notif.message_de;
+
+    // Show beautiful notification banner
+    showNotificationBanner(msg, notif.type);
+
+    // Mark as seen
+    await fetch(`${RTDB}/notifications/${user.uid}/seen.json?auth=${token}`, {
+      method: 'PUT', body: JSON.stringify(true)
+    });
+  } catch(err) { console.warn('Notification check error:', err); }
+}
+
+function showNotificationBanner(msg, type) {
+  // Remove existing banner
+  const existing = document.getElementById('notif-banner');
+  if (existing) existing.remove();
+
+  const banner = document.createElement('div');
+  banner.id = 'notif-banner';
+  const bg = type === 'approved'
+    ? 'linear-gradient(135deg,#006e48,#009260)'
+    : 'linear-gradient(135deg,#a0001a,#D4001A)';
+  banner.style.cssText = `
+    position:fixed;top:80px;left:50%;transform:translateX(-50%);
+    background:${bg};color:#fff;
+    padding:16px 32px;border-radius:16px;
+    font-size:15px;font-weight:600;
+    box-shadow:0 8px 32px rgba(0,0,0,0.2);
+    z-index:9999;max-width:90%;text-align:center;
+    animation:slideDown 0.4s cubic-bezier(0.16,1,0.3,1) both;
+  `;
+  banner.textContent = msg;
+
+  // Add animation
+  const style = document.createElement('style');
+  style.textContent = '@keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}';
+  document.head.appendChild(style);
+
+  document.body.appendChild(banner);
+  setTimeout(() => { if(banner) banner.remove(); }, 6000);
+}
+
 // ── Save member to Realtime Database ──
 // ── Check if user is approved ──
 async function checkApproval(user) {
+  // Admins always get in
+  if (ADMIN_EMAILS.includes(user.email)) return true;
+
   try {
     const token = await user.getIdToken();
     const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
@@ -741,23 +818,24 @@ async function checkApproval(user) {
     // Check members list (approved)
     const memRes  = await fetch(`${RTDB}/members/${user.uid}.json?auth=${token}`);
     const memData = await memRes.json();
-    if (memData) return true; // Already approved member
+    if (memData) return true;
 
     // Check waitlist
     const waitRes  = await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`);
     const waitData = await waitRes.json();
 
-    if (!waitData) {
-      // Not in waitlist — old user, add as approved directly
-      return true;
-    }
-
+    if (!waitData) return true; // old user before system
     if (waitData.status === 'approved') return true;
-
-    return false; // pending or rejected
+    if (waitData.status === 'rejected') {
+      showErr(document.documentElement.lang==='ar'
+        ? '❌ تم رفض طلبك — تواصل مع المسؤول'
+        : '❌ Dein Antrag wurde abgelehnt — kontaktiere den Admin');
+      return false;
+    }
+    return false; // pending
   } catch(err) {
     console.warn('Approval check error:', err);
-    return true; // fail open — let them in if DB error
+    return true;
   }
 }
 
