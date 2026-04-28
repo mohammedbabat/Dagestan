@@ -858,6 +858,7 @@ function showNotificationBanner(msg, type) {
 
 // ── Save member to Realtime Database ──
 // ── Check if user is approved ──
+// DEFAULT = BLOCKED. Only explicit 'approved' status allows access.
 async function checkApproval(user) {
   // Admins always get in
   if (ADMIN_EMAILS.includes(user.email)) return true;
@@ -865,37 +866,44 @@ async function checkApproval(user) {
   try {
     const token = await user.getIdToken();
     const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
+    const lang  = document.documentElement.lang;
 
-    // Check members list (approved)
-    const memRes  = await fetch(`${RTDB}/members/${user.uid}.json?auth=${token}`);
-    const memData = await memRes.json();
-    if (memData) return true;
-
-    // Check waitlist
+    // ONLY check waitlist — must have status='approved' to enter
     const waitRes  = await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`);
     const waitData = await waitRes.json();
 
-    if (!waitData) return true; // old user before system
+    // Not in waitlist at all → BLOCKED
+    if (!waitData) return false;
+
+    // Explicitly approved → ALLOW
     if (waitData.status === 'approved') return true;
+
+    // Rejected → BLOCKED with message
     if (waitData.status === 'rejected') {
-      showErr(document.documentElement.lang==='ar'
-        ? '❌ تم رفض طلبك — تواصل مع المسؤول'
-        : '❌ Dein Antrag wurde abgelehnt — kontaktiere den Admin');
+      showErr(lang === 'ar'
+        ? '❌ تم رفض طلبك — تواصل مع المسؤول على واتساب'
+        : '❌ Dein Antrag wurde abgelehnt — kontaktiere den Admin per WhatsApp');
       return false;
     }
-    return false; // pending
+
+    // Pending → BLOCKED with message
+    return false;
+
   } catch(err) {
+    // On ANY error → BLOCKED (safe default)
     console.warn('Approval check error:', err);
-    return true;
+    return false;
   }
 }
 
 async function saveMember(user) {
+  // Only save to members if they are actually approved
+  // This is called AFTER checkApproval passes, so they are approved
   try {
     const token = await user.getIdToken();
     const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
 
-    // Save member info
+    // Save member info (only approved users reach here)
     await fetch(`${RTDB}/members/${user.uid}.json?auth=${token}`, {
       method: 'PUT',
       body: JSON.stringify({
