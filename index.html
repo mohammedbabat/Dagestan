@@ -724,48 +724,15 @@ const firebaseConfig = {
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// Handle Google redirect result on page load
+getRedirectResult(auth).catch(err => {
+  if (err.code !== 'auth/cancelled-popup-request') {
+    console.warn('Redirect error:', err.code);
+  }
+});
 const db   = getDatabase(app);
 const DB_URL = "https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app";
-
-// ── Handle Google Redirect Result (runs on page load after redirect) ──
-getRedirectResult(auth).then(async result => {
-  if (!result) return; // No redirect — normal page load
-  const user = result.user;
-  const lang = document.documentElement.lang;
-
-  if (ADMIN_EMAILS.includes(user.email)) return; // admin handled by onAuthStateChanged
-
-  const token = await user.getIdToken();
-  const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
-
-  // Check if already member or in waitlist
-  const memRes  = await fetch(`${RTDB}/members/${user.uid}.json?auth=${token}`);
-  const memData = await memRes.json();
-  if (memData) return; // approved member — onAuthStateChanged handles
-
-  const waitRes  = await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`);
-  const waitData = await waitRes.json();
-
-  if (!waitData) {
-    // New Google user → add to waitlist
-    await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        name:      user.displayName || user.email.split('@')[0],
-        email:     user.email,
-        uid:       user.uid,
-        status:    'pending',
-        provider:  'google',
-        createdAt: new Date().toISOString()
-      })
-    });
-    sendRegistrationNotification(
-      user.displayName || user.email.split('@')[0],
-      user.email
-    );
-  }
-  // onAuthStateChanged will check approval and sign out if pending
-}).catch(err => console.warn('Redirect result error:', err));
 // 🔔 Notification Script URL — fill in after Step 3
 const NOTIFY_URL = 'DEINE_NOTIFICATION_URL_HIER';
 
@@ -789,14 +756,6 @@ onAuthStateChanged(auth, async user => {
     const isAdmin = ADMIN_EMAILS.includes(user.email);
 
     if (isAdmin) {
-      document.getElementById('loading-screen').style.display = 'none';
-      showMainSite(user, 'admin');
-      return;
-    }
-
-    // Also check case-insensitive (in case email has different case)
-    const emailLower = user.email.toLowerCase();
-    if (ADMIN_EMAILS.map(e => e.toLowerCase()).includes(emailLower)) {
       document.getElementById('loading-screen').style.display = 'none';
       showMainSite(user, 'admin');
       return;
@@ -910,9 +869,8 @@ function showNotificationBanner(msg, type) {
 // ── Check if user is approved ──
 // DEFAULT = BLOCKED. Only explicit 'approved' status allows access.
 async function checkApproval(user) {
-  // Admins always get in (case-insensitive check)
-  const emailLower = user.email.toLowerCase();
-  if (ADMIN_EMAILS.map(e => e.toLowerCase()).includes(emailLower)) return true;
+  // Admins always get in
+  if (ADMIN_EMAILS.includes(user.email)) return true;
 
   try {
     const token = await user.getIdToken();
@@ -1029,15 +987,10 @@ window.doLogin = async function() {
   setLoading('login', true);
   try {
     await signInWithEmailAndPassword(auth, email, pw);
-    // onAuthStateChanged handles the rest
+    // onAuthStateChanged handles approval check + showing site
   } catch(err) {
-    console.error('Login error code:', err.code, err.message);
     showErr(friendlyError(err.code));
     setLoading('login', false);
-    // Also hide loading screen if stuck
-    document.getElementById('loading-screen').style.display = 'none';
-    document.getElementById('auth-screen').style.display = 'flex';
-    document.getElementById('lang-top-login').style.display = 'flex';
   }
 };
 
@@ -1113,16 +1066,10 @@ window.doLogout = async function() {
   sessionStorage.removeItem('dag_user');
 };
 
-// ── Google Login (uses Redirect — works on all browsers including Safari) ──
-window.doGoogle = async function() {
-  try {
-    const provider = new GoogleAuthProvider();
-    // Use redirect instead of popup — more reliable on mobile and GitHub Pages
-    await signInWithRedirect(auth, provider);
-    // Page will reload — getRedirectResult() handles the result
-  } catch(err) {
-    showErr(friendlyError(err.code));
-  }
+// ── Google Login ──
+window.doGoogle = function() {
+  const provider = new GoogleAuthProvider();
+  signInWithRedirect(auth, provider);
 };
 
 // ── Helpers ──
