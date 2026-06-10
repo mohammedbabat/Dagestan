@@ -456,15 +456,6 @@ html[lang="de"] .revl{transform:translateX(24px);}
             <span class="ar-text">نسيت كلمة المرور؟</span>
             <span class="de-text" style="display:none">Passwort vergessen?</span>
           </span>
-          <div class="divider">
-            <span class="ar-text">أو</span>
-            <span class="de-text" style="display:none">oder</span>
-          </div>
-          <button class="btn-google" onclick="doGoogle()">
-            <svg width="18" height="18" viewBox="0 0 18 18" style="flex-shrink:0"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.347 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
-            <span class="ar-text">الدخول بحساب Google</span>
-            <span class="de-text" style="display:none">Mit Google anmelden</span>
-          </button>
         </div>
 
         <!-- REGISTER FORM -->
@@ -505,15 +496,6 @@ html[lang="de"] .revl{transform:translateX(24px);}
               <span class="de-text" style="display:none">Konto erstellen →</span>
             </span>
             <div class="btn-spinner" id="reg-spin"></div>
-          </button>
-          <div class="divider">
-            <span class="ar-text">أو</span>
-            <span class="de-text" style="display:none">oder</span>
-          </div>
-          <button class="btn-google" onclick="doGoogle()">
-            <svg width="18" height="18" viewBox="0 0 18 18" style="flex-shrink:0"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.347 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
-            <span class="ar-text">التسجيل بحساب Google</span>
-            <span class="de-text" style="display:none">Mit Google registrieren</span>
           </button>
         </div>
 
@@ -706,7 +688,7 @@ html[lang="de"] .revl{transform:translateX(24px);}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
          sendPasswordResetEmail, onAuthStateChanged, signOut, updateProfile,
-         GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult }
+         GoogleAuthProvider, signInWithPopup }
   from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
 import { getDatabase, ref, set, get, increment, update }
   from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
@@ -724,8 +706,6 @@ const firebaseConfig = {
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
-// getRedirectResult → see below after ADMIN_EMAILS
 const db   = getDatabase(app);
 const DB_URL = "https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app";
 // 🔔 Notification Script URL — fill in after Step 3
@@ -973,55 +953,6 @@ function sendRegistrationNotification(name, email) {
   }).catch(err => console.warn('Notification failed:', err));
 }
 
-// ── Handle Google Redirect Result ──
-getRedirectResult(auth).then(async result => {
-  if (!result) return; // normal page load, no redirect
-
-  const user = result.user;
-  const lang = document.documentElement.lang;
-  const RTDB = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
-
-  // Admins skip waitlist
-  const emailLower = user.email.toLowerCase();
-  if (ADMIN_EMAILS.map(e => e.toLowerCase()).includes(emailLower)) return;
-
-  const token = await user.getIdToken();
-
-  // Check if already in members (approved before)
-  const memRes  = await fetch(`${RTDB}/members/${user.uid}.json?auth=${token}`);
-  const memData = await memRes.json();
-  if (memData) return; // already approved — onAuthStateChanged handles
-
-  // Check waitlist
-  const waitRes  = await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`);
-  const waitData = await waitRes.json();
-
-  if (!waitData) {
-    // Brand new Google user → add to waitlist as PENDING
-    await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        name:      user.displayName || user.email.split('@')[0],
-        email:     user.email,
-        uid:       user.uid,
-        status:    'pending',
-        provider:  'google',
-        createdAt: new Date().toISOString()
-      })
-    });
-
-    // Notify admin
-    sendRegistrationNotification(
-      user.displayName || user.email.split('@')[0],
-      user.email
-    );
-  }
-  // onAuthStateChanged will check approval and sign out if still pending
-
-}).catch(err => {
-  console.warn('Redirect result error:', err.code);
-});
-
 // ── Login ──
 window.doLogin = async function() {
   const email = document.getElementById('login-email').value.trim();
@@ -1111,9 +1042,52 @@ window.doLogout = async function() {
 };
 
 // ── Google Login ──
-window.doGoogle = function() {
-  const provider = new GoogleAuthProvider();
-  signInWithRedirect(auth, provider);
+window.doGoogle = async function() {
+  const lang = document.documentElement.lang;
+  try {
+    const provider = new GoogleAuthProvider();
+    const cred = await signInWithPopup(auth, provider);
+
+    // Skip waitlist for admins
+    if (ADMIN_EMAILS.includes(cred.user.email)) return; // onAuthStateChanged handles it
+
+    // Check if brand new Google user — add to waitlist
+    const token = await cred.user.getIdToken();
+    const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
+
+    const memRes  = await fetch(`${RTDB}/members/${cred.user.uid}.json?auth=${token}`);
+    const memData = await memRes.json();
+    if (memData) return; // existing approved member — onAuthStateChanged handles it
+
+    const waitRes  = await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`);
+    const waitData = await waitRes.json();
+
+    if (!waitData) {
+      // New Google user → add to waitlist
+      await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          name:      cred.user.displayName || cred.user.email.split('@')[0],
+          email:     cred.user.email,
+          uid:       cred.user.uid,
+          status:    'pending',
+          provider:  'google',
+          createdAt: new Date().toISOString()
+        })
+      });
+      // Notify admin
+      sendRegistrationNotification(
+        cred.user.displayName || cred.user.email.split('@')[0],
+        cred.user.email
+      );
+    }
+    // onAuthStateChanged will check approval and sign out if pending
+
+  } catch(err) {
+    if(err.code !== 'auth/popup-closed-by-user') {
+      showErr(friendlyError(err.code));
+    }
+  }
 };
 
 // ── Helpers ──
