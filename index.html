@@ -725,12 +725,7 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Handle Google redirect result on page load
-getRedirectResult(auth).catch(err => {
-  if (err.code !== 'auth/cancelled-popup-request') {
-    console.warn('Redirect error:', err.code);
-  }
-});
+// getRedirectResult → see below after ADMIN_EMAILS
 const db   = getDatabase(app);
 const DB_URL = "https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app";
 // 🔔 Notification Script URL — fill in after Step 3
@@ -977,6 +972,55 @@ function sendRegistrationNotification(name, email) {
     body: JSON.stringify({ type: 'new_registration', name, email })
   }).catch(err => console.warn('Notification failed:', err));
 }
+
+// ── Handle Google Redirect Result ──
+getRedirectResult(auth).then(async result => {
+  if (!result) return; // normal page load, no redirect
+
+  const user = result.user;
+  const lang = document.documentElement.lang;
+  const RTDB = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
+
+  // Admins skip waitlist
+  const emailLower = user.email.toLowerCase();
+  if (ADMIN_EMAILS.map(e => e.toLowerCase()).includes(emailLower)) return;
+
+  const token = await user.getIdToken();
+
+  // Check if already in members (approved before)
+  const memRes  = await fetch(`${RTDB}/members/${user.uid}.json?auth=${token}`);
+  const memData = await memRes.json();
+  if (memData) return; // already approved — onAuthStateChanged handles
+
+  // Check waitlist
+  const waitRes  = await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`);
+  const waitData = await waitRes.json();
+
+  if (!waitData) {
+    // Brand new Google user → add to waitlist as PENDING
+    await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        name:      user.displayName || user.email.split('@')[0],
+        email:     user.email,
+        uid:       user.uid,
+        status:    'pending',
+        provider:  'google',
+        createdAt: new Date().toISOString()
+      })
+    });
+
+    // Notify admin
+    sendRegistrationNotification(
+      user.displayName || user.email.split('@')[0],
+      user.email
+    );
+  }
+  // onAuthStateChanged will check approval and sign out if still pending
+
+}).catch(err => {
+  console.warn('Redirect result error:', err.code);
+});
 
 // ── Login ──
 window.doLogin = async function() {
