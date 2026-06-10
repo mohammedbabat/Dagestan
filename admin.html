@@ -431,27 +431,16 @@ async function sendApprovalEmail(email, name) {
 window.approveUser = async function(uid, name, email) {
   const lang = document.documentElement.lang;
   try {
-    // 1. Remove from waitlist completely
-    await fetch(`${RTDB}/waitlist/${uid}.json?auth=${currentToken}`, {
-      method: 'DELETE'
+    // Update waitlist status
+    await fetch(`${RTDB}/waitlist/${uid}/status.json?auth=${currentToken}`, {
+      method: 'PUT', body: JSON.stringify('approved')
     });
-
-    // 2. Add to members
+    // Add to members
     await fetch(`${RTDB}/members/${uid}.json?auth=${currentToken}`, {
       method: 'PUT',
       body: JSON.stringify({ name, email, approvedAt: new Date().toISOString() })
     });
-
-    // 3. Update memberCount automatically
-    const membersRes  = await fetch(`${RTDB}/members.json?auth=${currentToken}&shallow=true`);
-    const membersData = await membersRes.json();
-    const newCount    = membersData ? Object.keys(membersData).length : 1;
-    await fetch(`${RTDB}/memberCount.json?auth=${currentToken}`, {
-      method: 'PUT',
-      body: JSON.stringify(newCount)
-    });
-
-    // 4. Send notification to user
+    // Store approval notification for user to see on next login
     await fetch(`${RTDB}/notifications/${uid}.json?auth=${currentToken}`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -462,12 +451,10 @@ window.approveUser = async function(uid, name, email) {
         seen: false
       })
     });
-
-    showToast(lang==='ar' ? `✅ تم قبول ${name} — الأعضاء: ${newCount}` : `✅ ${name} genehmigt — Mitglieder: ${newCount}`);
+    showToast(lang==='ar' ? `✅ تم قبول ${name}` : `✅ ${name} genehmigt`);
     loadAll();
   } catch(err) {
-    console.error('Approve error:', err);
-    showToast(lang==='ar' ? '❌ حدث خطأ — تحقق من الاتصال' : '❌ Fehler — Verbindung prüfen');
+    showToast(lang==='ar' ? '❌ حدث خطأ' : '❌ Fehler');
   }
 };
 
