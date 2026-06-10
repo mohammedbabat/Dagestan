@@ -952,7 +952,7 @@ function showMemberCount(count) {
 
 // ── Send registration notification to admin ──
 function sendRegistrationNotification(name, email) {
-  if (!NOTIFY_URL || NOTIFY_URL === 'DEINE_NOTIFICATION_URL_HIER') return;
+  if (!NOTIFY_URL || NOTIFY_URL === 'https://script.google.com/macros/s/AKfycbw49B40z_Tz1mebzPL-DDz0oBTsSwq5C9vltVxbRC-kjSCLfBhX_84y2BQ2AKGFCkdX/exec') return;
   fetch(NOTIFY_URL, {
     method: 'POST',
     mode: 'no-cors',
