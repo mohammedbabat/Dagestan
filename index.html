@@ -727,8 +727,11 @@ onAuthStateChanged(auth, async user => {
   document.getElementById('loading-screen').style.display = 'flex';
 
   if (user) {
-    const lang    = document.documentElement.lang;
-    const isAdmin = ADMIN_EMAILS.includes(user.email);
+    const lang = document.documentElement.lang;
+
+    // Admin check — case insensitive
+    const emailLower = user.email.toLowerCase();
+    const isAdmin = ADMIN_EMAILS.map(e => e.toLowerCase()).includes(emailLower);
 
     if (isAdmin) {
       document.getElementById('loading-screen').style.display = 'none';
@@ -736,17 +739,21 @@ onAuthStateChanged(auth, async user => {
       return;
     }
 
-    // Check approval — WAIT for result before showing anything
-    const approved = await checkApproval(user);
+    // Check approval — wait for DB response before showing anything
+    let approved = false;
+    try {
+      approved = await checkApproval(user);
+    } catch(err) {
+      console.warn('checkApproval error:', err);
+      approved = false;
+    }
+
     document.getElementById('loading-screen').style.display = 'none';
 
     if (!approved) {
       await signOut(auth);
       document.getElementById('auth-screen').style.display = 'flex';
       document.getElementById('lang-top-login').style.display = 'flex';
-      showErr(lang === 'ar'
-        ? '⏳ حسابك قيد المراجعة — انتظر موافقة المسؤول'
-        : '⏳ Dein Konto wird noch geprüft — warte auf Admin-Genehmigung');
       return;
     }
 
@@ -760,7 +767,7 @@ onAuthStateChanged(auth, async user => {
     sessionStorage.removeItem('dag_user');
     sessionStorage.removeItem('dag_email');
   }
-});
+});;
 
 function showMainSite(user, role) {
   document.getElementById('auth-screen').style.display = 'none';
@@ -878,11 +885,17 @@ async function checkApproval(user) {
       return false;
     }
 
-    // Pending → BLOCKED
+    // Pending → BLOCKED with message
+    showErr(lang === 'ar'
+      ? '⏳ حسابك قيد المراجعة — انتظر موافقة المسؤول'
+      : '⏳ Dein Konto wird noch geprüft — warte auf Admin-Genehmigung');
     return false;
 
   } catch(err) {
     console.warn('Approval check error:', err);
+    showErr(document.documentElement.lang === 'ar'
+      ? '❌ خطأ في الاتصال — حاول مرة أخرى'
+      : '❌ Verbindungsfehler — bitte erneut versuchen');
     return false;
   }
 }
