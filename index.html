@@ -706,7 +706,7 @@ html[lang="de"] .revl{transform:translateX(24px);}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
          sendPasswordResetEmail, onAuthStateChanged, signOut, updateProfile,
-         GoogleAuthProvider, signInWithPopup }
+         GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult }
   from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
 import { getDatabase, ref, set, get, increment, update }
   from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
@@ -726,8 +726,48 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getDatabase(app);
 const DB_URL = "https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app";
+
+// ── Handle Google Redirect Result (runs on page load after redirect) ──
+getRedirectResult(auth).then(async result => {
+  if (!result) return; // No redirect — normal page load
+  const user = result.user;
+  const lang = document.documentElement.lang;
+
+  if (ADMIN_EMAILS.includes(user.email)) return; // admin handled by onAuthStateChanged
+
+  const token = await user.getIdToken();
+  const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
+
+  // Check if already member or in waitlist
+  const memRes  = await fetch(`${RTDB}/members/${user.uid}.json?auth=${token}`);
+  const memData = await memRes.json();
+  if (memData) return; // approved member — onAuthStateChanged handles
+
+  const waitRes  = await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`);
+  const waitData = await waitRes.json();
+
+  if (!waitData) {
+    // New Google user → add to waitlist
+    await fetch(`${RTDB}/waitlist/${user.uid}.json?auth=${token}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        name:      user.displayName || user.email.split('@')[0],
+        email:     user.email,
+        uid:       user.uid,
+        status:    'pending',
+        provider:  'google',
+        createdAt: new Date().toISOString()
+      })
+    });
+    sendRegistrationNotification(
+      user.displayName || user.email.split('@')[0],
+      user.email
+    );
+  }
+  // onAuthStateChanged will check approval and sign out if pending
+}).catch(err => console.warn('Redirect result error:', err));
 // 🔔 Notification Script URL — fill in after Step 3
-const NOTIFY_URL = 'https://script.google.com/macros/s/AKfycbw49B40z_Tz1mebzPL-DDz0oBTsSwq5C9vltVxbRC-kjSCLfBhX_84y2BQ2AKGFCkdX/exec';
+const NOTIFY_URL = 'DEINE_NOTIFICATION_URL_HIER';
 
 // ── Admin emails ──
 const ADMIN_EMAILS = [
@@ -749,6 +789,14 @@ onAuthStateChanged(auth, async user => {
     const isAdmin = ADMIN_EMAILS.includes(user.email);
 
     if (isAdmin) {
+      document.getElementById('loading-screen').style.display = 'none';
+      showMainSite(user, 'admin');
+      return;
+    }
+
+    // Also check case-insensitive (in case email has different case)
+    const emailLower = user.email.toLowerCase();
+    if (ADMIN_EMAILS.map(e => e.toLowerCase()).includes(emailLower)) {
       document.getElementById('loading-screen').style.display = 'none';
       showMainSite(user, 'admin');
       return;
@@ -862,8 +910,9 @@ function showNotificationBanner(msg, type) {
 // ── Check if user is approved ──
 // DEFAULT = BLOCKED. Only explicit 'approved' status allows access.
 async function checkApproval(user) {
-  // Admins always get in
-  if (ADMIN_EMAILS.includes(user.email)) return true;
+  // Admins always get in (case-insensitive check)
+  const emailLower = user.email.toLowerCase();
+  if (ADMIN_EMAILS.map(e => e.toLowerCase()).includes(emailLower)) return true;
 
   try {
     const token = await user.getIdToken();
@@ -980,10 +1029,15 @@ window.doLogin = async function() {
   setLoading('login', true);
   try {
     await signInWithEmailAndPassword(auth, email, pw);
-    // onAuthStateChanged handles approval check + showing site
+    // onAuthStateChanged handles the rest
   } catch(err) {
+    console.error('Login error code:', err.code, err.message);
     showErr(friendlyError(err.code));
     setLoading('login', false);
+    // Also hide loading screen if stuck
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('auth-screen').style.display = 'flex';
+    document.getElementById('lang-top-login').style.display = 'flex';
   }
 };
 
@@ -1059,50 +1113,15 @@ window.doLogout = async function() {
   sessionStorage.removeItem('dag_user');
 };
 
-// ── Google Login ──
-window.doGoogle = function() {
-  const provider = new GoogleAuthProvider();
-  signInWithRedirect(auth, provider);
-};
-    // Skip waitlist for admins
-    if (ADMIN_EMAILS.includes(cred.user.email)) return; // onAuthStateChanged handles it
-
-    // Check if brand new Google user — add to waitlist
-    const token = await cred.user.getIdToken();
-    const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
-
-    const memRes  = await fetch(`${RTDB}/members/${cred.user.uid}.json?auth=${token}`);
-    const memData = await memRes.json();
-    if (memData) return; // existing approved member — onAuthStateChanged handles it
-
-    const waitRes  = await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`);
-    const waitData = await waitRes.json();
-
-    if (!waitData) {
-      // New Google user → add to waitlist
-      await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          name:      cred.user.displayName || cred.user.email.split('@')[0],
-          email:     cred.user.email,
-          uid:       cred.user.uid,
-          status:    'pending',
-          provider:  'google',
-          createdAt: new Date().toISOString()
-        })
-      });
-      // Notify admin
-      sendRegistrationNotification(
-        cred.user.displayName || cred.user.email.split('@')[0],
-        cred.user.email
-      );
-    }
-    // onAuthStateChanged will check approval and sign out if pending
-
+// ── Google Login (uses Redirect — works on all browsers including Safari) ──
+window.doGoogle = async function() {
+  try {
+    const provider = new GoogleAuthProvider();
+    // Use redirect instead of popup — more reliable on mobile and GitHub Pages
+    await signInWithRedirect(auth, provider);
+    // Page will reload — getRedirectResult() handles the result
   } catch(err) {
-    if(err.code !== 'auth/popup-closed-by-user') {
-      showErr(friendlyError(err.code));
-    }
+    showErr(friendlyError(err.code));
   }
 };
 
