@@ -1060,12 +1060,10 @@ window.doLogout = async function() {
 };
 
 // ── Google Login ──
-window.doGoogle = async function() {
-  const lang = document.documentElement.lang;
-  try {
-    const provider = new GoogleAuthProvider();
-    const cred = await signInWithPopup(auth, provider);
-
+window.doGoogle = function() {
+  const provider = new GoogleAuthProvider();
+  signInWithRedirect(auth, provider);
+};
     // Skip waitlist for admins
     if (ADMIN_EMAILS.includes(cred.user.email)) return; // onAuthStateChanged handles it
 
