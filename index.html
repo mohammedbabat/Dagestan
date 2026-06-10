@@ -727,11 +727,8 @@ onAuthStateChanged(auth, async user => {
   document.getElementById('loading-screen').style.display = 'flex';
 
   if (user) {
-    const lang = document.documentElement.lang;
-
-    // Admin check — case insensitive
-    const emailLower = user.email.toLowerCase();
-    const isAdmin = ADMIN_EMAILS.map(e => e.toLowerCase()).includes(emailLower);
+    const lang    = document.documentElement.lang;
+    const isAdmin = ADMIN_EMAILS.includes(user.email);
 
     if (isAdmin) {
       document.getElementById('loading-screen').style.display = 'none';
@@ -739,21 +736,17 @@ onAuthStateChanged(auth, async user => {
       return;
     }
 
-    // Check approval — wait for DB response before showing anything
-    let approved = false;
-    try {
-      approved = await checkApproval(user);
-    } catch(err) {
-      console.warn('checkApproval error:', err);
-      approved = false;
-    }
-
+    // Check approval — WAIT for result before showing anything
+    const approved = await checkApproval(user);
     document.getElementById('loading-screen').style.display = 'none';
 
     if (!approved) {
       await signOut(auth);
       document.getElementById('auth-screen').style.display = 'flex';
       document.getElementById('lang-top-login').style.display = 'flex';
+      showErr(lang === 'ar'
+        ? '⏳ حسابك قيد المراجعة — انتظر موافقة المسؤول'
+        : '⏳ Dein Konto wird noch geprüft — warte auf Admin-Genehmigung');
       return;
     }
 
@@ -767,7 +760,7 @@ onAuthStateChanged(auth, async user => {
     sessionStorage.removeItem('dag_user');
     sessionStorage.removeItem('dag_email');
   }
-});;
+});
 
 function showMainSite(user, role) {
   document.getElementById('auth-screen').style.display = 'none';
@@ -885,17 +878,11 @@ async function checkApproval(user) {
       return false;
     }
 
-    // Pending → BLOCKED with message
-    showErr(lang === 'ar'
-      ? '⏳ حسابك قيد المراجعة — انتظر موافقة المسؤول'
-      : '⏳ Dein Konto wird noch geprüft — warte auf Admin-Genehmigung');
+    // Pending → BLOCKED
     return false;
 
   } catch(err) {
     console.warn('Approval check error:', err);
-    showErr(document.documentElement.lang === 'ar'
-      ? '❌ خطأ في الاتصال — حاول مرة أخرى'
-      : '❌ Verbindungsfehler — bitte erneut versuchen');
     return false;
   }
 }
@@ -1009,10 +996,12 @@ window.doRegister = async function() {
     await updateProfile(cred.user, { displayName: name });
 
     // 2. Save to WAITLIST in Realtime Database (status: pending)
-    const token = await cred.user.getIdToken();
+    const token = await cred.user.getIdToken(true); // force fresh token
     const RTDB  = 'https://dagestan-community-default-rtdb.europe-west1.firebasedatabase.app';
-    await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`, {
+
+    const waitlistRes = await fetch(`${RTDB}/waitlist/${cred.user.uid}.json?auth=${token}`, {
       method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name:      name,
         email:     email,
@@ -1022,13 +1011,20 @@ window.doRegister = async function() {
       })
     });
 
+    if (!waitlistRes.ok) {
+      // If DB save failed, still show message but log error
+      console.error('Waitlist save failed:', await waitlistRes.text());
+    } else {
+      console.log('✅ User saved to waitlist successfully');
+    }
+
     // 3. Send email notification to admin
     sendRegistrationNotification(name, email);
 
-    // 4. Immediately sign out — must wait for approval
+    // 4. Sign out — must wait for approval
     await signOut(auth);
 
-    // 4. Show waiting message
+    // 5. Show success message
     showOk(lang==='ar'
       ? '✅ تم التسجيل! طلبك قيد المراجعة — سيتم إخطارك عند الموافقة'
       : '✅ Registriert! Dein Antrag wird geprüft — du wirst bei Genehmigung benachrichtigt');
